@@ -1,9 +1,8 @@
 package UserInterfaceSubsystem;
 
-public class GameScreenPanel {
+public class GameScreenPanel extends JPanel{
 
 	private ArrayList<ImageIcon> images;
-	private JPanel panel;
 
 	public void drawImages() {
 		// TODO - implement GameScreenPanel.drawImages
@@ -29,6 +28,11 @@ public class GameScreenPanel {
 	 * @param g
 	 */
 	public void paintComponent(Graphics g) {
+		super.paintComponent(page);//Default (must)
+		
+		//Draw Logo
+		//logo.paintIcon(null,page,0,0);
+		
 		// TODO - implement GameScreenPanel.paintComponent
 		throw new UnsupportedOperationException();
 	}
