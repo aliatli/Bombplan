@@ -1,36 +1,24 @@
-package UserInterfaceSubsystem;
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import java.io.*;
 
-public class GameScreenPanel {
-
-	private ArrayList<ImageIcon> images;
-	private JPanel panel;
-
-	public void drawImages() {
-		// TODO - implement GameScreenPanel.drawImages
-		throw new UnsupportedOperationException();
+public class GameScreenPanel extends JPanel
+{
+	//Properties
+	
+	//Constructor
+	public GameScreenPanel()
+	{
+		
 	}
-
-	public void updateScreen() {
-		// TODO - implement GameScreenPanel.updateScreen
-		throw new UnsupportedOperationException();
+	
+	//Methods
+	public void paintComponent(Graphics page)
+	{
+		super.paintComponent(page);//Default (must)
+		
+		//Draw Logo
+		//logo.paintIcon(null,page,0,0);		
 	}
-
-	/**
-	 * 
-	 * @param index
-	 */
-	public void removeImage(int index) {
-		// TODO - implement GameScreenPanel.removeImage
-		throw new UnsupportedOperationException();
-	}
-
-	/**
-	 * 
-	 * @param g
-	 */
-	public void paintComponent(Graphics g) {
-		// TODO - implement GameScreenPanel.paintComponent
-		throw new UnsupportedOperationException();
-	}
-
 }
