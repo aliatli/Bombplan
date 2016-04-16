@@ -30,8 +30,8 @@ public class HighScorePanel extends SideMenuPanel
 		scores.setLocation(300,370);
 		scores.setFont(new Font("Calibri", Font.PLAIN, 16));
 		scores.setLineWrap(true);
-	    scores.setEditable(false);
-	    scores.setVisible(true);	  
+	        scores.setEditable(false);
+	        scores.setVisible(true);	  
 		scores.setForeground(Color.BLACK);
 		scores.setBackground(Color.WHITE);
 		
