@@ -1,3 +1,7 @@
+package UserInterfaceSubsystem;
+
+import UserInterfaceSubsystem.SideMenuPanel;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;

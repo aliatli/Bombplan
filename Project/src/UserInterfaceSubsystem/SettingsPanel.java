@@ -1,3 +1,7 @@
+package UserInterfaceSubsystem;
+
+import UserInterfaceSubsystem.SideMenuPanel;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -5,7 +9,7 @@ import java.io.*;
 
 //Saner Turhaner
 
-public class SettingsPanel extends SideMenuPanel 
+public class SettingsPanel extends SideMenuPanel
 {
 	//Properties
 	private JLabel title;
@@ -81,7 +85,7 @@ public class SettingsPanel extends SideMenuPanel
 	{
 		public void actionPerformed(ActionEvent event)//Takes event as a parameter
 		{
-			Object obj = event.getSource();//Basýlan tuþ
+			Object obj = event.getSource();//Basï¿½lan tuï¿½
 			
 			try//Try it
     		{

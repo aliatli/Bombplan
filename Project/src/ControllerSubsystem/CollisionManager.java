@@ -1,3 +1,8 @@
+package ControllerSubsystem;
+
+import ModelSubsystem.Bomb;
+import ModelSubsystem.MapObject;
+
 public class CollisionManager {
 
 	/**
@@ -13,10 +18,9 @@ public class CollisionManager {
 
 	/**
 	 * 
-	 * @param loc
 	 * @param map
 	 */
-	public void checkCollision(Location loc, MapObject[][] map) {
+	public void checkCollision(int x, int y, MapObject[][] map) {
 		// TODO - implement CollisionManager.checkCollision
 		throw new UnsupportedOperationException();
 	}

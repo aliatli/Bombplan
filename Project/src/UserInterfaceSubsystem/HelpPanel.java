@@ -1,3 +1,7 @@
+package UserInterfaceSubsystem;
+
+import UserInterfaceSubsystem.SideMenuPanel;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -5,7 +9,7 @@ import java.io.*;
 
 //Saner Turhaner
 
-public class HelpPanel extends SideMenuPanel 
+public class HelpPanel extends SideMenuPanel
 {
 	//Properties	
 	private JTextArea helpText;

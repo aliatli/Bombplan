@@ -1,5 +1,7 @@
 package ModelSubsystem;
 
+import java.awt.*;
+
 public class MapObject {
 
 	private Image icon;
@@ -22,6 +24,14 @@ public class MapObject {
 
 	public int getY() {
 		return this.y;
+	}
+
+	public int setX(int x) {
+		this.x = x;
+	}
+
+	public int setY(int y) {
+		this.y = y;
 	}
 
 	public Rectangle getCollisionBoundary() {
