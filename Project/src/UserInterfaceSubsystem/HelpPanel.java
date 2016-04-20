@@ -48,8 +48,8 @@ public class HelpPanel extends SideMenuPanel
 		helpText.setLocation(235,375);
 		helpText.setFont(new Font("Calibri", Font.PLAIN + Font.ITALIC, 18));
 		helpText.setLineWrap(true);
-	        helpText.setEditable(false);
-	        helpText.setVisible(true);	  
+	    helpText.setEditable(false);
+	    helpText.setVisible(true);	  
 		helpText.setForeground(Color.BLACK);
 		helpText.setBackground(Color.WHITE);
 		
