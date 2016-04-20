@@ -59,12 +59,14 @@ public class GameMap {
 		throw new UnsupportedOperationException();
 	}
 
-	public GameMap 
+	public MapObject[][] getMap(){
+		return map;
+	}
 	/**
 	 * 
 	 * @param mapObjects
 	 */
-	public void removeObjects(MapObject[][] mapObjects) {
+	public void removeObjects(MapObject[] mapObjects) {
 		// TODO - implement GameMap.removeObjects
 		throw new UnsupportedOperationException();
 	}
