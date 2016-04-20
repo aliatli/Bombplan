@@ -10,11 +10,14 @@ public class HighScorePanel extends SideMenuPanel
 	//Properties
 	JTextArea scores;
 	private JLabel title;
+	StorageManager x;
 	
 	//Constructor	
 	public HighScorePanel()
 	{
 		super();
+		
+		x = new StorageManager();
 		
 		//Label initialized
 		title = new JLabel( "HighScore List" );
@@ -25,13 +28,20 @@ public class HighScorePanel extends SideMenuPanel
 		title.setVisible(true);
 		
 		//Text initialized
-		scores = new JTextArea("\t User Name \t Level \t Score \n 1. \n 2. \n 3. \n 4. \n 5. \n 6. \n 7. \n 8. \n 9. \n 10. ");
-		scores.setSize(new Dimension(390,240));
-		scores.setLocation(300,370);
-		scores.setFont(new Font("Calibri", Font.PLAIN, 16));
+		try
+		{			
+			scores = new JTextArea("No\tNickname\t\tPoint\n" + x.readFile("highScores.txt"));	
+		}
+		catch (IOException e)
+		{						
+			e.printStackTrace();
+		}
+		scores.setSize(new Dimension(410,255));
+		scores.setLocation(290,370);
+		scores.setFont(new Font("Calibri", Font.PLAIN, 18));
 		scores.setLineWrap(true);
-	        scores.setEditable(false);
-	        scores.setVisible(true);	  
+	    scores.setEditable(false);
+	    scores.setVisible(true);	  
 		scores.setForeground(Color.BLACK);
 		scores.setBackground(Color.WHITE);
 		
@@ -39,7 +49,5 @@ public class HighScorePanel extends SideMenuPanel
 		add(title);
 		add(scores);
 	}
-	
-	//Methods
 	
 }
