@@ -1,34 +1,67 @@
+package ControllerSubsystem;
+
 import UserInterfaceSubsystem.*;
 import ModelSubsystem.*;
 
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.util.ArrayList;
+import java.util.HashMap;
+
 public class GameEngine {
+    private int BOMB_TIME = 5;
+    private int score = 0;
+    private int currentLevel;
+    private boolean paused;
+    private GameEngine uniqueInstance;
+    private int time;
+    private CollisionManager colMan;
+    private SoundManager souMan;
+    private HashMap<Bomb, Integer> bombTimers;
+    private TimerListener timeListener;
+    private Timer timer;
 
 	ScreenView notified;
-	GameMap modified;
-	private int currentLevel;
-	private int score = 0;
-	private boolean paused;
-	private GameEngine engine;
-	private GameEngine uniqueInstance;
+	GameMap map;
 
-	public void createGame() {
-		// TODO - implement GameEngine.createGame
-		throw new UnsupportedOperationException();
+    private GameEngine(){
+        paused = false;
+        currentLevel = 1;
+        time = 0;
+        map.constructLevel(1);
+
+
+    }
+	public GameEngine createGame() {
+		if(uniqueInstance == null){
+			uniqueInstance = new GameEngine();
+            timeListener = new TimerListener();
+            timer = new Timer(300, timeListener);
+            return uniqueInstance;
+		}
+        else{
+            return uniqueInstance;
+        }
 	}
 
 	public void resumeGame() {
-		// TODO - implement GameEngine.resumeGame
-		throw new UnsupportedOperationException();
+		paused = false;
 	}
 
 	public void stopGame() {
-		// TODO - implement GameEngine.stopGame
-		throw new UnsupportedOperationException();
+        paused = true;
 	}
 
-	public void movePlayer() {
-		// TODO - implement GameEngine.movePlayer
-		throw new UnsupportedOperationException();
+	public void movePlayer(int movement) {
+        Player player = map.getPlayer();
+        player.move(movement);
+        if (colMan.checkCollision(player.getX(), player.getY(), map.getMap()) == 1) {
+            player.move((movement + 2) % 4);
+        }
+        if (colMan.checkCollision(player.getX(), player.getY(), map.getMap()) == 2) {
+            takeBonus(map.getObj(player.getX(), player.getY()));
+        }
 	}
 
 	public void startGameLoop() {
@@ -37,23 +70,27 @@ public class GameEngine {
 	}
 
 	public void plantBomb() {
-		// TODO - implement GameEngine.plantBomb
-		throw new UnsupportedOperationException();
+		Player player = map.getPlayer();
+        Bomb bomb = new Bomb(player.getX(), player.getY());
+
+        map.addObject(bomb);
+        if (!player.isBombControllable())
+            bombTimers.put(bomb, BOMB_TIME);
+
 	}
 
 	public void changeSound() {
-		// TODO - implement GameEngine.changeSound
-		throw new UnsupportedOperationException();
+        souMan.changeSound();
 	}
 
 	public void options() {
-		// TODO - implement GameEngine.options
-		throw new UnsupportedOperationException();
+        //TODO - what should this method do ANA?
 	}
 
 	public void nextLevel() {
-		// TODO - implement GameEngine.nextLevel
-		throw new UnsupportedOperationException();
+		this.stopGame();
+        map.constructLevel(++currentLevel);
+        this.startGameLoop();
 	}
 
 	/**
@@ -61,8 +98,7 @@ public class GameEngine {
 	 * @param objects
 	 */
 	public void destroyObjects(MapObject[] objects) {
-		// TODO - implement GameEngine.destroyObjects
-		throw new UnsupportedOperationException();
+		map.removeObjects(objects);
 	}
 
 	/**
@@ -70,35 +106,24 @@ public class GameEngine {
 	 * @param bonus
 	 */
 	public void takeBonus(Bonus bonus) {
-		// TODO - implement GameEngine.takeBonus
-		throw new UnsupportedOperationException();
+        map.getPlayer().takeBonus(bonus.getType());
 	}
 
-	public GameEngine getEngine() {
-		return this.engine;
-	}
 
 	public GameEngine getInstance() {
-		// TODO - implement GameEngine.getInstance
-		throw new UnsupportedOperationException();
+        return this.uniqueInstance;
 	}
 
-	/**
-	 * 
-	 * @param objects
-	 */
-	public void destroyObjects(MapObject[] objects) {
-		// TODO - implement GameEngine.destroyObjects
-		throw new UnsupportedOperationException();
-	}
 
-	/**
-	 * 
-	 * @param bonus
-	 */
-	public void takeBonus(Bonus bonus) {
-		// TODO - implement GameEngine.takeBonus
-		throw new UnsupportedOperationException();
-	}
+    private class TimerListener implements ActionListener {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if(!paused){
+                time++;
+            }
+        }
+    }
+
+
 
 }
