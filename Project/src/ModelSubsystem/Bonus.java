@@ -1,12 +1,25 @@
 package ModelSubsystem;
 
 public class Bonus extends MapObject {
-
-	private int type;
+	/*
+	type 1: RandomBonus
+	type 2: BombNumberExtender
+	type 3: BombTimerCanceller
+	type 4: RangeExtender
+	type 5: TimerReset
+	*/
+	protected int type;
 	private int point;
-	private boolean active;
+	private boolean active = false;
 
 	public boolean isActive() {
-        return active;
+        return this.active;
     }
+	public void activateBonus(){
+		this.active = true;
+	}
+	protected Bonus() {
+		super.destroyable = true;
+		this.point = 100;
+	}
 }

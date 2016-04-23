@@ -9,13 +9,12 @@ public class Door extends MapObject {
 	}
 
 	public void activate() {
-		// TODO - implement Door.activate
-		throw new UnsupportedOperationException();
+		this.active = true;
 	}
 
-	public Door() {
-		// TODO - implement Door.Door
-		throw new UnsupportedOperationException();
+	public Door( int x, int y) {
+		super.x = x;
+		super.y = y;
+		super.destroyable = true;
 	}
-
 }
