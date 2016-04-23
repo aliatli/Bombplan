@@ -1,6 +1,6 @@
 package ModelSubsystem;
 
-public class Bomb extends MapObject {
+public class Bomb extends MapObject implements Destroyable {
 
 	private int destroyTime;
 	private int range;
@@ -20,4 +20,8 @@ public class Bomb extends MapObject {
 		throw new UnsupportedOperationException();
 	}
 
+	@Override
+	public void destroy() {
+
+	}
 }

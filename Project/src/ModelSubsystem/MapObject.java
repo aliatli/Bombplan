@@ -26,11 +26,11 @@ public class MapObject {
 		return this.y;
 	}
 
-	public int setX(int x) {
+	public void setX(int x) {
 		this.x = x;
 	}
 
-	public int setY(int y) {
+	public void setY(int y) {
 		this.y = y;
 	}
 

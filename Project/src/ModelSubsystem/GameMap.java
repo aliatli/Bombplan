@@ -1,5 +1,7 @@
 package ModelSubsystem;
 
+import java.util.ArrayList;
+
 public class GameMap {
 
 	private MapObject[][] map;
@@ -71,4 +73,38 @@ public class GameMap {
 		throw new UnsupportedOperationException();
 	}
 
+	public Player getPlayer(){
+		for (int i = 0; i < map.length; i++){
+			for (int j = 0; j < map[i].length; j++){
+				if (map[i][j] instanceof Player){
+					return (Player) map[i][j];
+				}
+			}
+		}
+		return null;
+	}
+
+	public ArrayList<Monster> getMonsters(){
+		ArrayList<Monster> monsters = new ArrayList<Monster>();
+		for (int i = 0; i < map.length; i++){
+			for (int j = 0; j < map[i].length; j++){
+				if (map[i][j] instanceof Monster){
+					monsters.add((Monster) map[i][j]);
+				}
+			}
+		}
+		return monsters;
+	}
+
+	public MapObject getObj(int x, int y){
+		return map[x][y];
+	}
+
+	public void setObject(MapObject obj){
+		map[obj.getX()][obj.getY()] = obj;
+	}
+
+	public void setObject(MapObject obj, int x, int y){
+			map[x][y] = obj;
+	}
 }
