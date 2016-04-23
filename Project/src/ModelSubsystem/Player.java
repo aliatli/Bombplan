@@ -1,6 +1,8 @@
 package ModelSubsystem;
 
-import ControllerSubsystem.*;
+//import ControllerSubsystem.*;
+
+import java.awt.image.BufferedImage;
 
 public class Player extends MapObject implements Movable{
 
@@ -8,7 +10,7 @@ public class Player extends MapObject implements Movable{
 	private int lives = 3;
 	private boolean bombControllable;
 	private int velocity;
-    private CollisionManager colMan;
+    //private CollisionManager colMan;
 
 	public boolean isMultipleBomb() {
 		return this.multipleBomb;
@@ -32,8 +34,7 @@ public class Player extends MapObject implements Movable{
 	}
 
 	public Player() {
-		// TODO - implement Player.Player
-		throw new UnsupportedOperationException();
+		getIconFromFile("player.png");
 	}
 
 	public int getVelocity() {
@@ -41,13 +42,11 @@ public class Player extends MapObject implements Movable{
 	}
 
 	public int getLife() {
-		// TODO - implement Player.getLife
-		throw new UnsupportedOperationException();
+		return this.lives;
 	}
 
 	public void decreaseLife() {
-		// TODO - implement Player.decreaseLife
-		throw new UnsupportedOperationException();
+		this.lives--;
 	}
 
 	public void move(int movement){
