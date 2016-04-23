@@ -9,4 +9,7 @@ public class Bonus extends MapObject {
 	public boolean isActive() {
         return active;
     }
+	public int getType(){
+		return type;
+	}
 }

@@ -1,9 +1,6 @@
 package ControllerSubsystem;
 
-import ModelSubsystem.Bomb;
-import ModelSubsystem.Bonus;
-import ModelSubsystem.Door;
-import ModelSubsystem.MapObject;
+import ModelSubsystem.*;
 
 import java.util.ArrayList;
 
@@ -29,7 +26,12 @@ public class CollisionManager {
                 if (!(map[i][j] instanceof Door) && !(map[i][j] instanceof Bonus &&
                         (map[i][j].getX() > x1 && map[i][j].getX() < x2) &&
                         (map[i][j].getX() > y1 && map[i][j].getX() < y2))){
-                    objs.add(map[i][j]);
+					if (!(map[i][j] instanceof Wall))
+                    	objs.add(map[i][j]);
+					else if ((i == bomb.getX() - 1 && j == bomb.getY() ) || (i == bomb.getX() + 1 && j == bomb.getY())
+							|| (i == bomb.getX() && j == bomb.getY() - 1) || (i == bomb.getX() && j == bomb.getY() + 1)){
+						objs.add(map[i][j]);
+					}
                 }
             }
         }
