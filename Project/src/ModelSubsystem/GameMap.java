@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class GameMap {
 
-	private MapObject[][] map;
+	private ArrayList<MapObject>[][] map;
 	private int remainingTime;
 	private GameMap uniqueInstance;
 
@@ -61,7 +61,7 @@ public class GameMap {
 		throw new UnsupportedOperationException();
 	}
 
-	public MapObject[][] getMap(){
+	public ArrayList<MapObject>[][] getMap(){
 		return map;
 	}
 	/**
@@ -76,9 +76,10 @@ public class GameMap {
 	public Player getPlayer(){
 		for (int i = 0; i < map.length; i++){
 			for (int j = 0; j < map[i].length; j++){
-				if (map[i][j] instanceof Player){
-					return (Player) map[i][j];
-				}
+				for (int k = 0; k < map[i][j].size(); k++)
+					if (map[i][j].get(k) instanceof Player){
+						return (Player) map[i][j].get(k);
+					}
 			}
 		}
 		return null;
@@ -88,23 +89,36 @@ public class GameMap {
 		ArrayList<Monster> monsters = new ArrayList<Monster>();
 		for (int i = 0; i < map.length; i++){
 			for (int j = 0; j < map[i].length; j++){
-				if (map[i][j] instanceof Monster){
-					monsters.add((Monster) map[i][j]);
-				}
+				for (int k = 0; k < map[i][j].size(); k++)
+					if (map[i][j].get(k) instanceof Monster){
+						monsters.add((Monster) map[i][j].get(k));
+					}
 			}
 		}
 		return monsters;
 	}
 
-	public MapObject getObj(int x, int y){
+	public ArrayList<MapObject> getObj(int x, int y){
 		return map[x][y];
 	}
 
 	public void setObject(MapObject obj){
-		map[obj.getX()][obj.getY()] = obj;
+		int x = obj.getX();
+		int y = obj.getY();
+		if (map[x][y] == null){
+			map[x][y] = new ArrayList<MapObject>();
+		}
+		map[obj.getX()][obj.getY()].add(obj);
 	}
 
 	public void setObject(MapObject obj, int x, int y){
-			map[x][y] = obj;
+		if (obj == null)
+			map[x][y] = null;
+		else if (map[x][y] == null)
+			map[x][y] = new ArrayList<MapObject>();
+			map[x][y].add(obj);
+		else{
+			map[x][y].add(obj);
+		}
 	}
 }
