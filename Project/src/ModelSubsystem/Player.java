@@ -12,6 +12,7 @@ public class Player extends MapObject implements Movable{
 	private int velocity = 4;
     //private CollisionManager colMan;
 	private int maxBomb = 1;
+	private int range;
 
 	public boolean isMultipleBomb() {
 		return this.multipleBomb;
@@ -43,6 +44,7 @@ public class Player extends MapObject implements Movable{
 	}
 
 	public Player( int x, int y) {
+		this.range = 1;
 		super.x = x;
 		super.y = y;
 		super.destroyable = true;
@@ -55,6 +57,9 @@ public class Player extends MapObject implements Movable{
 
 	public int getLife() {
 		return this.lives;
+	}
+	public int getRange() {
+		return this.range;
 	}
 
 	public void decreaseLife() {

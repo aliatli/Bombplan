@@ -46,10 +46,7 @@ public class GameEngine {
         }
 	}
 
-	public void stopGame() {
-        paused = true;
-        timer.stop();
-	}
+
 
 	public void movePlayer(int movement) {
         Player player = map.getPlayer();
@@ -57,23 +54,39 @@ public class GameEngine {
         int t_y = player.getY();
         player.move(movement);
         map.setObject(null, t_x, t_y);
-        if (colMan.checkCollision(player.getX(), player.getY(), map.getMap()) == 1) {
+
+        int collision = colMan.checkCollision(player.getX(), player.getY(), map.getMap());
+        if (collision == 1) {
             player.move((movement + 2) % 4);
         }
-        if (colMan.checkCollision(player.getX(), player.getY(), map.getMap()) == 2) {
-            takeBonus((Bonus)map.getObj(player.getX(), player.getY()));
+        else if (collision == 2) {
+            ArrayList<MapObject> slot = map.getObj(player.getX(), player.getY());
+            for (int i = 0; i < slot.size(); i++) {
+                if (slot.get(i) instanceof Bonus)
+                    takeBonus((Bonus) slot.get(i));
+            }
+        }
+        else if (collision == -1){
+            stopGame();
         }
         map.setObject(player);
 	}
 
 	public void startGameLoop() {
-        paused = false;
-        timer.start();
+        if (paused)
+            paused = false;
+            timer.start();
 	}
 
+    public void stopGame() {
+        if (!paused)
+            paused = true;
+        timer.stop();
+    }
+    
 	public void plantBomb() {
 		Player player = map.getPlayer();
-        Bomb bomb = new Bomb(player.getX(), player.getY());
+        Bomb bomb = new Bomb(player.getX(), player.getY(), player.getRange());
 
         map.addObject(bomb);
         if (!player.isBombControllable())
@@ -95,6 +108,9 @@ public class GameEngine {
         this.startGameLoop();
 	}
 
+    public void healthDecrease(){
+
+    }
 	/**
 	 *
      * @param objects
@@ -108,7 +124,7 @@ public class GameEngine {
 	 * @param bonus
 	 */
 	public void takeBonus(Bonus bonus) {
-        map.getPlayer().takeBonus(bonus.getType());
+        map.getPlayer().takeBonus(bonus);
 	}
 
 
@@ -124,11 +140,15 @@ public class GameEngine {
             while(monster.getX() == t_x && monster.getY() == t_y) {
                 monster.randomizedMove();
                 map.setObject(null, t_x, t_y);
-                if (colMan.checkCollision(monster.getX(), monster.getY(), map.getMap()) == 1) {
+
+                int collision = colMan.checkCollision(monster.getX(), monster.getY(), map.getMap());
+                if (collision == 1) {
                     monster.randomizedMove();
                 }
-                if (colMan.checkCollision(monster.getX(), monster.getY(), map.getMap()) == 2) {
-                    takeBonus((Bonus) map.getObj(monster.getX(), monster.getY()));
+                else if (collision == -1){
+                    map.setObject(monster);
+                    healthDecrease();
+                    break;
                 }
                 map.setObject(monster);
             }
@@ -151,7 +171,8 @@ public class GameEngine {
                         movements.remove(i);
                     }
                 }
-                moveMonsters();
+                if (time % 2 == 1)
+                    moveMonsters();
 
                 if (!map.getPlayer().isBombControllable()) {
                     Set<Bomb> keys = bombTimers.keySet();
