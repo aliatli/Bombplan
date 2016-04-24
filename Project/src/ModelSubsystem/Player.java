@@ -71,6 +71,5 @@ public class Player extends MapObject implements Movable{
         else if (movement == 1) this.setY(getY()+1);
         else if (movement == 2) this.setX(getX()-1);
         else if (movement == 3) this.setY(getY()-1);
-
 	}
 }

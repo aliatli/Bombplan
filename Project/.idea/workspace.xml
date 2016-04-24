@@ -3,20 +3,8 @@
   <component name="ChangeListManager">
     <list default="true" id="3f1cc5a6-6204-4175-9d96-ca6c15f3022e" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/Bomb.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/Bomb.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/BombNumberExtender.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/BombNumberExtender.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/BombTimerCanceller.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/BombTimerCanceller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/DestroyableWall.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/DestroyableWall.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/Door.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/Door.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/FastMonster.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/FastMonster.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/MapObject.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/MapObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/NondestroyableWall.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/NondestroyableWall.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/Monster.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/Monster.java" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/Player.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/Player.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/RandomBonus.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/RandomBonus.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/RangeExtender.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/RangeExtender.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/SlowMonster.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/SlowMonster.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/TimerReset.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/TimerReset.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/Wall.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/Wall.java" />
     </list>
     <ignored path="Bombplan.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -38,11 +26,21 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Player.java" pinned="false" current-in-tab="true">
+      <file leaf-file-name="Monster.java" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/ModelSubsystem/Monster.java">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="272">
+              <caret line="16" column="52" selection-start-line="16" selection-start-column="52" selection-end-line="16" selection-end-column="52" />
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="Player.java" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/ModelSubsystem/Player.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="357">
-              <caret line="48" column="38" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
+            <state relative-caret-position="352">
+              <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
               <folding>
                 <element signature="imports" expanded="true" />
               </folding>
@@ -88,10 +86,8 @@
         <option value="$PROJECT_DIR$/src/ModelSubsystem/GameMap.java" />
         <option value="$PROJECT_DIR$/src/ControllerSubsystem/CollisionManager.java" />
         <option value="$PROJECT_DIR$/src/ControllerSubsystem/GameEngine.java" />
-        <option value="$PROJECT_DIR$/src/ModelSubsystem/Monster.java" />
         <option value="$PROJECT_DIR$/src/ModelSubsystem/Bonus.java" />
         <option value="$PROJECT_DIR$/src/ModelSubsystem/MapObject.java" />
-        <option value="$PROJECT_DIR$/src/ModelSubsystem/Player.java" />
         <option value="$PROJECT_DIR$/src/ModelSubsystem/Bomb.java" />
         <option value="$PROJECT_DIR$/src/ModelSubsystem/BombNumberExtender.java" />
         <option value="$PROJECT_DIR$/src/ModelSubsystem/BombTimerCanceller.java" />
@@ -104,6 +100,8 @@
         <option value="$PROJECT_DIR$/src/ModelSubsystem/FastMonster.java" />
         <option value="$PROJECT_DIR$/src/ModelSubsystem/SlowMonster.java" />
         <option value="$PROJECT_DIR$/src/ModelSubsystem/Wall.java" />
+        <option value="$PROJECT_DIR$/src/ModelSubsystem/Player.java" />
+        <option value="$PROJECT_DIR$/src/ModelSubsystem/Monster.java" />
       </list>
     </option>
   </component>
@@ -145,8 +143,8 @@
       <foldersAlwaysOnTop value="true" />
     </navigator>
     <panes>
-      <pane id="PackagesPane" />
       <pane id="Scratches" />
+      <pane id="PackagesPane" />
       <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
@@ -477,7 +475,7 @@
     <servers />
   </component>
   <component name="ToolWindowManager">
-    <frame x="-8" y="-8" width="1382" height="744" extended-state="6" />
+    <frame x="-8" y="-8" width="1382" height="744" extended-state="7" />
     <editor active="true" />
     <layout>
       <window_info id="Palette" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
@@ -930,21 +928,21 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/ModelSubsystem/Monster.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="306">
-          <caret line="20" column="1" selection-start-line="20" selection-start-column="1" selection-end-line="20" selection-end-column="1" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/ModelSubsystem/Player.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="48" column="38" selection-start-line="48" selection-start-column="38" selection-end-line="48" selection-end-column="38" />
+        <state relative-caret-position="352">
+          <caret line="63" column="0" selection-start-line="63" selection-start-column="0" selection-end-line="63" selection-end-column="0" />
           <folding>
             <element signature="imports" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/ModelSubsystem/Monster.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="272">
+          <caret line="16" column="52" selection-start-line="16" selection-start-column="52" selection-end-line="16" selection-end-column="52" />
+          <folding />
         </state>
       </provider>
     </entry>
