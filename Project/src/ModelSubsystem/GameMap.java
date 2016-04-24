@@ -36,9 +36,11 @@ public class GameMap {
 	}
 
 	public static GameMap getInstance() {
-		private static GameMap gameMap;
-		gameMap = new GameMap();
-		return gameMap;
+		if( this.uniqueInstance)
+			return this.uniqueInstance;
+		else{
+			this.uniqueInstance = new GameMap();
+		}
 	}
 
 	private GameMap(){
