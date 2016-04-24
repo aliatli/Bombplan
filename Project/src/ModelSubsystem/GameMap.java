@@ -114,9 +114,10 @@ public class GameMap {
 	public void setObject(MapObject obj, int x, int y){
 		if (obj == null)
 			map[x][y] = null;
-		else if (map[x][y] == null)
+		else if (map[x][y] == null) {
 			map[x][y] = new ArrayList<MapObject>();
 			map[x][y].add(obj);
+		}
 		else{
 			map[x][y].add(obj);
 		}
