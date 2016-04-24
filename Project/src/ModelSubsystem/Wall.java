@@ -7,5 +7,4 @@ public class Wall extends MapObject {
 	type 2: non-destroyable wall
 	*/
 	protected int type;
-
 }

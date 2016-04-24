@@ -15,8 +15,6 @@ public class Bomb extends MapObject implements Destroyable {
 		else
 			this.destroyTime = 3;
 	}
-
-
 	public int getRange() {
 		return this.range;
 	}
@@ -26,6 +24,7 @@ public class Bomb extends MapObject implements Destroyable {
 		super.y = y;
 		super.destroyable = true;
 		this.range = range;
+		getIconFromFile("bomb.png");
 	}
 
 	@Override

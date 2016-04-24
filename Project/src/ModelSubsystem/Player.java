@@ -1,7 +1,8 @@
 package ModelSubsystem;
 
-import ControllerSubsystem.*;
+//import ControllerSubsystem.*;
 import java.util.Random;
+import java.awt.image.BufferedImage;
 
 public class Player extends MapObject implements Movable{
 
@@ -9,13 +10,16 @@ public class Player extends MapObject implements Movable{
 	private int lives = 3;
 	private boolean bombControllable = false;
 	private int velocity = 4;
-    private CollisionManager colMan;
+    //private CollisionManager colMan;
 	private int maxBomb = 1;
 
 	public boolean isMultipleBomb() {
 		return this.multipleBomb;
 	}
 	public int getMaxBomb() { return this.maxBomb;}
+	public void setMultipleBomb(boolean multipleBomb) {
+		this.multipleBomb = multipleBomb;
+	}
 
 	public int takeBonus( Bonus bonus) {
 		bonus.activateBonus();
@@ -42,6 +46,7 @@ public class Player extends MapObject implements Movable{
 		super.x = x;
 		super.y = y;
 		super.destroyable = true;
+		getIconFromFile("player.png");
 	}
 
 	public int getVelocity() {
@@ -53,7 +58,7 @@ public class Player extends MapObject implements Movable{
 	}
 
 	public void decreaseLife() {
-		this.lives -= 1;
+		this.lives--;
 	}
 
 	public void move(int movement){
@@ -63,5 +68,4 @@ public class Player extends MapObject implements Movable{
         else if (movement == 3) this.setY(getY()-1);
 
 	}
-
 }
