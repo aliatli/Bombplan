@@ -62,8 +62,10 @@ public class GameEngine {
         else if (collision == 2) {
             ArrayList<MapObject> slot = map.getObj(player.getX(), player.getY());
             for (int i = 0; i < slot.size(); i++) {
-                if (slot.get(i) instanceof Bonus)
+                if (slot.get(i) instanceof Bonus) {
                     takeBonus((Bonus) slot.get(i));
+                    score+= ((Bonus)slot.get(i)).getPoint();
+                }
             }
         }
         else if (collision == -1){
@@ -109,7 +111,10 @@ public class GameEngine {
 	}
 
     public void healthDecrease(){
+        map.getPlayer().decreaseLife();
+        if (map.getPlayer().getLife() == -1){
 
+        }
     }
 	/**
 	 *
@@ -137,22 +142,36 @@ public class GameEngine {
         for (Monster monster : monsters){
             int t_x = monster.getX();
             int t_y = monster.getY();
-            while(monster.getX() == t_x && monster.getY() == t_y) {
-                monster.randomizedMove();
-                map.setObject(null, t_x, t_y);
+            int direction = ((int)(Math.random() * 4)) % 4;
 
-                int collision = colMan.checkCollision(monster.getX(), monster.getY(), map.getMap());
-                if (collision == 1) {
-                    monster.randomizedMove();
-                }
-                else if (collision == -1){
-                    map.setObject(monster);
-                    healthDecrease();
-                    break;
-                }
+            while(checkPossible(monster, direction)){
+                direction = ((int)(Math.random() * 4)) % 4;
+            }
+
+            monster.randomizedMove(direction);
+            map.setObject(null, t_x, t_y);
+
+            int collision = colMan.checkCollision(monster.getX(), monster.getY(), map.getMap());
+            if (collision == -1){
+                map.setObject(monster);
+                healthDecrease();
+                break;
+            }
+            else {
                 map.setObject(monster);
             }
         }
+    }
+
+    private boolean checkPossible(Monster m, int direction){
+        ArrayList<MapObject> slot = map.getMap()[m.getX()][m.getY()];
+        if (slot == null)
+            return true;
+        for (int i = 0; i < slot.size(); i++) {
+            if (slot.get(i) instanceof Wall)
+                return false;
+        }
+        return true;
     }
 
     public void setDestroyBombs(){
@@ -197,6 +216,8 @@ public class GameEngine {
                     }
                     destroyBombs = false;
                 }
+                
+                score += 5;
             }
         }
     }
