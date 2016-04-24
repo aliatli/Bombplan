@@ -43,6 +43,8 @@ public class GameMap {
 					map[i][j].add(null);
 			}
 		}
+		// player, door, bonus, monster
+		randomObjectPlanter();
 	}
 
 	public boolean addObject(MapObject object) {
@@ -57,7 +59,7 @@ public class GameMap {
 		map[object.getX()][object.getY()].remove(object);
 	}
 
-	public void randomObjectPlanter() {
+	private void randomObjectPlanter() {
 		// TODO - implement GameMap.randomObjectPlanter
 		throw new UnsupportedOperationException();
 	}
