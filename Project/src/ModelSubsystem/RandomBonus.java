@@ -2,8 +2,6 @@ package ModelSubsystem;
 
 public class RandomBonus extends Bonus {
 
-
-
 	public RandomBonus( int x, int y) {
 		super();
 		super.x = x;

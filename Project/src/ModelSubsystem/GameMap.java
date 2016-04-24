@@ -4,6 +4,7 @@ import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.Scanner;
+import java.util.Random;
 
 public class GameMap {
 
@@ -44,7 +45,7 @@ public class GameMap {
 			}
 		}
 		// player, door, bonus, monster
-		randomObjectPlanter();
+		randomObjectPlanter( level);
 	}
 
 	public boolean addObject(MapObject object) {
@@ -59,9 +60,223 @@ public class GameMap {
 		map[object.getX()][object.getY()].remove(object);
 	}
 
-	private void randomObjectPlanter() {
-		// TODO - implement GameMap.randomObjectPlanter
-		throw new UnsupportedOperationException();
+	private void randomObjectPlanter( int level) {
+		Random rand = new Random();
+		int randNum;
+		int randBonus;
+		int randMonster;
+		boolean control;
+		// player: 1st empty slot
+		Player player;
+		control = false;
+		for( int i = 0; i< map.length; i++){
+			for( int j = 0; j < map[i].length; j++){
+				if( map[i][j] == null){
+					player = new Player( i, j);
+					map[i][j].add(player);
+					control = true;
+					break;
+				}
+			}
+			if( control)
+				break;
+		}
+		// door: behind a random destroyable wall
+		randNum = rand.nextInt(72) + 1;
+		Door door = null;
+		control = false;
+		for(int i=0; i< map.length; i++){
+			for(int j=0; j< map[i].length; j++){
+				if(map[i][j].get(0) instanceof DestroyableWall) {
+					randNum--;
+					if( randNum == 0) {
+						door = new Door( i, j);
+						map[i][j].add(door);
+						control = true;
+						break;
+					}
+				}
+			}
+			if( control)
+				break;
+		}
+		if(!control){		// default
+			door = new Door( 4,2);
+			map[4][2].add(door);
+		}
+		// bonuses: behind random destroyable wall, not on door
+		Bonus bonus;
+		// bonus 1: left side
+		randBonus = rand.nextInt(5) + 1;
+		randNum = rand.nextInt(30) + 1;
+		control = false;
+		for( int i=0; i<( map.length/2); i++){
+			for(int j=0; j < map[i].length; j++){
+				if(( map[i][j].get(0) instanceof DestroyableWall) && (map[i][j].get(1) != door)){
+					randNum--;
+					if( randNum == 0){
+						if( randBonus == 1)
+							bonus = new RandomBonus( i, j);
+						else if( randBonus == 2)
+							bonus = new BombNumberExtender( i, j);
+						else if( randBonus == 3)
+							bonus = new BombTimerCanceller( i, j);
+						else if( randBonus == 4)
+							bonus = new RangeExtender( i, j);
+						else if( randBonus == 5)
+							bonus = new TimerReset( i, j);
+						else	// default
+							bonus = new RandomBonus( i, j);
+						map[i][j].add(bonus);
+						control = true;
+						break;
+					}
+				}
+			}
+			if ( control)
+				break;
+		}
+		// bonus 2: right side
+		randBonus = rand.nextInt(5) + 1;
+		randNum = rand.nextInt(30) + 1;
+		control = false;
+		for( int i = ( map.length/2); i < map.length; i++){
+			for(int j=0; j < map[i].length; j++){
+				if(( map[i][j].get(0) instanceof DestroyableWall) && (map[i][j].get(1) != door)){
+					randNum--;
+					if( randNum == 0){
+						if( randBonus == 1)
+							bonus = new RandomBonus( i, j);
+						else if( randBonus == 2)
+							bonus = new BombNumberExtender( i, j);
+						else if( randBonus == 3)
+							bonus = new BombTimerCanceller( i, j);
+						else if( randBonus == 4)
+							bonus = new RangeExtender( i, j);
+						else if( randBonus == 5)
+							bonus = new TimerReset( i, j);
+						else	// default
+							bonus = new RandomBonus( i, j);
+						map[i][j].add(bonus);
+						control = true;
+						break;
+					}
+				}
+			}
+			if ( control)
+				break;
+		}
+		// monsters: random empty slot, not on player
+		Monster monster;
+		randMonster = rand.nextInt(5);
+		// monster 1: left top corner
+		randNum = rand.nextInt(7) + 1;
+		control = false;
+		for( int i = 0; i < ( map.length / 2); i++){
+			for( int j = 0; j < ( map[i].length / 2); j++){
+				if( map[i][j].get(0) == null){
+					randNum--;
+					if( randNum == 0){
+						if( level == 1)
+							monster = new SlowMonster( i, j);
+						else if( level == 3)
+							monster = new FastMonster( i, j);
+						else{
+							if( randMonster == 0 || randMonster == 1 || randMonster == 4)
+								monster = new SlowMonster( i, j);
+							else
+								monster = new FastMonster( i, j);
+						}
+						map[i][j].add(monster);
+						control = true;
+						break;
+					}
+				}
+			}
+			if( control)
+				break;
+		}
+		// monster 2: left bottom corner
+		randNum = rand.nextInt(7) + 1;
+		control = false;
+		for( int i = 0; i < ( map.length / 2); i++){
+			for( int j = ( map[i].length / 2); j < map[i].length; j++){
+				if( map[i][j].get(0) == null){
+					randNum--;
+					if( randNum == 0){
+						if( level == 1)
+							monster = new SlowMonster( i, j);
+						else if( level == 3)
+							monster = new FastMonster( i, j);
+						else{
+							if( randMonster == 1 || randMonster == 2 || randMonster == 5)
+								monster = new SlowMonster( i, j);
+							else
+								monster = new FastMonster( i, j);
+						}
+						map[i][j].add(monster);
+						control = true;
+						break;
+					}
+				}
+			}
+			if( control)
+				break;
+		}
+		// monster 3: right top corner
+		randNum = rand.nextInt(7) + 1;
+		control = false;
+		for( int i = ( map.length / 2); i < map.length; i++){
+			for( int j = 0; j < ( map[i].length / 2); j++){
+				if( map[i][j].get(0) == null){
+					randNum--;
+					if( randNum == 0){
+						if( level == 1)
+							monster = new SlowMonster( i, j);
+						else if( level == 3)
+							monster = new FastMonster( i, j);
+						else{
+							if( randMonster == 0 || randMonster == 3 || randMonster == 5)
+								monster = new SlowMonster( i, j);
+							else
+								monster = new FastMonster( i, j);
+						}
+						map[i][j].add(monster);
+						control = true;
+						break;
+					}
+				}
+			}
+			if( control)
+				break;
+		}
+		// monster 4: right bottom corner
+		randNum = rand.nextInt(7) + 1;
+		control = false;
+		for( int i = ( map.length / 2); i < map.length; i++){
+			for( int j = ( map[i].length / 2); j < map[i].length; j++){
+				if( map[i][j].get(0) == null){
+					randNum--;
+					if( randNum == 0){
+						if( level == 1)
+							monster = new SlowMonster( i, j);
+						else if( level == 3)
+							monster = new FastMonster( i, j);
+						else{
+							if( randMonster == 2 || randMonster == 3 || randMonster == 4)
+								monster = new SlowMonster( i, j);
+							else
+								monster = new FastMonster( i, j);
+						}
+						map[i][j].add(monster);
+						control = true;
+						break;
+					}
+				}
+			}
+			if( control)
+				break;
+		}
 	}
 
 	public void explodeBomb(Bomb bomb) {

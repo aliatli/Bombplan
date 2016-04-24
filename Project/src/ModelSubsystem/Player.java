@@ -1,8 +1,6 @@
 package ModelSubsystem;
 
-//import ControllerSubsystem.*;
 import java.util.Random;
-import java.awt.image.BufferedImage;
 
 public class Player extends MapObject implements Movable{
 
