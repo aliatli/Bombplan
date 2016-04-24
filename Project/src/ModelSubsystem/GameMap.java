@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 public class GameMap {
 
-	private ArrayList<MapObject>[][] map;
+	private ArrayList<MapObject>[][] map = null;
 	private int remainingTime;
 	private GameMap uniqueInstance;
 
@@ -17,22 +17,12 @@ public class GameMap {
 		throw new UnsupportedOperationException();
 	}
 
-	/**
-	 * 
-	 * @param object
-	 */
 	public boolean addObject(MapObject object) {
-		// TODO - implement GameMap.addObject
-		throw new UnsupportedOperationException();
+		map[object.getX()][object.getY()].add(object);
 	}
 
-	/**
-	 * 
-	 * @param object
-	 */
 	public void removeObject(MapObject object) {
-		// TODO - implement GameMap.removeObject
-		throw new UnsupportedOperationException();
+		map[object.getX()][object.getY()].remove(object);
 	}
 
 	public void randomObjectPlanter() {
@@ -40,25 +30,19 @@ public class GameMap {
 		throw new UnsupportedOperationException();
 	}
 
-	public void resetTimer() {
-		// TODO - implement GameMap.resetTimer
-		throw new UnsupportedOperationException();
+	public void explodeBomb(Bomb bomb) {
+		removeObject( bomb);
+		bomb.destroy();
 	}
 
-	public void startTimer() {
-		// TODO - implement GameMap.startTimer
-		throw new UnsupportedOperationException();
+	public static GameMap getInstance() {
+		private static GameMap gameMap;
+		gameMap = new GameMap();
+		return gameMap;
 	}
 
-	public void explodeBomb() {
-		// TODO - implement GameMap.explodeBomb
-		throw new UnsupportedOperationException();
-	}
+	private GameMap(){
 
-
-	public GameMap getInstance() {
-		// TODO - implement GameMap.getInstance
-		throw new UnsupportedOperationException();
 	}
 
 	public ArrayList<MapObject>[][] getMap(){
@@ -69,8 +53,8 @@ public class GameMap {
 	 * @param mapObjects
 	 */
 	public void removeObjects(MapObject[] mapObjects) {
-		// TODO - implement GameMap.removeObjects
-		throw new UnsupportedOperationException();
+		for( int i=0; i < mapObjects.length; i++)
+			removeObject(mapObjects[i]);
 	}
 
 	public Player getPlayer(){
