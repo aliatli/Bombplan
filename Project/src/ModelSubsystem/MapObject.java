@@ -5,9 +5,9 @@ import java.awt.*;
 public class MapObject {
 
 	private Image icon;
-	private boolean destroyable;
-	private int x;
-	private int y;
+	protected boolean destroyable;
+	protected int x;
+	protected int y;
 
 	public boolean isDestroyable() {
 		return this.destroyable;
@@ -33,6 +33,7 @@ public class MapObject {
 	public void setY(int y) {
 		this.y = y;
 	}
+
 
 	public Rectangle getCollisionBoundary() {
 		// TODO - implement MapObject.getCollisionBoundary
