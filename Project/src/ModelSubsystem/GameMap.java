@@ -1,24 +1,56 @@
 package ModelSubsystem;
 
+import java.io.File;
+import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Scanner;
 
 public class GameMap {
 
-	private ArrayList<MapObject>[][] map = null;
-	private int remainingTime;
-	private GameMap uniqueInstance;
+	private ArrayList<MapObject>[][] map;
+	private static GameMap uniqueInstance = null;
 
-	/**
-	 * 
-	 * @param level
-	 */
-	public void constructLevel(int level) {
-		// TODO - implement GameMap.constructLevel
-		throw new UnsupportedOperationException();
+	public void constructLevel(int level) throws FileNotFoundException {
+		Scanner scanner;
+		int number;
+		Wall wall;
+		// get file
+		if( level == 1)
+			scanner = new Scanner(new File("level1.txt"));
+		else if(level == 2)
+			scanner = new Scanner(new File("level2.txt"));
+		else if(level == 3)
+			scanner = new Scanner(new File("level3.txt"));
+		else
+			scanner = new Scanner(new File("level1.txt"));	// default
+		// read file
+		for( int i = 0; i<13; i++){
+			for( int j = 0; j<15; j++){
+				if( scanner.hasNextInt()){
+					number = scanner.nextInt();
+					if( number == 1){
+						wall = new DestroyableWall( i, j);
+						map[i][j].add(wall);
+					}
+					else if( number == 2){
+						wall = new NondestroyableWall( i, j);
+						map[i][j].add(wall);
+					}
+					else
+						map[i][j].add(null);
+				}
+				else
+					map[i][j].add(null);
+			}
+		}
 	}
 
 	public boolean addObject(MapObject object) {
 		map[object.getX()][object.getY()].add(object);
+		for(int i= 0; i < map[object.getX()][object.getY()].size(); i++)
+			if( map[object.getX()][object.getY()].get(i) == object)
+				return true;
+		return false;
 	}
 
 	public void removeObject(MapObject object) {
@@ -36,24 +68,20 @@ public class GameMap {
 	}
 
 	public static GameMap getInstance() {
-		if( this.uniqueInstance)
-			return this.uniqueInstance;
-		else{
-			this.uniqueInstance = new GameMap();
+		if(uniqueInstance == null) {
+			uniqueInstance = new GameMap();
 		}
+		return uniqueInstance;
 	}
 
 	private GameMap(){
-
+		map = null;
 	}
 
 	public ArrayList<MapObject>[][] getMap(){
 		return map;
 	}
-	/**
-	 * 
-	 * @param mapObjects
-	 */
+
 	public void removeObjects(MapObject[] mapObjects) {
 		for( int i=0; i < mapObjects.length; i++)
 			removeObject(mapObjects[i]);
