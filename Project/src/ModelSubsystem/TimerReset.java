@@ -2,9 +2,11 @@ package ModelSubsystem;
 
 public class TimerReset extends Bonus {
 
-	public TimerReset() {
-		// TODO - implement TimerReset.TimerReset
-		throw new UnsupportedOperationException();
+	public TimerReset( int x, int y) {
+		super();
+		super.x = x;
+		super.y = y;
+		super.type = 5;
 	}
 
 }

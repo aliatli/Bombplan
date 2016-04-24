@@ -2,9 +2,11 @@ package ModelSubsystem;
 
 public class BombTimerCanceller extends Bonus {
 
-	public BombTimerCanceller() {
-		// TODO - implement BombTimerCanceller.BombTimerCanceller
-		throw new UnsupportedOperationException();
+	public BombTimerCanceller( int x, int y) {
+		super();
+		super.x = x;
+		super.y = y;
+		super.type = 3;
 	}
 
 }
