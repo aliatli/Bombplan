@@ -38,13 +38,6 @@ public class MapObject {
 		this.y = y;
 	}
 
-
-	/*
-	public Rectangle getCollisionBoundary() {
-	// TODO - implement MapObject.getCollisionBoundary
-	throw new UnsupportedOperationException();
-	}
-	*/
 	protected void getIconFromFile(String path){
 		try {
 			File img = new File(path);
