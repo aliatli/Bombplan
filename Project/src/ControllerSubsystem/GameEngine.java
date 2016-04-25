@@ -18,12 +18,14 @@ public class GameEngine {
     private boolean destroyBombs;
     private HashMap<Bomb, Integer> bombTimers;
     private ArrayList<Integer> movements;
-    private GameEngine uniqueInstance;
     private TimerListener timeListener;
     private Timer timer;
     private CollisionManager colMan;
     private SoundManager souMan;
 	GameMap map;
+    private static GameEngine uniqueInstance;
+    private StorageManager storageMan;
+
 
     private GameEngine(){
         paused = false;
@@ -31,7 +33,8 @@ public class GameEngine {
         time = 0;
         movements = new ArrayList<Integer>();
         destroyBombs = false;
-        map.constructLevel(1);
+        storageMan = new StorageManager();
+ //       map.constructLevel(1);
 
     }
 	public GameEngine createGame() {
@@ -46,6 +49,9 @@ public class GameEngine {
         }
 	}
 
+    public StorageManager getStorageMan(){
+        return storageMan;
+    }
 
 
 	public void movePlayer(int movement) {
@@ -64,7 +70,7 @@ public class GameEngine {
             for (int i = 0; i < slot.size(); i++) {
                 if (slot.get(i) instanceof Bonus) {
                     takeBonus((Bonus) slot.get(i));
-                    score+= ((Bonus)slot.get(i)).getPoint();
+//                    score+= ((Bonus)slot.get(i)).getPoint();
                 }
             }
         }
@@ -106,7 +112,7 @@ public class GameEngine {
 
 	public void nextLevel() {
 		this.stopGame();
-        map.constructLevel(++currentLevel);
+  //      map.constructLevel(++currentLevel);
         this.startGameLoop();
 	}
 
@@ -133,8 +139,11 @@ public class GameEngine {
 	}
 
 
-	public GameEngine getInstance() {
-        return this.uniqueInstance;
+	public static GameEngine getInstance() {
+        if (uniqueInstance == null){
+            uniqueInstance = new GameEngine();
+        }
+        return uniqueInstance;
 	}
 
     public void moveMonsters(){
@@ -148,7 +157,7 @@ public class GameEngine {
                 direction = ((int)(Math.random() * 4)) % 4;
             }
 
-            monster.randomizedMove(direction);
+            monster.move(direction);
             map.setObject(null, t_x, t_y);
 
             int collision = colMan.checkCollision(monster.getX(), monster.getY(), map.getMap());

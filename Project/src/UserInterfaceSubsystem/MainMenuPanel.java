@@ -31,56 +31,64 @@ public class MainMenuPanel extends MenuPanel
 		newGameButton.setForeground(Color.WHITE);
 		newGameButton.setBackground(new Color(207,54,30));
         newGameButton.setFocusPainted(false);
-        
-        helpButton = new JButton("Help");
+		newGameButton.setOpaque(true);
+
+
+		helpButton = new JButton("Help");
 		helpButton.setSize(new Dimension(157,45));
 		helpButton.setLocation(110,400);
 		helpButton.setFont(new Font("Adobe Caslon Pro Bold", Font.PLAIN + Font.BOLD, 20));
 		helpButton.setForeground(Color.WHITE);
 		helpButton.setBackground(new Color(207,54,30));
         helpButton.setFocusPainted(false);
-        
-        loadGameButton = new JButton("Load Game");
+		helpButton.setOpaque(true);
+
+		loadGameButton = new JButton("Load Game");
 		loadGameButton.setSize(new Dimension(157,45));
 		loadGameButton.setLocation(110,460);
 		loadGameButton.setFont(new Font("Adobe Caslon Pro Bold", Font.PLAIN + Font.BOLD, 20));
 		loadGameButton.setForeground(Color.WHITE);
 		loadGameButton.setBackground(new Color(207,54,30));
         loadGameButton.setFocusPainted(false);
-        
-        optionsButton = new JButton("Options");
+		loadGameButton.setOpaque(true);
+
+		optionsButton = new JButton("Options");
 		optionsButton.setSize(new Dimension(157,45));
 		optionsButton.setLocation(110,520);
 		optionsButton.setFont(new Font("Adobe Caslon Pro Bold", Font.PLAIN + Font.BOLD, 20));
 		optionsButton.setForeground(Color.WHITE);
 		optionsButton.setBackground(new Color(207,54,30));
         optionsButton.setFocusPainted(false);
-        
-        highScoreButton = new JButton("Highscores");
+		optionsButton.setOpaque(true);
+
+		highScoreButton = new JButton("Highscores");
 		highScoreButton.setSize(new Dimension(157,45));
 		highScoreButton.setLocation(300,375);
 		highScoreButton.setFont(new Font("Adobe Caslon Pro Bold", Font.PLAIN + Font.BOLD, 20));
 		highScoreButton.setForeground(Color.WHITE);
 		highScoreButton.setBackground(new Color(207,54,30));
         highScoreButton.setFocusPainted(false);
-        
-        creditsButton = new JButton("Credits");
+		highScoreButton.setOpaque(true);
+
+		creditsButton = new JButton("Credits");
 		creditsButton.setSize(new Dimension(157,45));
 		creditsButton.setLocation(300,435);
 		creditsButton.setFont(new Font("Adobe Caslon Pro Bold", Font.PLAIN + Font.BOLD, 20));
 		creditsButton.setForeground(Color.WHITE);
 		creditsButton.setBackground(new Color(207,54,30));
         creditsButton.setFocusPainted(false);
-        
-        exitButton = new JButton("Exit");
+		creditsButton.setOpaque(true);
+
+		exitButton = new JButton("Exit");
 		exitButton.setSize(new Dimension(157,45));
 		exitButton.setLocation(300,495);
 		exitButton.setFont(new Font("Adobe Caslon Pro Bold", Font.PLAIN + Font.BOLD, 20));
 		exitButton.setForeground(Color.WHITE);
 		exitButton.setBackground(new Color(207,54,30));
         exitButton.setFocusPainted(false);
-        
-        
+		exitButton.setOpaque(true);
+
+
 		//Add listener to buttons
 		ButtonListener listener = new ButtonListener();
 		newGameButton.addActionListener(listener);
@@ -90,7 +98,12 @@ public class MainMenuPanel extends MenuPanel
 		highScoreButton.addActionListener(listener);
 		creditsButton.addActionListener(listener);
 		exitButton.addActionListener(listener);
-		
+
+		try {
+			UIManager.setLookAndFeel( UIManager.getCrossPlatformLookAndFeelClassName() );
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
         //Add components in panel
 		add(newGameButton);
 		add(helpButton);

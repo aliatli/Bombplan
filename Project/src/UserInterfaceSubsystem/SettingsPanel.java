@@ -1,5 +1,7 @@
 package UserInterfaceSubsystem;
 
+import ControllerSubsystem.GameEngine;
+import ControllerSubsystem.StorageManager;
 import UserInterfaceSubsystem.SideMenuPanel;
 
 import java.awt.*;
@@ -21,18 +23,20 @@ public class SettingsPanel extends SideMenuPanel
 	String record;
 	private JLabel  musicVolume;
 	private JLabel  soundVolume;
+	GameEngine engine;
 	StorageManager x;
 	
 	//Constructor	
 	public SettingsPanel()
 	{
 		super();
-		
-		x = new StorageManager();
+
+		engine = GameEngine.getInstance();
+		x = engine.getStorageMan();
 		
 		try
 		{		
-	   		words = ( x.readFile("settings.txt") ).split(",");//Take every word
+	   		words = ( x.readFile("src/sources/txts/settings.txt") ).split(",");//Take every word
 		}
 		catch (IOException e)
 		{						
@@ -121,7 +125,7 @@ public class SettingsPanel extends SideMenuPanel
 						
 				setText();//Set text of the label
 				record = Boolean.toString(music) + "," + Boolean.toString(sound);//Write current records to the file
-				x.writeFile(record, "settings.txt");
+				x.writeFile(record, "src/sources/txts/settings.txt");
     		}	
     		catch(Exception exc)//If there is exception (general) catch it
     		{    		
