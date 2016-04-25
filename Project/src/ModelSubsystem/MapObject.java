@@ -2,23 +2,20 @@ package ModelSubsystem;
 
 import java.awt.*;
 import javax.imageio.ImageIO;
-import java.awt.image.BufferedImage;
+import java.awt.*;
+import javax.swing.*;
 import java.io.File;
 import java.io.IOException;
 
 public class MapObject {
 
-	private BufferedImage icon;
+	private ImageIcon icon;
 	protected boolean destroyable;
 	protected int x;
 	protected int y;
-
+	
 	public boolean isDestroyable() {
 		return this.destroyable;
-	}
-
-	public void draw(Graphics g) {
-		g.drawImage(icon, this.getX(), this.getY(), 64, 64, null);
 	}
 
 	public int getX() {
@@ -38,12 +35,19 @@ public class MapObject {
 	}
 
 	protected void getIconFromFile(String path){
-		try {
-			File img = new File(path);
-			this.icon = ImageIO.read(img);
+		//try {
+			icon = new ImageIcon(path);
+		//	File img = new File(path);
+		//	this.icon = ImageIO.read(img);
 			//System.out.println(icon);
-		} catch (IOException e) {
-				e.printStackTrace();
-		}
+	//	} catch (IOException e) {
+	//			e.printStackTrace();
+		//}
+	}
+
+	public void draw(Graphics g) {
+
+		icon.paintIcon(null, g, this.getX(), this.getY());
+		//g.drawImage(icon, this.getX(), this.getY(), 64, 64, null);
 	}
 }

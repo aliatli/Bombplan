@@ -24,7 +24,7 @@ public class Bomb extends MapObject implements Destroyable {
 		super.y = y;
 		super.destroyable = true;
 		this.range = range;
-		getIconFromFile("bomb.png");
+		getIconFromFile("src/Sources/Images/bomb.png");
 	}
 
 	@Override

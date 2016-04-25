@@ -16,6 +16,6 @@ public class Door extends MapObject {
 		super.x = x;
 		super.y = y;
 		super.destroyable = true;
-		getIconFromFile("door.png");
+		getIconFromFile("src/Sources/Images/door.png");
 	}
 }

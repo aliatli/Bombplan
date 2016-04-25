@@ -21,16 +21,15 @@ public class GameScreenPanel extends JPanel
 		//Panel constructured
 		setLayout(null);
 		setBackground(Color.BLACK);
-		setPreferredSize(new Dimension(1200,900));
+		setPreferredSize(new Dimension(960,640));
 		
 		//Timer initialized
 		TimerListener timeListener = new TimerListener();
 		timer = new Timer(300, timeListener);
 		time = 0;
 		
-		engine = GameEngine.getInstance();
-		map = engine.getMap();
-					
+        engine = GameEngine.getInstance();
+        map = engine.getMap();
 	}
 	
 	//Methods
@@ -45,7 +44,12 @@ public class GameScreenPanel extends JPanel
 	public void drawImages(Graphics g)
 	{
 		map.drawAll(g);
-	}	
+	}
+    
+    /// TODO HANDLE THE CASE ON GAMEOVER!!
+    private void gameOver(){
+        
+    }
 	
 	//TimerListener	
 	private class TimerListener implements ActionListener//Listener for timer
@@ -58,8 +62,17 @@ public class GameScreenPanel extends JPanel
 				{
 					//Time increasing
 					time++;
-									
-					//Draw
+                    
+                    try {
+                        engine.update();
+                    } catch (Exception e) {
+                        if(e.getMessage().equalsIgnoreCase("gameover!")){
+                            gameOver();
+                        }
+                    }
+                    
+                    //Draw
+
 					if(time%1 == 0)//PlayerShip icon
 					{	
 						//drawImages();	

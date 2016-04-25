@@ -7,7 +7,7 @@ public class RandomBonus extends Bonus {
 		super.x = x;
 		super.y = y;
 		super.type = 1;
-		getIconFromFile("randomBonus.png");
+		getIconFromFile("src/Sources/Images/randomBonus.png");
 	}
 
 }
