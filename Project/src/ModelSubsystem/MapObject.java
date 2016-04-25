@@ -18,7 +18,6 @@ public class MapObject {
 	}
 
 	public void draw(Graphics g) {
-
 		g.drawImage(icon, this.getX(), this.getY(), 64, 64, null);
 	}
 

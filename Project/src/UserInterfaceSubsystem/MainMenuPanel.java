@@ -127,7 +127,7 @@ public class MainMenuPanel extends MenuPanel
 		{
 			Object obj = event.getSource();//Bas�lan tu�
 			
-			try//Try it
+	//		try//Try it
     		{
     			if(obj == newGameButton)
 				{
@@ -158,9 +158,9 @@ public class MainMenuPanel extends MenuPanel
 					( ( ScreenView.getInstance() ).getFrame() ).dispose();//Exit from frame
 				}	
     		}	
-    		catch(Exception exc)//If there is exception (general) catch it
+    //		catch(Exception exc)//If there is exception (general) catch it
     		{    		
-    			System.out.println("Exception is catched: " + exc.getMessage());//Show the message of exception
+    	//		System.out.println(exc);//Show the message of exception
     		}										
 		}
 						

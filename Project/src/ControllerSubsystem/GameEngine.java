@@ -34,6 +34,7 @@ public class GameEngine {
         movements = new ArrayList<Integer>();
         destroyBombs = false;
         storageMan = new StorageManager();
+        map = GameMap.getInstance();
  //       map.constructLevel(1);
 
     }
