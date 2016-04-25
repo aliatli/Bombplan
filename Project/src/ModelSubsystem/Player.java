@@ -43,9 +43,9 @@ public class Player extends MapObject implements Movable{
 
 	public Player( int x, int y) {
 		this.range = 1;
-		super.x = x;
-		super.y = y;
-		super.destroyable = true;
+		this.x = x;
+		this.y = y;
+		this.destroyable = true;
 		getIconFromFile("src/Sources/Images/player.png");
 	}
 
