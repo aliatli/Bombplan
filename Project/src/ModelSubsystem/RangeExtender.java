@@ -9,6 +9,7 @@ public class RangeExtender extends Bonus {
 		super.x = x;
 		super.y = y;
 		super.type = 4;
+		getIconFromFile("rangeExtender.png");
 	}
 
 }

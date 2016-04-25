@@ -7,5 +7,6 @@ public class FastMonster extends Monster{
         super.type = 2;
         super.velocity = 5;
         super.destroyable = true;
+        getIconFromFile("fastMonster.png");
     }
 }

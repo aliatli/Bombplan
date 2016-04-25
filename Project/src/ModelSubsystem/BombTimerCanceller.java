@@ -7,6 +7,7 @@ public class BombTimerCanceller extends Bonus {
 		super.x = x;
 		super.y = y;
 		super.type = 3;
+		getIconFromFile("bombTimerCanceller.png");
 	}
 
 }

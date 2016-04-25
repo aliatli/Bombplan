@@ -6,6 +6,7 @@ public class NondestroyableWall extends Wall {
 		super.x = x;
 		super.y = y;
 		super.type = 2;
+		getIconFromFile("nonDestroyableWall.png");
 	}
 
 }
