@@ -1,6 +1,5 @@
 package ModelSubsystem;
 
-import ControllerSubsystem.*;
 import java.util.Random;
 
 public class Player extends MapObject implements Movable{
@@ -9,7 +8,7 @@ public class Player extends MapObject implements Movable{
 	private int lives = 3;
 	private boolean bombControllable = false;
 	private int velocity = 4;
-    private CollisionManager colMan;
+    //private CollisionManager colMan;
 	private int maxBomb = 1;
 	private int range;
 
@@ -17,6 +16,9 @@ public class Player extends MapObject implements Movable{
 		return this.multipleBomb;
 	}
 	public int getMaxBomb() { return this.maxBomb;}
+	public void setMultipleBomb(boolean multipleBomb) {
+		this.multipleBomb = multipleBomb;
+	}
 
 	public int takeBonus( Bonus bonus) {
 		bonus.activateBonus();
@@ -44,6 +46,7 @@ public class Player extends MapObject implements Movable{
 		super.x = x;
 		super.y = y;
 		super.destroyable = true;
+		getIconFromFile("player.png");
 	}
 
 	public int getVelocity() {
@@ -58,7 +61,7 @@ public class Player extends MapObject implements Movable{
 	}
 
 	public void decreaseLife() {
-		this.lives -= 1;
+		this.lives--;
 	}
 
 	public void move(int movement){
@@ -66,7 +69,5 @@ public class Player extends MapObject implements Movable{
         else if (movement == 1) this.setY(getY()+1);
         else if (movement == 2) this.setX(getX()-1);
         else if (movement == 3) this.setY(getY()-1);
-
 	}
-
 }
