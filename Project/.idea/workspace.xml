@@ -1,38 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3f1cc5a6-6204-4175-9d96-ca6c15f3022e" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Sources/Images/Fire.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Sources/Images/bomb.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Sources/Images/bombNumberExtender.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Sources/Images/bombTimerCanceller.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Sources/Images/destroyableWall.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Sources/Images/door.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Sources/Images/fastMonster.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Sources/Images/nonDestroyableWall.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Sources/Images/player.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Sources/Images/randomBonus.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Sources/Images/rangeExtender.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Sources/Images/slowMonster.png" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/src/Sources/Images/timerReset.png" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ControllerSubsystem/GameEngine.java" afterPath="$PROJECT_DIR$/src/ControllerSubsystem/GameEngine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/Bomb.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/Bomb.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/BombNumberExtender.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/BombNumberExtender.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/BombTimerCanceller.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/BombTimerCanceller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/DestroyableWall.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/DestroyableWall.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/Door.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/Door.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/FastMonster.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/FastMonster.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/MapObject.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/MapObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/NondestroyableWall.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/NondestroyableWall.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/Player.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/Player.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/RandomBonus.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/RandomBonus.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/RangeExtender.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/RangeExtender.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/SlowMonster.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/SlowMonster.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/TimerReset.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/TimerReset.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UserInterfaceSubsystem/GameScreenPanel.java" afterPath="$PROJECT_DIR$/src/UserInterfaceSubsystem/GameScreenPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UserInterfaceSubsystem/MainMenuPanel.java" afterPath="$PROJECT_DIR$/src/UserInterfaceSubsystem/MainMenuPanel.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UserInterfaceSubsystem/ScreenView.java" afterPath="$PROJECT_DIR$/src/UserInterfaceSubsystem/ScreenView.java" />
-    </list>
+    <list default="true" id="3f1cc5a6-6204-4175-9d96-ca6c15f3022e" name="Default" comment="" />
     <ignored path="Bombplan.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
