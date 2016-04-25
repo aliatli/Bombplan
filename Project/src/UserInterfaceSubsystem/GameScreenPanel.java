@@ -45,8 +45,14 @@ public class GameScreenPanel extends JPanel
 	public void drawImages(Graphics g)
 	{
 		map.drawAll(g);
-	}	
-	
+	}
+
+    /// TODO HANDLE THE CASE ON GAMEOVER!!
+	private void gameOver(){
+
+    }
+
+
 	//TimerListener	
 	private class TimerListener implements ActionListener//Listener for timer
 	{
@@ -58,8 +64,15 @@ public class GameScreenPanel extends JPanel
 				{
 					//Time increasing
 					time++;
-									
-					//Draw
+
+                    try {
+                        engine.update();
+                    } catch (Exception e) {
+                        if(e.getMessage().equalsIgnoreCase("gameover!")){
+                            gameOver();
+                        }
+                    }
+                    //Draw
 					if(time%1 == 0)//PlayerShip icon
 					{	
 						//drawImages();	
