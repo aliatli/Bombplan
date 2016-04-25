@@ -1,3 +1,5 @@
+package UserInterfaceSubsystem;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -19,7 +21,7 @@ public class MenuPanel extends JPanel
 		setBackground(Color.BLACK);
 		
 		//Background
-		logo = new ImageIcon("logo.jpg");
+		logo = new ImageIcon("src/Sources/Images/logo.jpg");
 	}
 	
 	//Methods

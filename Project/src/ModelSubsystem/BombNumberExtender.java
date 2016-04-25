@@ -2,11 +2,11 @@ package ModelSubsystem;
 
 public class BombNumberExtender extends Bonus {
 
-	private int extendValue;
-
-	public BombNumberExtender() {
-		// TODO - implement BombNumberExtender.BombNumberExtender
-		throw new UnsupportedOperationException();
+	public BombNumberExtender( int x, int y) {
+		super();
+		super.x = x;
+		super.y = y;
+		super.type = 2;
+		getIconFromFile("bombNumberExtender.png");
 	}
-
 }

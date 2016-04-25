@@ -1,23 +1,34 @@
 package ModelSubsystem;
 
-public class Bomb extends MapObject {
+public class Bomb extends MapObject implements Destroyable {
 
-	private int destroyTime;
+	private int destroyTime = 3;
 	private int range;
 
 	public boolean isControllable() {
-		// TODO - implement Bomb.isControllable
-		throw new UnsupportedOperationException();
+		return ( destroyTime < 0);
 	}
 
-	/**
-	 * 
-	 * @param x
-	 * @param y
-	 */
-	public Bomb(int x, int y) {
-		// TODO - implement Bomb.Bomb
-		throw new UnsupportedOperationException();
+	public void setControllable(boolean control) {
+		if( control)
+			this.destroyTime = -1;
+		else
+			this.destroyTime = 3;
+	}
+	public int getRange() {
+		return this.range;
 	}
 
+	public Bomb(int x, int y, int range) {
+		super.x = x;
+		super.y = y;
+		super.destroyable = true;
+		this.range = range;
+		getIconFromFile("bomb.png");
+	}
+
+	@Override
+	public void destroy() {
+
+	}
 }

@@ -1,3 +1,9 @@
+package UserInterfaceSubsystem;
+
+import ControllerSubsystem.GameEngine;
+import ControllerSubsystem.StorageManager;
+import UserInterfaceSubsystem.SideMenuPanel;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -5,7 +11,7 @@ import java.io.*;
 
 //Saner Turhaner
 
-public class SettingsPanel extends SideMenuPanel 
+public class SettingsPanel extends SideMenuPanel
 {
 	//Properties
 	private JLabel title;
@@ -13,16 +19,32 @@ public class SettingsPanel extends SideMenuPanel
 	private JButton soundButton;
 	private boolean music;
 	private boolean sound;
+	String[] words;
+	String record;
 	private JLabel  musicVolume;
 	private JLabel  soundVolume;
+	GameEngine engine;
+	StorageManager x;
 	
 	//Constructor	
 	public SettingsPanel()
 	{
 		super();
+
+		engine = GameEngine.getInstance();
+		x = engine.getStorageMan();
 		
-		music = true;
-		sound = true;
+		try
+		{		
+	   		words = ( x.readFile("src/sources/txts/settings.txt") ).split(",");//Take every word
+		}
+		catch (IOException e)
+		{						
+			e.printStackTrace();
+		}
+		
+		music = Boolean.parseBoolean(words[0]);
+		sound = Boolean.parseBoolean(words[1]);	
 					
 		//Labels initialized
 		title = new JLabel( "Options" );
@@ -32,14 +54,14 @@ public class SettingsPanel extends SideMenuPanel
 		title.setForeground(new Color(207,54,30));
 		title.setVisible(true);
 				
-		musicVolume = new JLabel( "Music On" );
+		musicVolume = new JLabel( "" );
 		musicVolume.setSize(new Dimension(400,40));
 		musicVolume.setLocation(300,450);
 		musicVolume.setFont(new Font("Calibri", Font.PLAIN, 24));
 		musicVolume.setForeground(Color.WHITE);
 		musicVolume.setVisible(true);
 		
-		soundVolume = new JLabel( "Sound On" );
+		soundVolume = new JLabel( "" );
 		soundVolume.setSize(new Dimension(400,40));
 		soundVolume.setLocation(580,450);
 		soundVolume.setFont(new Font("Calibri", Font.PLAIN, 24));
@@ -68,7 +90,8 @@ public class SettingsPanel extends SideMenuPanel
 		musicButton.addActionListener(listener);
 		soundButton.addActionListener(listener);
 		
-		//Add components to the panel
+		//Add components to the panel	
+		setText();
 		add(musicButton);
 		add(soundButton);
 		add(musicVolume);
@@ -81,42 +104,48 @@ public class SettingsPanel extends SideMenuPanel
 	{
 		public void actionPerformed(ActionEvent event)//Takes event as a parameter
 		{
-			Object obj = event.getSource();//Basýlan tuþ
+			Object obj = event.getSource();//Basï¿½lan tuï¿½
 			
 			try//Try it
     		{
     			if(obj == soundButton)
 				{
 					if(sound)
-					{
-						sound = false;
-						soundVolume.setText("Sound Off");
-					}
+						sound = false;	
 					else
-					{
-						sound = true;
-						soundVolume.setText("Sound On");	
-					}					
+						sound = true;											
 				}	
 				else if(obj == musicButton)
 				{					
 					if(music)
-					{
-						music = false;
-						musicVolume.setText("Music Off");						
-					}
+						music = false;	
 					else
-					{
-						music = true;						
-						musicVolume.setText("Music On");
-					}
-				}				
+						music = true;	
+				}	
+						
+				setText();//Set text of the label
+				record = Boolean.toString(music) + "," + Boolean.toString(sound);//Write current records to the file
+				x.writeFile(record, "src/sources/txts/settings.txt");
     		}	
     		catch(Exception exc)//If there is exception (general) catch it
     		{    		
     			System.out.println("Exception is catched: " + exc.getMessage());//Show the message of exception
     		}										
-		}
-						
+		}						
 	}
+	
+	//Methods
+	public void setText()
+	{
+		if(sound)
+			soundVolume.setText("Sound On");
+		else
+			soundVolume.setText("Sound Off");
+			
+		if(music)
+			musicVolume.setText("Music On");
+		else
+			musicVolume.setText("Music Off");
+	}
+	
 }

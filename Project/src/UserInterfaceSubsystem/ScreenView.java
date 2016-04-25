@@ -1,3 +1,7 @@
+package UserInterfaceSubsystem;
+
+import UserInterfaceSubsystem.*;
+
 import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.*;
@@ -15,9 +19,9 @@ public class ScreenView
 	private MainMenuPanel mainP;
 	private CreditsPanel  creditsP;
 	private LoadGamePanel loadP;
-	private HighScorePanel  highP;
+	private HighScorePanel highP;
 	private SettingsPanel settingsP;
-	private HelpPanel  helpP;	
+	private HelpPanel helpP;
 	
 	//Constructor
 	private ScreenView()

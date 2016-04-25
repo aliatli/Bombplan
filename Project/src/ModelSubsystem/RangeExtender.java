@@ -2,11 +2,14 @@ package ModelSubsystem;
 
 public class RangeExtender extends Bonus {
 
-	private int extendValue;
+	private int extendValue = 1;
 
-	public RangeExtender() {
-		// TODO - implement RangeExtender.RangeExtender
-		throw new UnsupportedOperationException();
+	public RangeExtender( int x, int y) {
+		super();
+		super.x = x;
+		super.y = y;
+		super.type = 4;
+		getIconFromFile("rangeExtender.png");
 	}
 
 }

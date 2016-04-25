@@ -1,19 +1,25 @@
 package ModelSubsystem;
 
+import java.awt.*;
+import javax.imageio.ImageIO;
+import java.awt.image.BufferedImage;
+import java.io.File;
+import java.io.IOException;
+
 public class MapObject {
 
-	private Image icon;
-	private boolean destroyable;
-	private int x;
-	private int y;
+	private BufferedImage icon;
+	protected boolean destroyable;
+	protected int x;
+	protected int y;
 
 	public boolean isDestroyable() {
 		return this.destroyable;
 	}
 
-	public void draw() {
-		// TODO - implement MapObject.draw
-		throw new UnsupportedOperationException();
+	public void draw(Graphics g) {
+
+		g.drawImage(icon, this.getX(), this.getY(), 64, 64, null);
 	}
 
 	public int getX() {
@@ -24,9 +30,21 @@ public class MapObject {
 		return this.y;
 	}
 
-	public Rectangle getCollisionBoundary() {
-		// TODO - implement MapObject.getCollisionBoundary
-		throw new UnsupportedOperationException();
+	public void setX(int x) {
+		this.x = x;
 	}
 
+	public void setY(int y) {
+		this.y = y;
+	}
+
+	protected void getIconFromFile(String path){
+		try {
+			File img = new File(path);
+			this.icon = ImageIO.read(img);
+			//System.out.println(icon);
+		} catch (IOException e) {
+				e.printStackTrace();
+		}
+	}
 }

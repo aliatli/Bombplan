@@ -2,22 +2,19 @@ package ModelSubsystem;
 
 public class Monster extends MapObject {
 
-	private int type;
-	private int velocity;
+	/*
+	type 1: slow monster
+	type 2: fast monster
+	*/
 
-	public void randomizedMove() {
-		// TODO - implement Monster.randomizedMove
-		throw new UnsupportedOperationException();
-	}
+	protected int type;
+	protected int velocity;
 
-	/**
-	 * 
-	 * @param x
-	 * @param y
-	 */
-	public Monster(int x, int y) {
-		// TODO - implement Monster.Monster
-		throw new UnsupportedOperationException();
+	public void move(int movement){
+		if (movement == 0) this.setX(getX()+1);
+		else if (movement == 1) this.setY(getY()+1);
+		else if (movement == 2) this.setX(getX()-1);
+		else if (movement == 3) this.setY(getY()-1);
 	}
 
 	public int getVelocity() {

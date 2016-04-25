@@ -2,11 +2,12 @@ package ModelSubsystem;
 
 public class RandomBonus extends Bonus {
 
-	private int randBonus;
-
-	public RandomBonus() {
-		// TODO - implement RandomBonus.RandomBonus
-		throw new UnsupportedOperationException();
+	public RandomBonus( int x, int y) {
+		super();
+		super.x = x;
+		super.y = y;
+		super.type = 1;
+		getIconFromFile("randomBonus.png");
 	}
 
 }

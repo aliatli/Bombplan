@@ -1,3 +1,7 @@
+package ControllerSubsystem;
+
+import java.io.InputStream;
+
 public class SoundManager {
 
 	private InputStream music;
@@ -30,4 +34,7 @@ public class SoundManager {
 		throw new UnsupportedOperationException();
 	}
 
+	public void changeSound(){
+
+	}
 }
