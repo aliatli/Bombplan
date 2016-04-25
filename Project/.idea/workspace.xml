@@ -1,37 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="3f1cc5a6-6204-4175-9d96-ca6c15f3022e" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Project/ControllerSubsystem/GameEngine$TimerListener.class" afterPath="$PROJECT_DIR$/out/production/Project/ControllerSubsystem/GameEngine$TimerListener.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Project/ControllerSubsystem/GameEngine.class" afterPath="$PROJECT_DIR$/out/production/Project/ControllerSubsystem/GameEngine.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Project/ModelSubsystem/GameMap.class" afterPath="$PROJECT_DIR$/out/production/Project/ModelSubsystem/GameMap.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/out/production/Project/UserInterfaceSubsystem/GameScreenPanel.class" afterPath="$PROJECT_DIR$/out/production/Project/UserInterfaceSubsystem/GameScreenPanel.class" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ControllerSubsystem/CollisionManager.java" afterPath="$PROJECT_DIR$/src/ControllerSubsystem/CollisionManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ControllerSubsystem/GameEngine.java" afterPath="$PROJECT_DIR$/src/ControllerSubsystem/GameEngine.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ControllerSubsystem/SoundManager.java" afterPath="$PROJECT_DIR$/src/ControllerSubsystem/SoundManager.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/Bomb.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/Bomb.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/BombNumberExtender.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/BombNumberExtender.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/BombTimerCanceller.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/BombTimerCanceller.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/Bonus.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/Bonus.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/Destroyable.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/Destroyable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/DestroyableWall.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/DestroyableWall.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/Door.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/Door.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/FastMonster.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/FastMonster.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/GameMap.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/GameMap.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/MapObject.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/MapObject.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/Monster.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/Monster.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/Movable.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/Movable.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/NondestroyableWall.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/NondestroyableWall.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/Player.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/Player.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/RandomBonus.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/RandomBonus.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/RangeExtender.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/RangeExtender.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/SlowMonster.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/SlowMonster.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/TimerReset.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/TimerReset.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/ModelSubsystem/Wall.java" afterPath="$PROJECT_DIR$/src/ModelSubsystem/Wall.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/SystemInitiator.java" afterPath="$PROJECT_DIR$/src/SystemInitiator.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/src/UserInterfaceSubsystem/GameScreenPanel.java" afterPath="$PROJECT_DIR$/src/UserInterfaceSubsystem/GameScreenPanel.java" />
-    </list>
+    <list default="true" id="3f1cc5a6-6204-4175-9d96-ca6c15f3022e" name="Default" comment="" />
     <ignored path="Bombplan.iws" />
     <ignored path=".idea/workspace.xml" />
     <ignored path="$PROJECT_DIR$/out/" />
@@ -217,7 +187,6 @@
         <option value="$PROJECT_DIR$/src/ModelSubsystem/Player.java" />
         <option value="$PROJECT_DIR$/src/ModelSubsystem/Monster.java" />
         <option value="$PROJECT_DIR$/src/ModelSubsystem/GameMap.java" />
-        <option value="$PROJECT_DIR$/src/SystemInitiator.java" />
         <option value="$PROJECT_DIR$/src/UserInterfaceSubsystem/SettingsPanel.java" />
         <option value="$PROJECT_DIR$/src/UserInterfaceSubsystem/MenuPanel.java" />
         <option value="$PROJECT_DIR$/src/ControllerSubsystem/StorageManager.java" />
@@ -225,6 +194,7 @@
         <option value="$PROJECT_DIR$/src/UserInterfaceSubsystem/LoadGamePanel.java" />
         <option value="$PROJECT_DIR$/src/UserInterfaceSubsystem/MainMenuPanel.java" />
         <option value="$PROJECT_DIR$/src/ControllerSubsystem/GameEngine.java" />
+        <option value="$PROJECT_DIR$/src/SystemInitiator.java" />
       </list>
     </option>
   </component>
@@ -570,7 +540,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.31968504" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Maven Projects" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="true" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.32901296" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32901296" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Designer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.18214285" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
