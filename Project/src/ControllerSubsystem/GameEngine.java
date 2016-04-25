@@ -24,6 +24,7 @@ public class GameEngine {
     private CollisionManager colMan;
     private SoundManager souMan;
 	GameMap map;
+    private static GameEngine engine;
 
     private GameEngine(){
         paused = false;
