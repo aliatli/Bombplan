@@ -46,7 +46,7 @@ public class Player extends MapObject implements Movable{
 		super.x = x;
 		super.y = y;
 		super.destroyable = true;
-		getIconFromFile("player.png");
+		getIconFromFile("src/Sources/Images/player.png");
 	}
 
 	public int getVelocity() {

@@ -178,10 +178,26 @@ public class GameEngine {
                 direction = ((int)(Math.random() * 4)) % 4;
             }
 
-            monster.move(direction);
-            map.setObject(null, t_x, t_y);
 
-            int collision = colMan.checkCollision(monster.getX(), monster.getY(), map.getMap());
+            int x = t_x;
+            int y = t_y;
+
+            if (direction == 0)
+                x++;
+            else if (direction == 1)
+                y++;
+            else if (direction == 2)
+                x--;
+            else if (direction == 3)
+                y--;
+
+            int collision = colMan.checkCollision(x, y, map.getMap());
+
+            if (collision != 1) {
+                monster.move(direction);
+                map.setObject(null, t_x, t_y);
+            }
+
             if (collision == -1){
                 map.setObject(monster);
                 healthDecrease();
@@ -194,11 +210,23 @@ public class GameEngine {
     }
 
     private boolean checkPossible(Monster m, int direction){
-        ArrayList<MapObject> slot = map.getMap()[m.getX()][m.getY()];
+        int x = m.getX();
+        int y = m.getY();
+
+        if (direction == 0)
+            x++;
+        else if (direction == 1)
+            y++;
+        else if (direction == 2)
+            x--;
+        else if (direction == 3)
+            y--;
+
+        ArrayList<MapObject> slot = map.getMap()[x][y];
         if (slot == null)
             return true;
-        for (int i = 0; i < slot.size(); i++) {
-            if (slot.get(i) instanceof Wall)
+        for (MapObject aSlot : slot) {
+            if (aSlot instanceof Wall)
                 return false;
         }
         return true;

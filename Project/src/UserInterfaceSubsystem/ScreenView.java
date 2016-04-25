@@ -1,7 +1,6 @@
 package UserInterfaceSubsystem;
 
 import UserInterfaceSubsystem.*;
-
 import java.util.ArrayList;
 import java.awt.*;
 import java.awt.event.*;
@@ -22,6 +21,7 @@ public class ScreenView
 	private HighScorePanel highP;
 	private SettingsPanel settingsP;
 	private HelpPanel helpP;
+	private GameScreenPanel gameP;
 	
 	//Constructor
 	private ScreenView()
@@ -40,6 +40,7 @@ public class ScreenView
 		highP 	  = new HighScorePanel();
 		settingsP = new SettingsPanel();
 		helpP 	  = new HelpPanel();
+		gameP 	  = new GameScreenPanel();
 		
 		//Active Panel initialized
 		activePanel = mainP;		
@@ -70,7 +71,7 @@ public class ScreenView
 	
 	public JPanel newGame()
 	{
-		return new GameScreenPanel();
+		return gameP;
 	}
 	
 	public JPanel getMain()

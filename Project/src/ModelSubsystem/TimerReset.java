@@ -7,7 +7,7 @@ public class TimerReset extends Bonus {
 		super.x = x;
 		super.y = y;
 		super.type = 5;
-		getIconFromFile("timerReset.png");
+		getIconFromFile("src/Sources/Images/timerReset.png");
 	}
 
 }

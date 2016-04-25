@@ -7,6 +7,6 @@ public class BombNumberExtender extends Bonus {
 		super.x = x;
 		super.y = y;
 		super.type = 2;
-		getIconFromFile("bombNumberExtender.png");
+		getIconFromFile("src/Sources/Images/bombNumberExtender.png");
 	}
 }

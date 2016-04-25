@@ -10,6 +10,6 @@ public class DestroyableWall extends Wall {
 		super.x = x;
 		super.y = y;
 		super.type = 1;
-		getIconFromFile("destroyableWall.png");
+		getIconFromFile("src/Sources/Images/destroyableWall.png");
 	}
 }

@@ -7,6 +7,6 @@ public class SlowMonster extends Monster{
         super.type = 1;
         super.velocity = 3;
         super.destroyable = true;
-        getIconFromFile("slowMonster.png");
+        getIconFromFile("src/Sources/Images/slowMonster.png");
     }
 }
