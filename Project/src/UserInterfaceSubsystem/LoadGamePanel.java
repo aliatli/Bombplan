@@ -1,5 +1,8 @@
 package UserInterfaceSubsystem;
 
+import ControllerSubsystem.GameEngine;
+import ControllerSubsystem.StorageManager;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -12,14 +15,16 @@ public class LoadGamePanel extends SideMenuPanel
 	//Properties
 	JTextArea games;
 	private JLabel title;
-	StorageManager x;	
+	GameEngine engine;
+	StorageManager x;
 	
 	//Constructor	
 	public LoadGamePanel()
 	{
 		super();
-		
-		x = new StorageManager();
+
+		engine = GameEngine.getInstance();
+		x = engine.getStorageMan();
 		
 		//Label initialized
 		title = new JLabel( "Load Game" );
@@ -32,7 +37,7 @@ public class LoadGamePanel extends SideMenuPanel
 		//Text initialized
 		try
 		{			
-			games = new JTextArea("Nickname\tDate\t\tLevel\tScore\n" + x.readFile("savedGames.txt"));	
+			games = new JTextArea("Nickname\tDate\t\tLevel\tScore\n" + x.readFile("src/Sources/txts/savedGames.txt"));
 		}
 		catch (IOException e)
 		{						
@@ -40,7 +45,7 @@ public class LoadGamePanel extends SideMenuPanel
 		}
 		games.setSize(new Dimension(510,255));
 		games.setLocation(240,370);
-		games.setFont(new Font("Calibri", Font.PLAIN, 18));
+		games.setFont(new Font("Calibri", Font.PLAIN, 15));
 		games.setLineWrap(true);
 	    games.setEditable(false);
 	    games.setVisible(true);	  

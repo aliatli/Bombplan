@@ -1,3 +1,4 @@
+package ControllerSubsystem;
 
 import java.io.*;
 import java.util.*;
@@ -25,7 +26,7 @@ public class StorageManager
    		String[] words;
    		file = new File(fileName);
 
-   		if(fileName.equalsIgnoreCase("savedGames.txt"))//Load games are read
+   		if(fileName.equalsIgnoreCase("src/Sources/txts/savedGames.txt"))//Load games are read
    		{
    			scan = new Scanner(file);//Scanner initialized
 
@@ -37,7 +38,7 @@ public class StorageManager
 	    		text = text + words[0] + "\t" + words[1] + "\t"  + Integer.parseInt(words[2]) + "\t" + Integer.parseInt(words[3]) + "\n";//A line
 	   		}
    		}
-   		else if(fileName.equalsIgnoreCase("highScores.txt"))//Highscores are read
+   		else if(fileName.equalsIgnoreCase("src/Sources/txts/highScores.txt"))//Highscores are read
    		{
    			scan = new Scanner(file);//Scanner initialized
 
@@ -49,7 +50,7 @@ public class StorageManager
 	    		text = text + Integer.parseInt(words[0]) + ".\t" + words[1] + "\t\t" + Integer.parseInt(words[2]) + "\n";//A line
 	   		}
    		}
-   		else if(fileName.equalsIgnoreCase("settings.txt"))//Settings are read
+   		else if(fileName.equalsIgnoreCase("src/Sources/txts/settings.txt"))//Settings are read
    		{
    			scan = new Scanner(file);//Scanner initialized
 
