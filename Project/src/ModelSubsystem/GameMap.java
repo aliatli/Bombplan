@@ -1,5 +1,7 @@
 package ModelSubsystem;
 
+import java.awt.*;
+import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
@@ -352,5 +354,20 @@ public class GameMap {
 		else{
 			map[x][y].add(obj);
 		}
+	}
+	
+	public void drawAll(Graphics g)
+	{
+		for(int i = 1; i < map.length; i++)
+		{
+			for(int j = 0; j < map[i].length; j++)
+			{
+				if( map[i][j] != null )
+				{
+					((map[i][j]).get(0)).draw(g);
+				}
+			}
+		}
+				
 	}
 }
