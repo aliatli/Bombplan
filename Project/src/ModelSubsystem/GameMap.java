@@ -1,22 +1,25 @@
 package ModelSubsystem;
 
 import java.awt.*;
-import javax.imageio.ImageIO;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
+import java.util.Map;
 import java.util.Scanner;
 import java.util.Random;
 
 public class GameMap {
 
 	private ArrayList<MapObject>[][] map;
+
 	private static GameMap uniqueInstance = null;
 
 	public void constructLevel(int level) throws FileNotFoundException {
 		Scanner scanner;
 		int number;
 		Wall wall;
+
+
 		// get file
 		if( level == 1)
 			scanner = new Scanner(new File("level1.txt"));
@@ -29,6 +32,8 @@ public class GameMap {
 		// read file
 		for( int i = 0; i<13; i++){
 			for( int j = 0; j<15; j++){
+				map[i][j] = new ArrayList<MapObject>();
+
 				if( scanner.hasNextInt()){
 					number = scanner.nextInt();
 					if( number == 1){
@@ -40,10 +45,10 @@ public class GameMap {
 						map[i][j].add(wall);
 					}
 					else
-						map[i][j].add(null);
+						map[i][j]= null;
 				}
 				else
-					map[i][j].add(null);
+					map[i][j]=null;
 			}
 		}
 		// player, door, bonus, monster
@@ -51,15 +56,21 @@ public class GameMap {
 	}
 
 	public boolean addObject(MapObject object) {
+		if (map[object.getX()][object.getY()] == null){
+			map[object.getX()][object.getY()] = new ArrayList<MapObject>();
+		}
 		map[object.getX()][object.getY()].add(object);
 		for(int i= 0; i < map[object.getX()][object.getY()].size(); i++)
 			if( map[object.getX()][object.getY()].get(i) == object)
 				return true;
+		map[object.getX()][object.getY()] = null;
 		return false;
 	}
 
 	public void removeObject(MapObject object) {
 		map[object.getX()][object.getY()].remove(object);
+		if (map[object.getX()][object.getY()].size() == 0)
+			map[object.getX()][object.getY()] = null;
 	}
 
 	private void randomObjectPlanter( int level) {
@@ -89,7 +100,7 @@ public class GameMap {
 		control = false;
 		for(int i=0; i< map.length; i++){
 			for(int j=0; j< map[i].length; j++){
-				if(map[i][j].get(0) instanceof DestroyableWall) {
+				if(map[i][j] != null && map[i][j].get(0) instanceof DestroyableWall) {
 					randNum--;
 					if( randNum == 0) {
 						door = new Door( i, j);
@@ -114,7 +125,7 @@ public class GameMap {
 		control = false;
 		for( int i=0; i<( map.length/2); i++){
 			for(int j=0; j < map[i].length; j++){
-				if(( map[i][j].get(0) instanceof DestroyableWall) && (map[i][j].get(1) != door)){
+				if((map[i][j] != null &&  map[i][j].get(0) instanceof DestroyableWall) && (map[i][j].get(1) != door)){
 					randNum--;
 					if( randNum == 0){
 						if( randBonus == 1)
@@ -144,7 +155,7 @@ public class GameMap {
 		control = false;
 		for( int i = ( map.length/2); i < map.length; i++){
 			for(int j=0; j < map[i].length; j++){
-				if(( map[i][j].get(0) instanceof DestroyableWall) && (map[i][j].get(1) != door)){
+				if((map[i][j] != null &&  map[i][j].get(0) instanceof DestroyableWall) && (map[i][j].get(1) != door)){
 					randNum--;
 					if( randNum == 0){
 						if( randBonus == 1)
@@ -176,7 +187,8 @@ public class GameMap {
 		control = false;
 		for( int i = 0; i < ( map.length / 2); i++){
 			for( int j = 0; j < ( map[i].length / 2); j++){
-				if( map[i][j].get(0) == null){
+				if(map[i][j] == null){
+					map[i][j] = new ArrayList<MapObject>();
 					randNum--;
 					if( randNum == 0){
 						if( level == 1)
@@ -203,7 +215,8 @@ public class GameMap {
 		control = false;
 		for( int i = 0; i < ( map.length / 2); i++){
 			for( int j = ( map[i].length / 2); j < map[i].length; j++){
-				if( map[i][j].get(0) == null){
+				if( map[i][j] == null ){
+					map[i][j] = new ArrayList<MapObject>();
 					randNum--;
 					if( randNum == 0){
 						if( level == 1)
@@ -230,7 +243,8 @@ public class GameMap {
 		control = false;
 		for( int i = ( map.length / 2); i < map.length; i++){
 			for( int j = 0; j < ( map[i].length / 2); j++){
-				if( map[i][j].get(0) == null){
+				if( map[i][j] == null){
+					map[i][j] = new ArrayList<MapObject>();
 					randNum--;
 					if( randNum == 0){
 						if( level == 1)
@@ -257,7 +271,8 @@ public class GameMap {
 		control = false;
 		for( int i = ( map.length / 2); i < map.length; i++){
 			for( int j = ( map[i].length / 2); j < map[i].length; j++){
-				if( map[i][j].get(0) == null){
+				if( map[i][j] == null){
+					map[i][j] = new ArrayList<MapObject>();
 					randNum--;
 					if( randNum == 0){
 						if( level == 1)
@@ -294,7 +309,13 @@ public class GameMap {
 	}
 
 	private GameMap(){
-		map = null;
+		map = new ArrayList[13][15];
+
+		for (int i = 0; i < map.length; i++){
+			for (int j = 0; j < map[0].length; j++){
+				map[i][j] = null;
+			}
+		}
 	}
 
 	public ArrayList<MapObject>[][] getMap(){
@@ -309,10 +330,11 @@ public class GameMap {
 	public Player getPlayer(){
 		for (int i = 0; i < map.length; i++){
 			for (int j = 0; j < map[i].length; j++){
-				for (int k = 0; k < map[i][j].size(); k++)
-					if (map[i][j].get(k) instanceof Player){
-						return (Player) map[i][j].get(k);
-					}
+				if (map[i][j] != null)
+					for (int k = 0; k < map[i][j].size(); k++)
+						if (map[i][j].get(k) instanceof Player){
+							return (Player) map[i][j].get(k);
+						}
 			}
 		}
 		return null;
@@ -322,10 +344,11 @@ public class GameMap {
 		ArrayList<Monster> monsters = new ArrayList<Monster>();
 		for (int i = 0; i < map.length; i++){
 			for (int j = 0; j < map[i].length; j++){
-				for (int k = 0; k < map[i][j].size(); k++)
-					if (map[i][j].get(k) instanceof Monster){
-						monsters.add((Monster) map[i][j].get(k));
-					}
+				if (map[i][j] != null)
+					for (int k = 0; k < map[i][j].size(); k++)
+						if (map[i][j].get(k) instanceof Monster){
+							monsters.add((Monster) map[i][j].get(k));
+						}
 			}
 		}
 		return monsters;
@@ -358,7 +381,7 @@ public class GameMap {
 	
 	public void drawAll(Graphics g)
 	{
-		for(int i = 1; i < map.length; i++)
+		for(int i = 0; i < map.length; i++)
 		{
 			for(int j = 0; j < map[i].length; j++)
 			{

@@ -28,7 +28,7 @@ public class GameScreenPanel extends JPanel
 		timer = new Timer(300, timeListener);
 		time = 0;
 		
-		engine.getInstance();
+		engine = GameEngine.getInstance();
 		map = engine.getMap();
 					
 	}
