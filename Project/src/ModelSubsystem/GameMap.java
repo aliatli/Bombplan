@@ -29,8 +29,8 @@ public class GameMap {
 		else
 			scanner = new Scanner(new File("src/sources/txts/level1.txt"));	// default
 		// read file
-		for( int i = 0; i<13; i++){
-			for( int j = 0; j<15; j++){
+		for( int i = 0; i<map.length; i++){
+			for( int j = 0; j<map[i].length; j++){
 				map[i][j] = new ArrayList<MapObject>();
 
 				if( scanner.hasNextInt()){
@@ -127,7 +127,8 @@ public class GameMap {
 		control = false;
 		for( int i=0; i<( map.length/2); i++){
 			for(int j=0; j < map[i].length; j++){
-				if((map[i][j] != null &&  map[i][j].get(0) instanceof DestroyableWall) && (map[i][j].get(1) != door)){
+				if((map[i][j] != null &&  map[i][j].size() == 1 && map[i][j].get(0) instanceof DestroyableWall) ){
+
 					randNum--;
 					if( randNum == 0){
 						if( randBonus == 1)
@@ -157,7 +158,7 @@ public class GameMap {
 		control = false;
 		for( int i = ( map.length/2); i < map.length; i++){
 			for(int j=0; j < map[i].length; j++){
-				if((map[i][j] != null &&  map[i][j].get(0) instanceof DestroyableWall) && (map[i][j].get(1) != door)){
+				if((map[i][j] != null &&  map[i][j].size() == 1 && map[i][j].get(0) instanceof DestroyableWall)){
 					randNum--;
 					if( randNum == 0){
 						if( randBonus == 1)

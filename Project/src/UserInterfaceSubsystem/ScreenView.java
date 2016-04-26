@@ -28,7 +28,7 @@ public class ScreenView
 	{
 		//Frame initialized
 		frame = new JFrame("Bombplan");
-        frame.setSize(960,832);
+        frame.setSize(1080,936);
 		frame.setResizable(false);//Not changable
         frame.setVisible(true);			
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);

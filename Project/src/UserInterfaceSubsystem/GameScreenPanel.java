@@ -21,7 +21,7 @@ public class GameScreenPanel extends JPanel
 		//Panel constructured
 		setLayout(null);
 		setBackground(Color.BLACK);
-		setPreferredSize(new Dimension(960,832));
+		setPreferredSize(new Dimension(1080,936));
 		
 		//Timer initialized
 		TimerListener timeListener = new TimerListener();
