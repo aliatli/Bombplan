@@ -314,7 +314,7 @@ public class GameMap {
 		map = new ArrayList[13][15];
 
 		for (int i = 0; i < map.length; i++){
-			for (int j = 0; j < map[0].length; j++){
+			for (int j = 0; j < map[i].length; j++){
 				map[i][j] = null;
 			}
 		}
