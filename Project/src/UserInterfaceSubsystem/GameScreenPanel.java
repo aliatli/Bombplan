@@ -21,15 +21,16 @@ public class GameScreenPanel extends JPanel
 		//Panel constructured
 		setLayout(null);
 		setBackground(Color.BLACK);
-		setPreferredSize(new Dimension(960,640));
+		setPreferredSize(new Dimension(960,832));
 		
 		//Timer initialized
 		TimerListener timeListener = new TimerListener();
 		timer = new Timer(300, timeListener);
 		time = 0;
-		
+
         engine = GameEngine.getInstance();
         map = engine.getMap();
+        timer.start();
 	}
 	
 	//Methods
