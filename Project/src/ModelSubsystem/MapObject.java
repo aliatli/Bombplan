@@ -47,7 +47,7 @@ public class MapObject {
 
 	public void draw(Graphics g) {
 
-		icon.paintIcon(null, g, this.getY()*72, this.getX()*72);
+		icon.paintIcon(null, g, this.getY()*64, this.getX()*64);
 		//g.drawImage(icon, this.getX(), this.getY(), 64, 64, null);
 	}
 }
