@@ -77,27 +77,25 @@ public class CollisionManager {
         boolean bonus = false;
         boolean monster = false;
         boolean player = false;
-        for (int i = 0; i < map[x][y].size(); i++){
-            if (map[x][y].get(i) instanceof Wall){
-                return 1;
+        if (map[x][y] != null) {
+            for (int i = 0; i < map[x][y].size(); i++) {
+                if (map[x][y].get(i) instanceof Wall) {
+                    return 1;
+                } else if (map[x][y].get(i) instanceof Bonus) {
+                    bonus = true;
+                } else if (map[x][y].get(i) instanceof Monster) {
+                    monster = true;
+                } else if (map[x][y].get(i) instanceof Monster) {
+                    player = true;
+                }
             }
-            else if (map[x][y].get(i) instanceof Bonus){
-                bonus = true;
-            }
-            else if (map[x][y].get(i) instanceof  Monster){
-                monster = true;
-            }
-            else if (map[x][y].get(i) instanceof  Monster){
-                player = true;
-            }
+
+            if (monster && player)
+                return -1;
+
+            if (bonus && player && !monster)
+                return 2;
         }
-
-        if (monster && player)
-            return -1;
-
-        if (bonus && player && !monster)
-            return 2;
-
         return 0;
 	}
 

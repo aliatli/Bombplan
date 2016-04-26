@@ -26,4 +26,7 @@ public class Bonus extends MapObject {
 	public int getType(){
 		return this.type;
 	}
+	public int getPoint(){
+		return point;
+	}
 }

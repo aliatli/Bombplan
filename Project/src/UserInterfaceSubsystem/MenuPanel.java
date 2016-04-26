@@ -17,11 +17,11 @@ public class MenuPanel extends JPanel
 	{
 		//Panel Constructured
 		setLayout(null);
-		setPreferredSize(new Dimension(960,640));
+		setPreferredSize(new Dimension(960,832));
 		setBackground(Color.BLACK);
 		
 		//Background
-		logo = new ImageIcon("logo.jpg");
+		logo = new ImageIcon("src/Sources/Images/logo.jpg");
 	}
 	
 	//Methods

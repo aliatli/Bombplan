@@ -1,4 +1,5 @@
 
+<<<<<<< HEAD
 Project/src/ModelSubsystem/Player.java
 
 .idea/misc.xml
@@ -10,3 +11,10 @@ Project/src/ModelSubsystem/Player.java
 Project/src/ModelSubsystem/Player.java
 
 Project/src/ModelSubsystem/MapObject.java
+=======
+*.xml
+
+*.xml
+
+Project/.idea/workspace.xml
+>>>>>>> master

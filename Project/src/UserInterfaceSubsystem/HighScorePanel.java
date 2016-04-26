@@ -1,5 +1,8 @@
 package UserInterfaceSubsystem;
 
+import ControllerSubsystem.GameEngine;
+import ControllerSubsystem.StorageManager;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -13,14 +16,15 @@ public class HighScorePanel extends SideMenuPanel
 	JTextArea scores;
 	private JLabel title;
 	StorageManager x;
-	
+	GameEngine engine;
 	//Constructor	
 	public HighScorePanel()
 	{
 		super();
-		
-		x = new StorageManager();
-		
+
+		engine = GameEngine.getInstance();
+		x = engine.getStorageMan();
+
 		//Label initialized
 		title = new JLabel( "HighScore List" );
 		title.setSize(new Dimension(400,40));
@@ -32,7 +36,8 @@ public class HighScorePanel extends SideMenuPanel
 		//Text initialized
 		try
 		{			
-			scores = new JTextArea("No\tNickname\t\tPoint\n" + x.readFile("highScores.txt"));	
+			scores = new JTextArea("No\tNickname\t\tPoint\n" + x.readFile("src/Sources/txts/highScores.txt"));
+
 		}
 		catch (IOException e)
 		{						
@@ -40,7 +45,7 @@ public class HighScorePanel extends SideMenuPanel
 		}
 		scores.setSize(new Dimension(410,255));
 		scores.setLocation(290,370);
-		scores.setFont(new Font("Calibri", Font.PLAIN, 18));
+		scores.setFont(new Font("Calibri", Font.PLAIN, 15));
 		scores.setLineWrap(true);
 	    scores.setEditable(false);
 	    scores.setVisible(true);	  
