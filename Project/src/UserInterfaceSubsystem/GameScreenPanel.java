@@ -2,18 +2,22 @@ package UserInterfaceSubsystem;
 
 import ControllerSubsystem.*;
 import ModelSubsystem.*;
+import java.util.BitSet;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
+import javax.sound.sampled.*;
 
 public class GameScreenPanel extends JPanel
 {
 	//Properties
+	PauseMenuPanel pausePanel;
 	GameEngine engine;
 	GameMap    map;
 	Timer timer;
 	int time;
+	private BitSet keyBits;
 	
 	//Constructor
 	public GameScreenPanel()
@@ -27,9 +31,24 @@ public class GameScreenPanel extends JPanel
 		TimerListener timeListener = new TimerListener();
 		timer = new Timer(300, timeListener);
 		time = 0;
-
+		
+		pausePanel = new PauseMenuPanel();
+		pausePanel.setSize(new Dimension(600,300));
+		pausePanel.setLocation(180,266);
+		pausePanel.setVisible(false);
+		add(pausePanel);
+		
         engine = GameEngine.getInstance();
         map = engine.getMap();
+
+        timer.start();
+        
+        //Keys
+		keyBits = new BitSet(256);
+		KeyReader keyList = new KeyReader();
+		addKeyListener(keyList);
+		setFocusable(true);	
+		requestFocusInWindow(true);	
 
 	}
 	
@@ -65,27 +84,120 @@ public class GameScreenPanel extends JPanel
 				{
 					//Time increasing
 					time++;
-                    
-                    try {
-                        engine.update();
-                    } catch (Exception e) {
-                        if(e.getMessage().equalsIgnoreCase("gameover!")){
-                            gameOver();
-                        }
-                    }
-                    
-                    //Draw
-
-					if(time%1 == 0)//PlayerShip icon
-					{	
-						//drawImages();	
-						repaint();	
-					}	
-											
-					repaint();
+                               
+					try {
+                       	engine.update();
+	                } catch (Exception e) {
+	                    if(e.getMessage().equalsIgnoreCase("gameover!")){
+	                    	gameOver();
+	                    }
+	                }  
+	                    				
+					repaint();   						
 				}									
 			}
 		}	
+	}
+	
+	//Key Listener
+	private class KeyReader implements KeyListener
+	{
+		//Functions
+		public void keyPressed(KeyEvent event) 
+		{
+		    int keyCode = event.getKeyCode();
+		    keyBits.set(keyCode);
+		    
+			//Escape
+			if(KeyEvent.VK_ESCAPE == keyCode)
+			{
+				engine.stopGame();
+				
+				try 
+				{	
+					pausePanel.setVisible(true);
+					//removeKeyListener(keyList);
+				}
+			   	catch (Exception e) 
+				{
+			    	System.out.println("Exception is catched: " + e.getMessage());//Show the message of exception
+				}
+			}
+			
+			//Directions 
+			if(isKeyPressed(KeyEvent.VK_LEFT))
+			{
+				try 
+				{	
+					engine.getMovements().add(2);
+				}
+			   	catch (Exception e) 
+				{
+			    	System.out.println("Exception is catched: " + e.getMessage());//Show the message of exception
+				}
+			}
+			if(isKeyPressed(KeyEvent.VK_RIGHT))
+			{
+				try 
+				{	
+					engine.getMovements().add(0);				
+				}
+			   	catch (Exception e) 
+				{
+			    	System.out.println("Exception is catched: " + e.getMessage());//Show the message of exception
+				}
+			}
+			if(isKeyPressed(KeyEvent.VK_UP))
+			{
+				try 
+				{	
+					engine.getMovements().add(1);
+				}
+			   	catch (Exception e) 
+				{
+			    	System.out.println("Exception is catched: " + e.getMessage());//Show the message of exception
+				}
+			}
+			if(isKeyPressed(KeyEvent.VK_DOWN))
+			{
+				try 
+				{	
+					engine.getMovements().add(3);
+				}
+			   	catch (Exception e) 
+				{
+			    	System.out.println("Exception is catched: " + e.getMessage());//Show the message of exception
+				}
+			}
+			if(isKeyPressed(KeyEvent.VK_SPACE))
+			{
+				try 
+				{	
+					engine.getMovements().add(4);
+				}
+			   	catch (Exception e) 
+				{
+			    	System.out.println("Exception is catched: " + e.getMessage());//Show the message of exception
+				}
+			}	
+		}
+	
+		public void keyReleased(KeyEvent event) 
+		{		
+			int keyCode = event.getKeyCode();//Take key code
+		        
+		    keyBits.clear(keyCode);//Clear		
+		}
+	
+		public void keyTyped(KeyEvent event) 
+		{		    
+			// TODO Auto-generated method stub	
+		}
+		
+		public boolean isKeyPressed(final int keyCode) 
+		{
+		    return keyBits.get(keyCode);
+		}
 	}
 	
 }
