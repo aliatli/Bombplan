@@ -30,7 +30,7 @@ public class GameScreenPanel extends JPanel
 
         engine = GameEngine.getInstance();
         map = engine.getMap();
-        timer.start();
+
 	}
 	
 	//Methods
@@ -44,6 +44,8 @@ public class GameScreenPanel extends JPanel
 	
 	public void drawImages(Graphics g)
 	{
+		engine.setPaused(false);
+		timer.start();
 		map.drawAll(g);
 	}
     

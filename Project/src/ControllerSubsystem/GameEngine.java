@@ -30,7 +30,7 @@ public class GameEngine {
 
 
     private GameEngine(){
-        paused = false;
+        paused = true;
         currentLevel = 1;
         score = 0;
         time = DEFAULT_TIME;
@@ -45,12 +45,17 @@ public class GameEngine {
         }
 
     }
+
+    public void setPaused(boolean setVal){
+        paused = setVal;
+    }
 	public GameEngine createGame() {
 		if(uniqueInstance == null){
 			uniqueInstance = new GameEngine();
             return uniqueInstance;
 		}
         else{
+            paused = false;
             return uniqueInstance;
         }
 	}
@@ -60,7 +65,7 @@ public class GameEngine {
     }
 
 
-	public void movePlayer(int movement) throws Exception {
+	private void movePlayer(int movement) throws Exception {
         Player player = map.getPlayer();
         int t_x = player.getX();
         int t_y = player.getY();
@@ -99,17 +104,17 @@ public class GameEngine {
 
     }
 
-	public void startGameLoop() {
+	private void startGameLoop() {
         if (paused)
             paused = false;
 	}
 
-    public void stopGame() {
+    private void stopGame() {
         if (!paused)
             paused = true;
     }
     
-	public void plantBomb() {
+	private void plantBomb() {
 		Player player = map.getPlayer();
         Bomb bomb = new Bomb(player.getX(), player.getY(), player.getRange());
 
@@ -119,7 +124,7 @@ public class GameEngine {
 
 	}
 
-	public void changeSound() {
+	private void changeSound() {
         souMan.changeSound();
 	}
 
@@ -127,13 +132,13 @@ public class GameEngine {
         //TODO - what should this method do AMK?
 	}
 
-	public void nextLevel() {
+	private void nextLevel() {
 		this.stopGame();
   //      map.constructLevel(++currentLevel);
         this.startGameLoop();
 	}
 
-    public void healthDecrease() throws Exception {
+    private void healthDecrease() throws Exception {
         map.getPlayer().decreaseLife();
         if (map.getPlayer().getLife() == -1){
             gameOver();
@@ -147,7 +152,7 @@ public class GameEngine {
 	 *
      * @param objects
      */
-	public void destroyObjects(ArrayList<MapObject> objects) {
+	private void destroyObjects(ArrayList<MapObject> objects) {
 		map.removeObjects((MapObject[]) objects.toArray());
 	}
 
@@ -157,6 +162,14 @@ public class GameEngine {
 	 */
 	public void takeBonus(Bonus bonus) {
         map.getPlayer().takeBonus(bonus);
+        if (bonus instanceof BombTimerCanceller)
+            setDestroyBombs();
+        else if (bonus instanceof BombNumberExtender)
+            map.getPlayer().increaseBomb();
+        else if (bonus instanceof TimerReset)
+            time = DEFAULT_TIME;
+        else if (bonus instanceof RangeExtender)
+            map.getPlayer().increaseRange();
 	}
 
 
@@ -167,7 +180,7 @@ public class GameEngine {
         return uniqueInstance;
 	}
 
-    public void moveMonsters() throws Exception {
+    private void moveMonsters() throws Exception {
         ArrayList<Monster> monsters = map.getMonsters();
         for (Monster monster : monsters){
             int t_x = monster.getX();
@@ -249,7 +262,7 @@ public class GameEngine {
 
     public void update() throws Exception {
         if(!paused){
-            time++;
+            time--;
             if (!movements.isEmpty()){
                 for (int i = 0;movements.size()!= 0;){
                     movePlayer(movements.get(i));
