@@ -28,6 +28,7 @@ public class ScreenView
 	{
 		engine = GameEngine.getInstance();
 
+
 		//Frame initialized
 		frame = new JFrame("Bombplan");
         frame.setSize(960,832);

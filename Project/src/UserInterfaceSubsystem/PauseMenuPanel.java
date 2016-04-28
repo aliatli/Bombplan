@@ -42,9 +42,8 @@ public class PauseMenuPanel extends JPanel
 			
 	//Constructor
 	public PauseMenuPanel()
-	{		
+	{
 		engine = GameEngine.getInstance();
-
 		
 		//Panel constructed
 		setLayout(null);

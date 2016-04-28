@@ -56,7 +56,7 @@ public class GameScreenPanel extends JPanel
 	public void paintComponent(Graphics page)
 	{
 		super.paintComponent(page);//Default (must)
-		setFocusable(true);	
+		setFocusable(true);
 		requestFocusInWindow(true);	
 				
 		//Draw Images
