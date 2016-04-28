@@ -165,13 +165,15 @@ public class PauseMenuPanel extends JPanel
     		{
     			if(obj == newgame)
 				{		
-					setVisible(false);	
+					setVisible(false);
+					engine.resetEngine();	
+					(engine.getMap()).constructLevel(1);
 					//engine.restart();			
 				}				
     			if(obj == exittomenu)
 				{		
-					setVisible(false);
-					//engine.stopMusic();
+					setVisible(false);	
+					//engine.restart();
 					( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).getMain() );		
 				}
 				
@@ -183,6 +185,7 @@ public class PauseMenuPanel extends JPanel
     		}	
     		catch(Exception exc)//If there is exception (general) catch it
     		{    		
+    			exc.printStackTrace();
     			System.out.println("Exception is catched: " + exc.getMessage());//Show the message of exception
     		}										
 		}
