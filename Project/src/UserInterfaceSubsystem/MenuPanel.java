@@ -17,7 +17,7 @@ public class MenuPanel extends JPanel
 	{
 		//Panel Constructured
 		setLayout(null);
-		setPreferredSize(new Dimension(960,900));
+		setPreferredSize(new Dimension(960,832));
 		setBackground(Color.BLACK);
 		
 		//Background

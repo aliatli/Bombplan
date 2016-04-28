@@ -1,6 +1,6 @@
 package UserInterfaceSubsystem;
 
-import ControllerSubsystem.*;
+import ControllerSubsystem.GameEngine;
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -25,10 +25,8 @@ public class PauseMenuPanel extends JPanel
 	JPanel bottom;
 	
 	//Sliders
-	private JRadioButton musicBoxOn;
-	private JRadioButton musicBoxOff;
-	private JRadioButton soundBoxOn;
-	private JRadioButton soundBoxOff;
+	JSlider sound;
+	JSlider music;
 	
 	//Buttons
 	JButton newgame;
@@ -41,14 +39,11 @@ public class PauseMenuPanel extends JPanel
 		
 	//Engine
 	GameEngine engine;
-	StorageManager x;
-	String[] words;
 			
 	//Constructor
 	public PauseMenuPanel()
 	{		
-		engine = GameEngine.getInstance();
-		x = engine.getStorageMan();
+		engine.getInstance();
 		
 		//Panel constructed
 		setLayout(null);
@@ -87,49 +82,25 @@ public class PauseMenuPanel extends JPanel
 		bottom.setBackground( Color.RED );
 		bottom.setVisible(true);
 			
-    	//Check boxes Initialized
-   		musicBoxOn = new JRadioButton("On");
-		musicBoxOn.setSize(new Dimension(50,25));
-		musicBoxOn.setLocation(170,210);
-		musicBoxOn.setFont(new Font("Adobe Caslon Pro Bold", Font.PLAIN + Font.BOLD, 16));
-		musicBoxOn.setForeground(Color.WHITE);
-		musicBoxOn.setBackground(Color.BLACK);
-        musicBoxOn.setFocusPainted(false);
-        
-   		musicBoxOff = new JRadioButton("Off");
-		musicBoxOff.setSize(new Dimension(50,25));
-		musicBoxOff.setLocation(220,210);
-		musicBoxOff.setFont(new Font("Adobe Caslon Pro Bold", Font.PLAIN + Font.BOLD, 16));
-		musicBoxOff.setForeground(Color.WHITE);
-		musicBoxOff.setBackground(Color.BLACK);
-        musicBoxOff.setFocusPainted(false);
+    	//Sliders Initialized
+   		music = new JSlider(JSlider.HORIZONTAL, 0, 150, 0);//Dikey
+		music.setSize(new Dimension(120,20));
+		music.setLocation(170,210);
+   		music.setMaximum(1);
+   		music.setMinimum(0);
+   		music.setValue(1);
+   		music.setPaintLabels(true);//Set visible
+   		music.setPaintTicks(true);
    		
-		//Collective Work
-		ButtonGroup group1 = new ButtonGroup();//Ýkisinden biri seçilebilir
-        group1.add(musicBoxOn);
-        group1.add(musicBoxOff);
-        
-   		soundBoxOn = new JRadioButton("On");
-		soundBoxOn.setSize(new Dimension(50,25));
-		soundBoxOn.setLocation(310,210);
-		soundBoxOn.setFont(new Font("Adobe Caslon Pro Bold", Font.PLAIN + Font.BOLD, 16));
-		soundBoxOn.setForeground(Color.WHITE);
-		soundBoxOn.setBackground(Color.BLACK);
-        soundBoxOn.setFocusPainted(false);
+   		sound = new JSlider(JSlider.HORIZONTAL, 0, 150, 0);//Dikey
+		sound.setSize(new Dimension(120,20));
+		sound.setLocation(310,210);
+   		sound.setMaximum(1);
+   		sound.setMinimum(0);
+   		sound.setValue(1);
+   		sound.setPaintLabels(true);//Set visible
+   		sound.setPaintTicks(true);
    		
-   		soundBoxOff = new JRadioButton("Off");
-		soundBoxOff.setSize(new Dimension(50,25));
-		soundBoxOff.setLocation(360,210);
-		soundBoxOff.setFont(new Font("Adobe Caslon Pro Bold", Font.PLAIN + Font.BOLD, 16));
-		soundBoxOff.setForeground(Color.WHITE);
-		soundBoxOff.setBackground(Color.BLACK);
-        soundBoxOff.setFocusPainted(false);
-        
-		//Collective Work
-        ButtonGroup group2 = new ButtonGroup();//Ýkisinden biri seçilebilir
-        group2.add(soundBoxOn);
-		group2.add(soundBoxOff);
-		
 		//JButtons initialized
 		newgame = new JButton("New Game");
 		newgame.setSize(new Dimension(200,40));
@@ -153,32 +124,17 @@ public class PauseMenuPanel extends JPanel
         backtogame.setFocusPainted(false);
 	        	
 		//Booleans
-		try
-		{		
-	   		words = ( x.readFile("src/sources/txts/settings.txt") ).split(",");//Take every word
-		}
-		catch (IOException e)
-		{						
-			e.printStackTrace();
-		}
+		isSound = true;
+		isMusic = true; 
 		
-		isMusic = Boolean.parseBoolean(words[0]);
-		isSound = Boolean.parseBoolean(words[1]);
-					
 		//Add listener to buttons
 		newgame.addActionListener(new ButtonListener());
 		exittomenu.addActionListener(new ButtonListener());
 		backtogame.addActionListener(new ButtonListener());
 		
-		//Listener for gender radio buttons
-		RadioButtonListener1 listener1 = new RadioButtonListener1();
-		musicBoxOn.addActionListener(listener1);
-		musicBoxOff.addActionListener(listener1);
-		
-		//Listener for age radio buttons
-		RadioButtonListener2 listener2 = new RadioButtonListener2();
-		soundBoxOn.addActionListener(listener2);
-		soundBoxOff.addActionListener(listener2);
+   		SlideListener listener = new SlideListener();
+		music.addChangeListener(listener);
+		sound.addChangeListener(listener);
 									
 		//Add components in panel
 		add(title);
@@ -186,10 +142,8 @@ public class PauseMenuPanel extends JPanel
 		add(soundL);
 		add(top);
 		add(bottom);
-		add(musicBoxOn);
-		add(musicBoxOff);
-		add(soundBoxOn);
-		add(soundBoxOff);
+		add(music);
+		add(sound);
 		add(newgame);	
 		add(exittomenu);	
 		add(backtogame);				
@@ -211,14 +165,14 @@ public class PauseMenuPanel extends JPanel
     		{
     			if(obj == newgame)
 				{		
-					setVisible(false);
-					engine.restart();
+					setVisible(false);	
+					//engine.restart();			
 				}				
     			if(obj == exittomenu)
 				{		
-					setVisible(false);	
-					engine.restart();
-					( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).getMain() );
+					setVisible(false);
+					//engine.stopMusic();
+					( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).getMain() );		
 				}
 				
     			if(obj == backtogame)
@@ -229,67 +183,29 @@ public class PauseMenuPanel extends JPanel
     		}	
     		catch(Exception exc)//If there is exception (general) catch it
     		{    		
-    			exc.printStackTrace();
     			System.out.println("Exception is catched: " + exc.getMessage());//Show the message of exception
     		}										
 		}
 						
 	}
 	
-   	public class RadioButtonListener1 implements ActionListener//Inner class for JRadioButton objects
-	{
-		public void actionPerformed(ActionEvent event)//For music
-		{
-			Object source = event.getSource();//Get source information
-						
-			if(source == musicBoxOn)
-				isMusic = true;			
-			else
-				isMusic = false;
-				
-			audioStatus();					
-		}	
-	}
-	
-	public class RadioButtonListener2 implements ActionListener//Inner class for JRadioButton objects
-	{
-		public void actionPerformed(ActionEvent event)//For sound
-		{
-			Object source = event.getSource();//Get source information
-			
-			if(source == soundBoxOn)
-				isSound	= true;
-			else
-				isSound = false;
-				
-			audioStatus();			
-		}	
-	}
-	
-	public void audioStatus()
-	{
-		//Record
-		String record = Boolean.toString(isMusic) + "," + Boolean.toString(isSound);//Write current records to the file
-		
-		try
-		{			
-			x.writeFile(record, "src/sources/txts/settings.txt");
-		}
-		catch(Exception e)
-		{
-			System.out.print("Exception is catched: " + e.getMessage());
-		}
-		
-		if(isMusic)
-			engine.setMusicEffect(true);
-		else
-			engine.setMusicEffect(false);
-		
-		if(isSound)
-			engine.setSoundEffect(true);
-		else
-			engine.setSoundEffect(false);			
-	}
+   	private class SlideListener implements ChangeListener//Listener class (inner)
+   	{
+   		public void stateChanged(ChangeEvent event)//only method for ChangeListener interface
+   		{
+   			//Change music volume
+   			if(music.getValue() == 0)
+   				isMusic = false;
+   			else
+   				isMusic = true;   				
+   			
+   			//Change sound volume
+   			if(sound.getValue() == 0)
+   				isSound = false;   			
+   			else
+   				isSound = true;   	
+   		}	
+   	}	
    			
 }
 
