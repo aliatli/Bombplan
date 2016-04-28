@@ -18,8 +18,7 @@ public class GameMap {
 		Scanner scanner;
 		int number;
 		Wall wall;
-
-
+		
 		// get file
 		if( level == 1)
 			scanner = new Scanner(new File("src/sources/txts/level1.txt"));
@@ -54,7 +53,12 @@ public class GameMap {
 		// player, door, bonus, monster
 		randomObjectPlanter( level);
 	}
-
+	
+	public void resetMap()
+	{
+		uniqueInstance = new GameMap();
+	}	
+		
 	public boolean addObject(MapObject object) {
 		if (map[object.getY()][object.getX()] == null){
 			map[object.getY()][object.getX()] = new ArrayList<MapObject>();

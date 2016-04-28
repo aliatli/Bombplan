@@ -17,6 +17,7 @@ public class HighScorePanel extends SideMenuPanel
 	private JLabel title;
 	StorageManager x;
 	GameEngine engine;
+	
 	//Constructor	
 	public HighScorePanel()
 	{
