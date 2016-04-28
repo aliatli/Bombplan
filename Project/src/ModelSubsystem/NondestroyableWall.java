@@ -3,9 +3,9 @@ package ModelSubsystem;
 public class NondestroyableWall extends Wall {
 
 	public NondestroyableWall(int x, int y) {
-		super.x = x;
-		super.y = y;
-		super.type = 2;
+		this.x = x;
+		this.y = y;
+		this.type = 2;
 		getIconFromFile("src/Sources/Images/nonDestroyableWall.png");
 	}
 

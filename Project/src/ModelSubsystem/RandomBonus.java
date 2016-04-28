@@ -4,9 +4,9 @@ public class RandomBonus extends Bonus {
 
 	public RandomBonus( int x, int y) {
 		super();
-		super.x = x;
-		super.y = y;
-		super.type = 1;
+		this.x = x;
+		this.y = y;
+		this.type = 1;
 		getIconFromFile("src/Sources/Images/randomBonus.png");
 	}
 

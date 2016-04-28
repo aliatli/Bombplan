@@ -2,11 +2,11 @@ package ModelSubsystem;
 
 public class FastMonster extends Monster{
     public FastMonster( int x, int y){
-        super.x = x;
-        super.y = y;
-        super.type = 2;
-        super.velocity = 5;
-        super.destroyable = true;
+        this.x = x;
+        this.y = y;
+        type = 2;
+        velocity = 5;
+        destroyable = true;
         getIconFromFile("src/Sources/Images/fastMonster.png");
     }
 }

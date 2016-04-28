@@ -40,6 +40,7 @@ public class GameScreenPanel extends JPanel
 		
         engine = GameEngine.getInstance();
         map = engine.getMap();
+
         timer.start();
         
         //Keys
@@ -48,6 +49,7 @@ public class GameScreenPanel extends JPanel
 		addKeyListener(keyList);
 		setFocusable(true);	
 		requestFocusInWindow(true);	
+
 	}
 	
 	//Methods
@@ -61,6 +63,8 @@ public class GameScreenPanel extends JPanel
 	
 	public void drawImages(Graphics g)
 	{
+		engine.setPaused(false);
+//		timer.start();
 		map.drawAll(g);
 	}
     
@@ -74,25 +78,18 @@ public class GameScreenPanel extends JPanel
 	{
 		public void actionPerformed(ActionEvent event)//Time passing
 		{
-			if(true)//Always
-			{	
 				if(!engine.isPaused())
 				{
 					//Time increasing
-					time++;
-                               
+
 					try {
-                       	engine.update();
-	                } catch (Exception e) {
-	                    if(e.getMessage().equalsIgnoreCase("gameover!")){
-	                    	gameOver();
-	                    }
-	                }  
-	                    				
-					repaint();   						
+						engine.update();
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					repaint();
 				}									
-			}
-		}	
+		}
 	}
 	
 	//Key Listener
@@ -107,7 +104,7 @@ public class GameScreenPanel extends JPanel
 			//Escape
 			if(KeyEvent.VK_ESCAPE == keyCode)
 			{
-				engine.stopGame();
+				engine.setPaused(true);
 				
 				try 
 				{	
@@ -121,7 +118,7 @@ public class GameScreenPanel extends JPanel
 			}
 			
 			//Directions 
-			if(isKeyPressed(KeyEvent.VK_LEFT))
+			else if(isKeyPressed(KeyEvent.VK_LEFT))
 			{
 				try 
 				{	
@@ -132,18 +129,18 @@ public class GameScreenPanel extends JPanel
 			    	System.out.println("Exception is catched: " + e.getMessage());//Show the message of exception
 				}
 			}
-			if(isKeyPressed(KeyEvent.VK_RIGHT))
+			else if(isKeyPressed(KeyEvent.VK_RIGHT))
 			{
 				try 
 				{	
-					engine.getMovements().add(0);				
+					engine.getMovements().add(0);
 				}
 			   	catch (Exception e) 
 				{
 			    	System.out.println("Exception is catched: " + e.getMessage());//Show the message of exception
 				}
 			}
-			if(isKeyPressed(KeyEvent.VK_UP))
+			else if(isKeyPressed(KeyEvent.VK_UP))
 			{
 				try 
 				{	
@@ -154,7 +151,7 @@ public class GameScreenPanel extends JPanel
 			    	System.out.println("Exception is catched: " + e.getMessage());//Show the message of exception
 				}
 			}
-			if(isKeyPressed(KeyEvent.VK_DOWN))
+			else if(isKeyPressed(KeyEvent.VK_DOWN))
 			{
 				try 
 				{	
@@ -165,7 +162,7 @@ public class GameScreenPanel extends JPanel
 			    	System.out.println("Exception is catched: " + e.getMessage());//Show the message of exception
 				}
 			}
-			if(isKeyPressed(KeyEvent.VK_SPACE))
+			else if(isKeyPressed(KeyEvent.VK_SPACE))
 			{
 				try 
 				{	
@@ -175,7 +172,19 @@ public class GameScreenPanel extends JPanel
 				{
 			    	System.out.println("Exception is catched: " + e.getMessage());//Show the message of exception
 				}
-			}	
+			}
+
+			else if(isKeyPressed(KeyEvent.VK_CONTROL))
+			{
+				try
+				{
+					engine.getMovements().add(5);
+				}
+				catch (Exception e)
+				{
+					System.out.println("Exception is catched: " + e.getMessage());//Show the message of exception
+				}
+			}
 		}
 	
 		public void keyReleased(KeyEvent event) 

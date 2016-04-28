@@ -20,7 +20,7 @@ public class Bonus extends MapObject {
 		this.active = true;
 	}
 	protected Bonus() {
-		super.destroyable = true;
+		this.destroyable = true;
 		this.point = 100;
 	}
 	public int getType(){
