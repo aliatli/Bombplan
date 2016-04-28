@@ -44,6 +44,7 @@ public class PauseMenuPanel extends JPanel
 	public PauseMenuPanel()
 	{		
 		engine = GameEngine.getInstance();
+
 		
 		//Panel constructed
 		setLayout(null);
@@ -166,12 +167,13 @@ public class PauseMenuPanel extends JPanel
     			if(obj == newgame)
 				{		
 					setVisible(false);	
-					engine.restart();	
+
+					//engine.restart();			
 				}				
     			if(obj == exittomenu)
 				{		
-					setVisible(false);	
-					//engine.restart();
+					setVisible(false);
+					//engine.stopMusic();
 					( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).getMain() );		
 				}
 				
@@ -183,7 +185,6 @@ public class PauseMenuPanel extends JPanel
     		}	
     		catch(Exception exc)//If there is exception (general) catch it
     		{    		
-    			exc.printStackTrace();
     			System.out.println("Exception is catched: " + exc.getMessage());//Show the message of exception
     		}										
 		}

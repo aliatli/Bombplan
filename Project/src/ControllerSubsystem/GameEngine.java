@@ -41,7 +41,6 @@ public class GameEngine {
         destroyBombs = false;
         storageMan = new StorageManager();
         colMan = new CollisionManager();
-        souMan = new SoundManager();
         map = GameMap.getInstance();
         bombTimers = new HashMap<Bomb, Integer>();
         try {
@@ -51,25 +50,7 @@ public class GameEngine {
         }
 
     }
-    
-    public void restart(){   
-        currentLevel = 1;
-        score = 0;
-        movements = new ArrayList<Integer>();
-        destroyBombs = false;
-        storageMan = new StorageManager();
-        colMan = new CollisionManager();
-        souMan = new SoundManager();
-        map = GameMap.getInstance();
-        bombTimers = new HashMap<Bomb, Integer>();
-        startGameLoop();
-        try {
-            map.constructLevel(1);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
-    }
-	
+
     public void setPaused(boolean setVal){
         paused = setVal;
     }
@@ -95,7 +76,7 @@ public class GameEngine {
         int t_y = player.getY();
         int x = t_x;
         int y = t_y;
-				
+
         if (movement == 0)
             x++;
         else if (movement == 1)
@@ -173,9 +154,7 @@ public class GameEngine {
 
     private void healthDecrease() throws Exception {
         map.getPlayer().decreaseLife();
-        
-        playDeadEffect();
-        
+
         if (map.getPlayer().getLife() == -1){
             gameOver();
         }
@@ -189,9 +168,7 @@ public class GameEngine {
      * @param objects
      */
 	private void destroyObjects(ArrayList<MapObject> objects) {
-		
-		playBombEffect();
-		
+
 		map.removeObjects(objects);
 	}
 
@@ -229,6 +206,7 @@ public class GameEngine {
 
 	}
 
+
 	public static GameEngine getInstance() {
         if (uniqueInstance == null){
             uniqueInstance = new GameEngine();
@@ -242,16 +220,6 @@ public class GameEngine {
         }
         return true;
     }
-    
-    public int getScore()
-    {
-    	return score;
-    }
-    
-    public int getLevel()
-    {
-    	return currentLevel;
-    }	
 
     private void moveMonsters() throws Exception {
         ArrayList<Monster> monsters = map.getMonsters();
@@ -394,34 +362,8 @@ public class GameEngine {
                 destroyBombs = false;
             }
 
-            score += 2;
+            score += 5;
         }
     }
-
-	//Music Methods
-	public void playGameMusic()
-	{
-		souMan.playGameMusic();
-	}
-	
-	public void stopGameMusic()
-	{
-		souMan.stopGameMusic();
-	}
-
-	/*public void playWalkEffect()
-	{
-		souMan.walkEffect();
-	}*/
-	
-	public void playBombEffect()
-	{
-		souMan.bombEffect();
-	}
-	
-	public void playDeadEffect()
-	{
-		souMan.deadEffect();
-	}
 
 }
