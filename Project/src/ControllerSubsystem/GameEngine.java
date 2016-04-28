@@ -16,7 +16,7 @@ import java.util.zip.Inflater;
 public class GameEngine {
     private final int BOMB_TIME = 5;
     private final int DEFAULT_TIME = 120;
-
+	
     private int score;
     private int currentLevel;
     private int time;
@@ -30,7 +30,8 @@ public class GameEngine {
     private StorageManager storageMan;
     private Player player;
     GameMap map;
-
+    private boolean soundEffect;
+    private boolean musicEffect;
 
     private GameEngine(){
         paused = true;
@@ -41,6 +42,7 @@ public class GameEngine {
         destroyBombs = false;
         storageMan = new StorageManager();
         colMan = new CollisionManager();
+        souMan = new SoundManager();
         map = GameMap.getInstance();
         bombTimers = new HashMap<Bomb, Integer>();
         try {
@@ -50,7 +52,25 @@ public class GameEngine {
         }
 
     }
-
+    
+    public void restart(){   
+        currentLevel = 1;
+        score = 0;
+        movements = new ArrayList<Integer>();
+        destroyBombs = false;
+        storageMan = new StorageManager();
+        colMan = new CollisionManager();
+        souMan = new SoundManager();
+        map = GameMap.getInstance();
+        bombTimers = new HashMap<Bomb, Integer>();
+        startGameLoop();
+        try {
+            map.constructLevel(1);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+	
     public void setPaused(boolean setVal){
         paused = setVal;
     }
@@ -76,7 +96,7 @@ public class GameEngine {
         int t_y = player.getY();
         int x = t_x;
         int y = t_y;
-
+				
         if (movement == 0)
             x++;
         else if (movement == 1)
@@ -122,6 +142,11 @@ public class GameEngine {
 	public void startGameLoop() {
         if (paused)
             paused = false;
+            
+        if(musicEffect)
+        	playGameMusic();
+        else
+        	stopGameMusic();
 	}
 
     private void stopGame() {
@@ -154,6 +179,10 @@ public class GameEngine {
 
     private void healthDecrease() throws Exception {
         map.getPlayer().decreaseLife();
+        
+        if(soundEffect)
+        	playDeadEffect();
+        
         if (map.getPlayer().getLife() == -1){
             gameOver();
         }
@@ -167,6 +196,10 @@ public class GameEngine {
      * @param objects
      */
 	private void destroyObjects(ArrayList<MapObject> objects) {
+		
+        if(soundEffect)
+			playBombEffect();
+		
 		map.removeObjects(objects);
 	}
 
@@ -204,7 +237,6 @@ public class GameEngine {
 
 	}
 
-
 	public static GameEngine getInstance() {
         if (uniqueInstance == null){
             uniqueInstance = new GameEngine();
@@ -218,6 +250,16 @@ public class GameEngine {
         }
         return true;
     }
+    
+    public int getScore()
+    {
+    	return score;
+    }
+    
+    public int getLevel()
+    {
+    	return currentLevel;
+    }	
 
     private void moveMonsters() throws Exception {
         ArrayList<Monster> monsters = map.getMonsters();
@@ -315,7 +357,7 @@ public class GameEngine {
 
     public void update() throws Exception {
         if(!paused ){
-
+						
             if (a % 50 == 0) {
                 a++;
                 time--;
@@ -360,12 +402,49 @@ public class GameEngine {
                 destroyBombs = false;
             }
 
-            score += 5;
+            score += 2;
         }
     }
 
+	//Music Methods
+	public void playGameMusic()
+	{
+		souMan.playGameMusic();
+	}
+	
+	public void stopGameMusic()
+	{
+		souMan.stopGameMusic();
+	}
 
+	/*public void playWalkEffect()
+	{
+		souMan.walkEffect();
+	}*/
+	
+	public void playBombEffect()
+	{
+		souMan.bombEffect();
+	}
+	
+	public void playDeadEffect()
+	{
+		souMan.deadEffect();
+	}
+	
+	public void setSoundEffect(boolean given)
+	{
+		soundEffect = given;
+	}
 
-
-
+	public void setMusicEffect(boolean given)
+	{
+		musicEffect = given;
+	}
+	
+	public boolean getMusicEffect()
+	{
+		return musicEffect;
+	}
+	
 }
