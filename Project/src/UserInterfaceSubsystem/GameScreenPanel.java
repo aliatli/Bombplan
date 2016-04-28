@@ -143,6 +143,7 @@ public class GameScreenPanel extends JPanel
 			if(KeyEvent.VK_ESCAPE == keyCode)
 			{
 				engine.setPaused(true);
+				engine.stopGameMusic();
 				
 				try 
 				{	
@@ -212,7 +213,7 @@ public class GameScreenPanel extends JPanel
 				}
 			}
 
-			else if(isKeyPressed(KeyEvent.VK_SHIFT))
+			else if(isKeyPressed(KeyEvent.VK_D))
 			{
 				try
 				{
