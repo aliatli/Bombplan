@@ -51,8 +51,21 @@ public class GameEngine {
 
     }
     
-    public void resetEngine(){
-    	uniqueInstance = new GameEngine();
+    public void restart(){   
+        currentLevel = 1;
+        score = 0;
+        movements = new ArrayList<Integer>();
+        destroyBombs = false;
+        storageMan = new StorageManager();
+        colMan = new CollisionManager();
+        map = GameMap.getInstance();
+        bombTimers = new HashMap<Bomb, Integer>();
+        startGameLoop();
+        try {
+            map.constructLevel(1);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
     }
 
     public void setPaused(boolean setVal){
@@ -373,7 +386,7 @@ public class GameEngine {
                 destroyBombs = false;
             }
 
-            score += 5;
+            score += 2;
         }
     }
 
