@@ -50,6 +50,10 @@ public class GameEngine {
         }
 
     }
+    
+    public void resetEngine(){
+    	uniqueInstance = new GameEngine();
+    }
 
     public void setPaused(boolean setVal){
         paused = setVal;
@@ -204,7 +208,6 @@ public class GameEngine {
 
 	}
 
-
 	public static GameEngine getInstance() {
         if (uniqueInstance == null){
             uniqueInstance = new GameEngine();
@@ -218,6 +221,16 @@ public class GameEngine {
         }
         return true;
     }
+    
+    public int getScore()
+    {
+    	return score;
+    }
+    
+    public int getLevel()
+    {
+    	return currentLevel;
+    }	
 
     private void moveMonsters() throws Exception {
         ArrayList<Monster> monsters = map.getMonsters();
