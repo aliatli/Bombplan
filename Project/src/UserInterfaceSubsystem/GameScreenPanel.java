@@ -85,10 +85,10 @@ public class GameScreenPanel extends JPanel
 	public void paintComponent(Graphics page)
 	{
 		super.paintComponent(page);//Default (must)
-					
+		
 		setFocusable(true);	
 		requestFocusInWindow(true);	
-							
+				
 		//Draw Images
 		drawImages(page);		
 	}
@@ -109,21 +109,21 @@ public class GameScreenPanel extends JPanel
 	private class TimerListener implements ActionListener//Listener for timer
 	{
 		public void actionPerformed(ActionEvent event)//Time passing
-		{						
-			if(!engine.isPaused())
-			{
-				//Time increasing
+		{
+				if(!engine.isPaused())
+				{
+					//Time increasing
 
-				try {
-					engine.update();
-					life.setText("LIFE: " + engine.getMap().getPlayer().getLife());
-					point.setText("POINTS: " + engine.getScore());
-					level.setText("LEVEL: " + engine.getLevel());
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				repaint();
-			}									
+					try {
+						engine.update();
+						life.setText("LIFE: " + engine.getMap().getPlayer().getLife());
+						point.setText("POINTS: " + engine.getScore());
+						level.setText("LEVEL: " + engine.getLevel());
+					} catch (Exception e) {
+						e.printStackTrace();
+					}
+					repaint();
+				}									
 		}
 	}
 	
@@ -143,6 +143,7 @@ public class GameScreenPanel extends JPanel
 			if(KeyEvent.VK_ESCAPE == keyCode)
 			{
 				engine.setPaused(true);
+				engine.stopGameMusic();
 				
 				try 
 				{	
