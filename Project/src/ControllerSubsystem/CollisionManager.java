@@ -15,6 +15,8 @@ public class CollisionManager {
 	public ArrayList checkCollision(int range, Bomb bomb, ArrayList<MapObject>[][] map) {
 		ArrayList<MapObject> objs = new ArrayList<MapObject>();
 
+        objs.add(bomb);
+
         for (int i = bomb.getX() + 1; i <= bomb.getX() + range && i < 15; i++){
             if (collisionAdd(objs, map, i, bomb.getY()))
                 break;
@@ -81,10 +83,10 @@ public class CollisionManager {
                 }
             }
 
-            if (monster && player)
+            if (monster || player)
                 return -1;
 
-            if (bonus && player && !monster)
+            if (bonus)
                 return 2;
         }
         return 0;

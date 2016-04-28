@@ -174,7 +174,7 @@ public class GameScreenPanel extends JPanel
 				}
 			}
 
-			else if(isKeyPressed(KeyEvent.VK_CONTROL))
+			else if(isKeyPressed(KeyEvent.VK_SHIFT))
 			{
 				try
 				{
