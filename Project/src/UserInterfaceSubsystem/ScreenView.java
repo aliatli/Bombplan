@@ -78,7 +78,6 @@ public class ScreenView
 	{
 		try{			
 			engine.restart();
-			engine.playGameMusic();
 		}
 		catch(Exception e)
 		{
