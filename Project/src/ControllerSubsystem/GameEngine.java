@@ -41,6 +41,7 @@ public class GameEngine {
         destroyBombs = false;
         storageMan = new StorageManager();
         colMan = new CollisionManager();
+        souMan = new SoundManager();
         map = GameMap.getInstance();
         bombTimers = new HashMap<Bomb, Integer>();
         try {
@@ -58,6 +59,7 @@ public class GameEngine {
         destroyBombs = false;
         storageMan = new StorageManager();
         colMan = new CollisionManager();
+        souMan = new SoundManager();
         map = GameMap.getInstance();
         bombTimers = new HashMap<Bomb, Integer>();
         startGameLoop();
@@ -67,7 +69,7 @@ public class GameEngine {
             e.printStackTrace();
         }
     }
-
+	
     public void setPaused(boolean setVal){
         paused = setVal;
     }
@@ -93,7 +95,7 @@ public class GameEngine {
         int t_y = player.getY();
         int x = t_x;
         int y = t_y;
-
+				
         if (movement == 0)
             x++;
         else if (movement == 1)
@@ -171,6 +173,9 @@ public class GameEngine {
 
     private void healthDecrease() throws Exception {
         map.getPlayer().decreaseLife();
+        
+        playDeadEffect();
+        
         if (map.getPlayer().getLife() == -1){
             gameOver();
         }
@@ -184,6 +189,9 @@ public class GameEngine {
      * @param objects
      */
 	private void destroyObjects(ArrayList<MapObject> objects) {
+		
+		playBombEffect();
+		
 		map.removeObjects(objects);
 	}
 
@@ -390,8 +398,30 @@ public class GameEngine {
         }
     }
 
+	//Music Methods
+	public void playGameMusic()
+	{
+		souMan.playGameMusic();
+	}
+	
+	public void stopGameMusic()
+	{
+		souMan.stopGameMusic();
+	}
 
-
-
+	/*public void playWalkEffect()
+	{
+		souMan.walkEffect();
+	}*/
+	
+	public void playBombEffect()
+	{
+		souMan.bombEffect();
+	}
+	
+	public void playDeadEffect()
+	{
+		souMan.deadEffect();
+	}
 
 }
