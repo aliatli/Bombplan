@@ -8,6 +8,7 @@ import java.awt.event.ActionListener;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.Random;
 import java.util.Set;
 import java.util.concurrent.ExecutionException;
 import java.util.zip.Inflater;
@@ -27,6 +28,7 @@ public class GameEngine {
     private SoundManager souMan;
     private static GameEngine uniqueInstance;
     private StorageManager storageMan;
+    private Player player;
     GameMap map;
 
 
@@ -69,7 +71,7 @@ public class GameEngine {
 
 
 	private void movePlayer(int movement) throws Exception {
-        Player player = map.getPlayer();
+        player = map.getPlayer();
         int t_x = player.getX();
         int t_y = player.getY();
         int x = t_x;
@@ -87,6 +89,9 @@ public class GameEngine {
             plantBomb();
             return;
         }
+        else if (movement == 5){
+
+        }
 
 
         int collision = colMan.checkCollision(x, y, map.getMap());
@@ -97,16 +102,18 @@ public class GameEngine {
         }
 
         if (collision == 2) {
-            ArrayList<MapObject> slot = map.getObj(player.getY(), player.getX());
+            ArrayList<MapObject> slot = map.getObj(player.getX(), player.getY());
             for (int i = 0; i < slot.size(); i++){
                 if (slot.get(i) instanceof Bonus) {
-                    takeBonus((Bonus) slot.get(i));
-                    score+= ((Bonus)slot.get(i)).getPoint();
+                    Bonus bonus = (Bonus)slot.get(i);
+                    takeBonus(bonus);
+                    map.removeObject(bonus);
+                    score+= bonus.getPoint();
                 }
             }
         }
         else if (collision == -1){
-            healthDecrease();
+//            healthDecrease();
         }
         map.addObject(player);
 
@@ -168,15 +175,33 @@ public class GameEngine {
 	 * @param bonus
 	 */
 	public void takeBonus(Bonus bonus) {
-        map.getPlayer().takeBonus(bonus);
+        player.takeBonus(bonus);
         if (bonus instanceof BombTimerCanceller)
             setDestroyBombs();
         else if (bonus instanceof BombNumberExtender)
-            map.getPlayer().increaseBomb();
-        else if (bonus instanceof TimerReset)
-            time = DEFAULT_TIME;
+            player.increaseBomb();
+        else if (bonus instanceof TimerReset) {
+         //   time = DEFAULT_TIME;
+        }
         else if (bonus instanceof RangeExtender)
-            map.getPlayer().increaseRange();
+            player.increaseRange();
+        else if (bonus instanceof RandomBonus)
+        {
+            Random rand = new Random();
+            int rand_num = rand.nextInt(3);
+            switch (rand_num){
+                case 0: setDestroyBombs();
+                    break;
+                case 1: player.increaseBomb();
+                    break;
+                case 2: time = DEFAULT_TIME;
+                    break;
+                case 3: player.increaseRange();
+                    break;
+            }
+
+        }
+
 	}
 
 
@@ -272,7 +297,7 @@ public class GameEngine {
     }
 
     public void setDestroyBombs(){
-        if (map.getPlayer().isBombControllable())
+        if (!player.isBombControllable())
             destroyBombs = true;
     }
     
@@ -286,13 +311,13 @@ public class GameEngine {
 		return paused;
 	}
 
-    static int a = 500000;
+    static int a = 0;
 
     public void update() throws Exception {
         if(!paused ){
 
             if (a % 50 == 0) {
-                a--;
+                a++;
                 time--;
             }
             if (!movements.isEmpty()){
@@ -311,14 +336,16 @@ public class GameEngine {
 
             if (!map.getPlayer().isBombControllable()) {
                 Set<Bomb> keys = bombTimers.keySet();
-                for (Bomb key : keys) {
-                    if (bombTimers.get(key) != 0) {
-                        bombTimers.put(key, bombTimers.get(key) - 1);
-                    } else {
-                        bombTimers.remove(key);
-                        key.destroy();
-                        ArrayList colliding = colMan.checkCollision(key.getRange(), key, map.getMap());
-                        destroyObjects(colliding);
+                if (keys.size() > 0) {
+                    for (Bomb key : keys) {
+                        if (bombTimers.get(key) != 0) {
+                            bombTimers.put(key, bombTimers.get(key) - 1);
+                        } else {
+                            bombTimers.remove(key);
+                            key.destroy();
+                            ArrayList colliding = colMan.checkCollision(key.getRange(), key, map.getMap());
+                            destroyObjects(colliding);
+                        }
                     }
                 }
             }
