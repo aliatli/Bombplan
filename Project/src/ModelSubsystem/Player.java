@@ -1,5 +1,6 @@
 package ModelSubsystem;
 
+import java.awt.*;
 import java.util.Random;
 
 public class Player extends MapObject implements Movable{
@@ -42,13 +43,21 @@ public class Player extends MapObject implements Movable{
 		return this.bombControllable;
 	}
 
+	public void setBombControllable(boolean val){
+		this.bombControllable = val;
+	}
 	public Player( int x, int y) {
 		this.range = 1;
 		this.x = x;
 		this.y = y;
+		this.draw_x = x*64;
+		this.draw_y = y*64;
 		this.destroyable = true;
 		getIconFromFile("src/Sources/Images/player.png");
 	}
+
+
+
 
 	public int getVelocity() {
 		return this.velocity;
@@ -66,10 +75,21 @@ public class Player extends MapObject implements Movable{
 	}
 
 	public void move(int movement){
-        if (movement == 0) this.setX(getX()+1);
-        else if (movement == 1) this.setY(getY()-1);
-        else if (movement == 2) this.setX(getX()-1);
-        else if (movement == 3) this.setY(getY()+1);
+        if (movement == 0){
+			this.setX(getX()+1);
+
+		}
+        else if (movement == 1){
+			this.setY(getY()-1);
+		}
+        else if (movement == 2){
+			this.setX(getX()-1);
+		}
+        else if (movement == 3){
+			this.setY(getY()+1);
+		}
+
+
 	}
 	public void increaseBomb(){
 		maxBomb++;
@@ -79,4 +99,9 @@ public class Player extends MapObject implements Movable{
 		range++;
 	}
 
+	public void draw(Graphics g) {
+
+		icon.paintIcon(null, g, this.getIncrementX(), this.getIncrementY());
+
+	}
 }

@@ -18,14 +18,15 @@ public class GameScreenPanel extends JPanel
 	Timer timer;
 	int time;
 
-	//Labels
 	JLabel life;
 	JLabel point;
 	JLabel level;
-	
+	JLabel timer_label;
+
 	//Constructor
 	public GameScreenPanel()
 	{
+
 		//Panel constructured
 		setLayout(null);
 		setBackground(Color.BLACK);
@@ -33,7 +34,7 @@ public class GameScreenPanel extends JPanel
 		
 		//Timer initialized
 		TimerListener timeListener = new TimerListener();
-		timer = new Timer(300, timeListener);
+		timer = new Timer(25, timeListener);
 		time = 0;
 		
 		pausePanel = new PauseMenuPanel();
@@ -41,29 +42,33 @@ public class GameScreenPanel extends JPanel
 		pausePanel.setLocation(180,266);
 		pausePanel.setVisible(false);
 		add(pausePanel);
-		
-		//Labels initialized		
+
+		//Labels initialized
 		life = new JLabel( "LIFE:" );
 		life.setSize(new Dimension(260,30));
 		life.setLocation(60,850);
 		life.setFont(new Font("Calibri", Font.PLAIN + Font.BOLD, 30));
 		life.setForeground(new Color(207,54,30));
 		life.setVisible(true);
-				
 		point = new JLabel( "POINTS:" );
 		point.setSize(new Dimension(260,30));
-		point.setLocation(320,850);
+		point.setLocation(270,850);
 		point.setFont(new Font("Calibri", Font.PLAIN + Font.BOLD, 30));
 		point.setForeground(new Color(207,54,30));
 		point.setVisible(true);
-				
 		level = new JLabel( "LEVEL:" );
 		level.setSize(new Dimension(260,30));
-		level.setLocation(600,850);
+		level.setLocation(480,850);
 		level.setFont(new Font("Calibri", Font.PLAIN + Font.BOLD, 30));
 		level.setForeground(new Color(207,54,30));
 		level.setVisible(true);
-		
+		timer_label = new JLabel( "LEVEL:" );
+		timer_label.setSize(new Dimension(260,30));
+		timer_label.setLocation(690,850);
+		timer_label.setFont(new Font("Calibri", Font.PLAIN + Font.BOLD, 30));
+		timer_label.setForeground(new Color(207,54,30));
+		timer_label.setVisible(true);
+
         engine = GameEngine.getInstance();
         map = engine.getMap();
 
@@ -73,22 +78,22 @@ public class GameScreenPanel extends JPanel
 		KeyReader keyList = new KeyReader();
 		addKeyListener(keyList);
 		setFocusable(true);	
-		requestFocusInWindow(true);	
-			
-		//Components
+		requestFocusInWindow(true);
+
 		add(life);
 		add(level);
 		add(point);
+		add(timer_label);
+
 	}
 	
 	//Methods
 	public void paintComponent(Graphics page)
 	{
 		super.paintComponent(page);//Default (must)
-					
-		setFocusable(true);	
+		setFocusable(true);
 		requestFocusInWindow(true);	
-							
+				
 		//Draw Images
 		drawImages(page);		
 	}
@@ -109,21 +114,25 @@ public class GameScreenPanel extends JPanel
 	private class TimerListener implements ActionListener//Listener for timer
 	{
 		public void actionPerformed(ActionEvent event)//Time passing
-		{						
-			if(!engine.isPaused())
-			{
-				//Time increasing
+		{
+				if(!engine.isPaused())
+				{
+					//Time increasing
 
-				try {
-					engine.update();
-					life.setText("LIFE: " + engine.getMap().getPlayer().getLife());
-					point.setText("POINTS: " + engine.getScore());
-					level.setText("LEVEL: " + engine.getLevel());
-				} catch (Exception e) {
-					e.printStackTrace();
-				}
-				repaint();
-			}									
+					try {
+						engine.update();
+						life.setText("LIFE: " + engine.getMap().getPlayer().getLife());
+						point.setText("POINTS: " + engine.getScore());
+						level.setText("LEVEL: " + engine.getLevel());
+						timer_label.setText("TIME: " + engine.getTime());
+
+					} catch (Exception e) {
+						if (e.getMessage().equalsIgnoreCase("gameover!")){
+                            engine.restart();
+                        }
+					}
+					repaint();
+				}									
 		}
 	}
 	
@@ -131,14 +140,11 @@ public class GameScreenPanel extends JPanel
 	private class KeyReader implements KeyListener
 	{
 		private BitSet keyBits = new BitSet(256);
-		
 		//Functions
-		@Override
 		public void keyPressed(KeyEvent event) 
 		{
 		    int keyCode = event.getKeyCode();
-		    keyBits.set(keyCode);
-		    		    
+			keyBits.set(keyCode);
 			//Escape
 			if(KeyEvent.VK_ESCAPE == keyCode)
 			{
@@ -212,7 +218,7 @@ public class GameScreenPanel extends JPanel
 				}
 			}
 
-			else if(isKeyPressed(KeyEvent.VK_D))
+			else if(isKeyPressed(KeyEvent.VK_SHIFT))
 			{
 				try
 				{
@@ -224,22 +230,20 @@ public class GameScreenPanel extends JPanel
 				}
 			}
 		}
-		
-		@Override
-		public void keyReleased(KeyEvent event) 
-		{		
+
+		public void keyReleased(KeyEvent event)
+		{
 			int keyCode = event.getKeyCode();//Take key code
-		        
-		    keyBits.clear(keyCode);//Clear		
+
+		    keyBits.clear(keyCode);//Clear
 		}
-		
-		@Override
-		public void keyTyped(KeyEvent event) 
-		{		    
-			// TODO Auto-generated method stub	
+
+		public void keyTyped(KeyEvent event)
+		{
+			// TODO Auto-generated method stub
 		}
-		
-		public boolean isKeyPressed(final int keyCode) 
+
+		public boolean isKeyPressed(final int keyCode)
 		{
 		    return keyBits.get(keyCode);
 		}

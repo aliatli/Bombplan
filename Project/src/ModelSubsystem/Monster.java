@@ -1,5 +1,7 @@
 package ModelSubsystem;
 
+import java.awt.*;
+
 public class Monster extends MapObject {
 
 	/*
@@ -21,4 +23,10 @@ public class Monster extends MapObject {
 		return this.velocity;
 	}
 
+
+	public void draw(Graphics g) {
+
+		icon.paintIcon(null, g, this.getIncrementX(), this.getIncrementY());
+
+	}
 }

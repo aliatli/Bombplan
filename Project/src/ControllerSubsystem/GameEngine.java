@@ -15,8 +15,8 @@ import java.util.zip.Inflater;
 
 public class GameEngine {
     private final int BOMB_TIME = 5;
-    private final int DEFAULT_TIME = 120;
-	
+    private final int DEFAULT_TIME = 360;
+
     private int score;
     private int currentLevel;
     private int time;
@@ -32,6 +32,7 @@ public class GameEngine {
     GameMap map;
     private boolean soundEffect;
     private boolean musicEffect;
+
 
     private GameEngine(){
         paused = true;
@@ -52,8 +53,19 @@ public class GameEngine {
         }
 
     }
-    
-    public void restart(){   
+
+    public int getScore(){
+        return this.score;
+    }
+
+    public int getLevel(){
+        return this.currentLevel;
+    }
+
+    public int getTime(){
+        return this.time;
+    }
+    public void restart(){
         currentLevel = 1;
         score = 0;
         movements = new ArrayList<Integer>();
@@ -62,6 +74,8 @@ public class GameEngine {
         colMan = new CollisionManager();
         souMan = new SoundManager();
         map = GameMap.getInstance();
+//        map.resetMap();
+        time = DEFAULT_TIME;
         bombTimers = new HashMap<Bomb, Integer>();
         startGameLoop();
         try {
@@ -70,20 +84,10 @@ public class GameEngine {
             e.printStackTrace();
         }
     }
-	
+
     public void setPaused(boolean setVal){
         paused = setVal;
     }
-	public GameEngine createGame() {
-		if(uniqueInstance == null){
-			uniqueInstance = new GameEngine();
-            return uniqueInstance;
-		}
-        else{
-            paused = false;
-            return uniqueInstance;
-        }
-	}
 
     public StorageManager getStorageMan(){
         return storageMan;
@@ -96,7 +100,7 @@ public class GameEngine {
         int t_y = player.getY();
         int x = t_x;
         int y = t_y;
-				
+
         if (movement == 0)
             x++;
         else if (movement == 1)
@@ -106,11 +110,14 @@ public class GameEngine {
         else if (movement == 3)
             y++;
         else if (movement == 4) {
+            if (bombTimers.size() < player.getMaxBomb())
             plantBomb();
             return;
         }
         else if (movement == 5){
-
+            if (player.isBombControllable()){
+                destroyBombs = true;
+            }
         }
 
 
@@ -142,11 +149,10 @@ public class GameEngine {
 	public void startGameLoop() {
         if (paused)
             paused = false;
-            
         if(musicEffect)
-        	playGameMusic();
+            playGameMusic();
         else
-        	stopGameMusic();
+            stopGameMusic();
 	}
 
     private void stopGame() {
@@ -159,8 +165,7 @@ public class GameEngine {
         Bomb bomb = new Bomb(player.getX(), player.getY(), player.getRange());
 
         map.addObject(bomb);
-        if (!player.isBombControllable())
-            bombTimers.put(bomb, BOMB_TIME);
+        bombTimers.put(bomb, BOMB_TIME);
 
 	}
 
@@ -179,10 +184,7 @@ public class GameEngine {
 
     private void healthDecrease() throws Exception {
         map.getPlayer().decreaseLife();
-        
-        if(soundEffect)
-        	playDeadEffect();
-        
+
         if (map.getPlayer().getLife() == -1){
             gameOver();
         }
@@ -195,11 +197,11 @@ public class GameEngine {
 	 *
      * @param objects
      */
-	private void destroyObjects(ArrayList<MapObject> objects) {
-		
-        if(soundEffect)
-			playBombEffect();
-		
+	private void destroyObjects(ArrayList<MapObject> objects) throws Exception {
+
+        for (MapObject obj : objects)
+            if (obj instanceof Player)
+                gameOver();
 		map.removeObjects(objects);
 	}
 
@@ -209,8 +211,9 @@ public class GameEngine {
 	 */
 	public void takeBonus(Bonus bonus) {
         player.takeBonus(bonus);
-        if (bonus instanceof BombTimerCanceller)
-            setDestroyBombs();
+        if (bonus instanceof BombTimerCanceller) {
+            player.setBombControllable(true);
+        }
         else if (bonus instanceof BombNumberExtender)
             player.increaseBomb();
         else if (bonus instanceof TimerReset) {
@@ -223,7 +226,7 @@ public class GameEngine {
             Random rand = new Random();
             int rand_num = rand.nextInt(3);
             switch (rand_num){
-                case 0: setDestroyBombs();
+                case 0: player.setBombControllable(true);
                     break;
                 case 1: player.increaseBomb();
                     break;
@@ -234,8 +237,9 @@ public class GameEngine {
             }
 
         }
+        score+=20;
+    }
 
-	}
 
 	public static GameEngine getInstance() {
         if (uniqueInstance == null){
@@ -250,16 +254,6 @@ public class GameEngine {
         }
         return true;
     }
-    
-    public int getScore()
-    {
-    	return score;
-    }
-    
-    public int getLevel()
-    {
-    	return currentLevel;
-    }	
 
     private void moveMonsters() throws Exception {
         ArrayList<Monster> monsters = map.getMonsters();
@@ -330,7 +324,7 @@ public class GameEngine {
             if (slot == null)
                 return true;
             for (MapObject aSlot : slot) {
-                if (aSlot instanceof Wall)
+                if (aSlot instanceof Wall || aSlot instanceof Bomb)
                     return false;
             }
             return true;
@@ -338,10 +332,7 @@ public class GameEngine {
         return false;
     }
 
-    public void setDestroyBombs(){
-        if (!player.isBombControllable())
-            destroyBombs = true;
-    }
+
     
     public GameMap getMap()
     {
@@ -353,98 +344,108 @@ public class GameEngine {
 		return paused;
 	}
 
-    static int a = 0;
+    int a = 0;
+
+    private boolean isDestroyBombs(){
+        return this.destroyBombs;
+    }
 
     public void update() throws Exception {
         if(!paused ){
-						
-            if (a % 50 == 0) {
-                a++;
-                time--;
-            }
-            if (!movements.isEmpty()){
-                for (int i = 0;movements.size()!= 0;){
-                    movePlayer(movements.get(i));
-                    movements.remove(i);
-                }
-            }
-            if (time % 2 == 1)
-                moveMonsters();
-            try{
-                map.getPlayer().isBombControllable();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
 
-            if (!map.getPlayer().isBombControllable()) {
-                Set<Bomb> keys = bombTimers.keySet();
-                if (keys.size() > 0) {
-                    for (Bomb key : keys) {
-                        if (bombTimers.get(key) != 0) {
-                            bombTimers.put(key, bombTimers.get(key) - 1);
-                        } else {
-                            bombTimers.remove(key);
-                            key.destroy();
-                            ArrayList colliding = colMan.checkCollision(key.getRange(), key, map.getMap());
-                            destroyObjects(colliding);
+
+            if (a < 10) {
+                a++;
+            }
+            else{
+                time--;
+                if (time < 0){
+                    throw new Exception("gameOver!");
+                }
+                a = 0;
+                moveMonsters();
+                if (!movements.isEmpty()){
+                    for (int i = 0;movements.size()!= 0;){
+                        movePlayer(movements.get(i));
+                        movements.remove(i);
+                    }
+                }
+                try{
+                    map.getPlayer().isBombControllable();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+                if (!map.getPlayer().isBombControllable()) {
+                    Set<Bomb> keys = bombTimers.keySet();
+                    if (keys.size() > 0) {
+                        for (Bomb key : keys) {
+                            if (bombTimers.get(key) != 0) {
+                                bombTimers.put(key, bombTimers.get(key) - 1);
+                            } else {
+                                bombTimers.remove(key);
+                                key.destroy();
+                                ArrayList colliding = colMan.checkCollision(key.getRange(), key, map.getMap());
+                                destroyObjects(colliding);
+                            }
                         }
                     }
                 }
-            }
-            else if (destroyBombs){
-                Set<Bomb> keys = bombTimers.keySet();
-                for (Bomb key : keys) {
-                    bombTimers.remove(key);
-                    key.destroy();
-                    ArrayList colliding = colMan.checkCollision(key.getRange(), key, map.getMap());
-                    destroyObjects(colliding);
+                else if(isDestroyBombs()){
+                    Set<Bomb> keys = bombTimers.keySet();
+                    for (Bomb key : keys) {
+                        bombTimers.remove(key);
+                        key.destroy();
+                        ArrayList colliding = colMan.checkCollision(key.getRange(), key, map.getMap());
+                        destroyObjects(colliding);
+                    }
+                    destroyBombs = false;
                 }
-                destroyBombs = false;
+
+                score += 2;
             }
 
-            score += 2;
         }
     }
+    //Music Methods
+    public void playGameMusic()
+    {
+        souMan.playGameMusic();
+    }
 
-	//Music Methods
-	public void playGameMusic()
-	{
-		souMan.playGameMusic();
-	}
-	
-	public void stopGameMusic()
-	{
-		souMan.stopGameMusic();
-	}
+    public void stopGameMusic()
+    {
+        souMan.stopGameMusic();
+    }
 
 	/*public void playWalkEffect()
 	{
 		souMan.walkEffect();
 	}*/
-	
-	public void playBombEffect()
-	{
-		souMan.bombEffect();
-	}
-	
-	public void playDeadEffect()
-	{
-		souMan.deadEffect();
-	}
-	
-	public void setSoundEffect(boolean given)
-	{
-		soundEffect = given;
-	}
 
-	public void setMusicEffect(boolean given)
-	{
-		musicEffect = given;
-	}
-	
-	public boolean getMusicEffect()
-	{
-		return musicEffect;
-	}
-	
+    public void playBombEffect()
+    {
+        souMan.bombEffect();
+    }
+
+    public void playDeadEffect()
+    {
+        souMan.deadEffect();
+    }
+
+    public void setSoundEffect(boolean given)
+    {
+        soundEffect = given;
+    }
+
+    public void setMusicEffect(boolean given)
+    {
+        musicEffect = given;
+    }
+
+    public boolean getMusicEffect()
+    {
+        return musicEffect;
+    }
+
 }

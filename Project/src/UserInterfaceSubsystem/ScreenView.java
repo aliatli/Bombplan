@@ -1,6 +1,6 @@
 package UserInterfaceSubsystem;
 
-import ControllerSubsystem.*;
+import ControllerSubsystem.GameEngine;
 import UserInterfaceSubsystem.*;
 import java.util.ArrayList;
 import java.awt.*;
@@ -23,15 +23,14 @@ public class ScreenView
 	private SettingsPanel settingsP;
 	private HelpPanel helpP;
 	private GameScreenPanel gameP;
-	
-	//Engine
-	GameEngine engine;
+	private GameEngine engine;
 	
 	//Constructor
 	private ScreenView()
 	{
 		engine = GameEngine.getInstance();
-		
+
+
 		//Frame initialized
 		frame = new JFrame("Bombplan");
         frame.setSize(960,900);
@@ -77,13 +76,13 @@ public class ScreenView
 	
 	public JPanel newGame()
 	{
-		try{			
+		try{
 			engine.restart();
 		}
 		catch(Exception e)
 		{
 			System.out.print("Exception is catched: " + e.getMessage());
-		}	
+		}
 		return gameP;
 	}
 	
@@ -116,5 +115,4 @@ public class ScreenView
 	{
 		return helpP;
 	}
-		
 }
