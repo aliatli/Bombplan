@@ -20,9 +20,9 @@ public class Bomb extends MapObject implements Destroyable {
 	}
 
 	public Bomb(int x, int y, int range) {
-		super.x = x;
-		super.y = y;
-		super.destroyable = true;
+		this.x = x;
+		this.y = y;
+		this.destroyable = true;
 		this.range = range;
 		getIconFromFile("src/Sources/Images/bomb.png");
 	}

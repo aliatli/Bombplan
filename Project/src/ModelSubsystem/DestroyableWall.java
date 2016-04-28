@@ -7,9 +7,9 @@ public class DestroyableWall extends Wall {
 	public int getPoint(){ return this.point;}
 
 	public DestroyableWall(int x, int y) {
-		super.x = x;
-		super.y = y;
-		super.type = 1;
+		this.x = x;
+		this.y = y;
+		this.type = 1;
 		getIconFromFile("src/Sources/Images/destroyableWall.png");
 	}
 }

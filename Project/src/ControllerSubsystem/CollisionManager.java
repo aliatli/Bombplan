@@ -15,19 +15,19 @@ public class CollisionManager {
 	public ArrayList checkCollision(int range, Bomb bomb, ArrayList<MapObject>[][] map) {
 		ArrayList<MapObject> objs = new ArrayList<MapObject>();
 
-        for (int i = bomb.getX() + 1; i <= bomb.getX() + range && i < map.length; i++){
+        for (int i = bomb.getX() + 1; i <= bomb.getX() + range && i < 15; i++){
             if (collisionAdd(objs, map, i, bomb.getY()))
                 break;
         }
-        for (int i = bomb.getY() + 1; i <= bomb.getY() + range && i < map[0].length; i++){
+        for (int i = bomb.getY() + 1; i <= bomb.getY() + range && i < 13; i++){
             if (collisionAdd(objs, map, bomb.getX(), i))
                 break;
         }
-        for (int i = bomb.getX() - 1; i >= bomb.getX() - range && i >= 0; i++){
+        for (int i = bomb.getX() - 1; i >= bomb.getX() - range && i >= 0; i--){
             if (collisionAdd(objs, map, i, bomb.getY()))
                 break;
         }
-        for (int i = bomb.getY() - 1; i >= bomb.getX() - range && i >= 0; i++){
+        for (int i = bomb.getY() - 1; i >= bomb.getY() - range && i >= 0; i--){
             if (collisionAdd(objs, map, bomb.getX(), i))
                 break;
         }
@@ -36,37 +36,28 @@ public class CollisionManager {
 	}
 
     private boolean collisionAdd(ArrayList<MapObject> objs, ArrayList<MapObject>[][] map, int x, int y){
-        if (map[x][y] == null)
+        if (map[y][x] == null)
             return false;
 
-        boolean bonus = false;
-        boolean monster = false;
-        boolean wall = false;
-        boolean player = false;
-        int index = 0;
-
-        for (int j = 0; j < map[x][y].size(); j++) {
-            if (map[x][y].get(j) instanceof Wall){
-                wall = true;
-                objs.add(map[x][y].get(j));
+        for (int j = 0; j < map[y][x].size(); j++) {
+            if (map[y][x].get(j) instanceof DestroyableWall){
+                objs.add(map[y][x].get(j));
+                return true;
             }
-            else if (map[x][y].get(j) instanceof Player){
-                player = true;
-                objs.add(map[x][y].get(j));
+            else if (map[y][x].get(j) instanceof Bonus){
+                objs.add(map[y][x].get(j));
+                return true;
             }
-            else if (map[x][y].get(j) instanceof Monster){
-                monster = true;
-                objs.add(map[x][y].get(j));
+            else if (map[y][x].get(j) instanceof Monster){
+                objs.add(map[y][x].get(j));
+                return true;
             }
-            else if (map[x][y].get(j) instanceof Bonus){
-                bonus = true;
-                index = j;
+            else if (map[y][x].get(j) instanceof Player){
+                objs.add(map[y][x].get(j));
+                return true;
             }
         }
-        if (!player && !wall && !monster && bonus){
-            objs.add(map[x][y].get(index));
-        }
-        return wall || bonus || monster || player;
+        return true;
     }
 
 	/**
@@ -77,15 +68,15 @@ public class CollisionManager {
         boolean bonus = false;
         boolean monster = false;
         boolean player = false;
-        if (map[x][y] != null) {
-            for (int i = 0; i < map[x][y].size(); i++) {
-                if (map[x][y].get(i) instanceof Wall) {
+        if (map[y][x] != null) {
+            for (int i = 0; i < map[y][x].size(); i++) {
+                if (map[y][x].get(i) instanceof Wall) {
                     return 1;
-                } else if (map[x][y].get(i) instanceof Bonus) {
+                } else if (map[y][x].get(i) instanceof Bonus) {
                     bonus = true;
-                } else if (map[x][y].get(i) instanceof Monster) {
+                } else if (map[y][x].get(i) instanceof Monster) {
                     monster = true;
-                } else if (map[x][y].get(i) instanceof Monster) {
+                } else if (map[y][x].get(i) instanceof Player) {
                     player = true;
                 }
             }

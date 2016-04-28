@@ -159,7 +159,7 @@ public class PauseMenuPanel extends JPanel
 	{
 		public void actionPerformed(ActionEvent event)//Takes event as a parameter
 		{
-			Object obj = event.getSource();//Basýlan tuþ
+			Object obj = event.getSource();//Basï¿½lan tuï¿½
 			
 			try//Try it
     		{
@@ -178,7 +178,7 @@ public class PauseMenuPanel extends JPanel
     			if(obj == backtogame)
 				{	
 					setVisible(false);
-					engine.startGameLoop();		
+					engine.startGameLoop();
 				}
     		}	
     		catch(Exception exc)//If there is exception (general) catch it
