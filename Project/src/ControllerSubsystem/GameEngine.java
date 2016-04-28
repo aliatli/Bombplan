@@ -16,7 +16,7 @@ import java.util.zip.Inflater;
 public class GameEngine {
     private final int BOMB_TIME = 5;
     private final int DEFAULT_TIME = 120;
-	
+
     private int score;
     private int currentLevel;
     private int time;
@@ -30,8 +30,7 @@ public class GameEngine {
     private StorageManager storageMan;
     private Player player;
     GameMap map;
-    private boolean soundEffect;
-    private boolean musicEffect;
+
 
     private GameEngine(){
         paused = true;
@@ -142,11 +141,6 @@ public class GameEngine {
 	public void startGameLoop() {
         if (paused)
             paused = false;
-            
-        if(musicEffect)
-        	playGameMusic();
-        else
-        	stopGameMusic();
 	}
 
     private void stopGame() {
@@ -180,8 +174,7 @@ public class GameEngine {
     private void healthDecrease() throws Exception {
         map.getPlayer().decreaseLife();
         
-        if(soundEffect)
-        	playDeadEffect();
+        playDeadEffect();
         
         if (map.getPlayer().getLife() == -1){
             gameOver();
@@ -197,8 +190,7 @@ public class GameEngine {
      */
 	private void destroyObjects(ArrayList<MapObject> objects) {
 		
-        if(soundEffect)
-			playBombEffect();
+		playBombEffect();
 		
 		map.removeObjects(objects);
 	}
@@ -357,7 +349,7 @@ public class GameEngine {
 
     public void update() throws Exception {
         if(!paused ){
-						
+
             if (a % 50 == 0) {
                 a++;
                 time--;
@@ -431,20 +423,5 @@ public class GameEngine {
 	{
 		souMan.deadEffect();
 	}
-	
-	public void setSoundEffect(boolean given)
-	{
-		soundEffect = given;
-	}
 
-	public void setMusicEffect(boolean given)
-	{
-		musicEffect = given;
-	}
-	
-	public boolean getMusicEffect()
-	{
-		return musicEffect;
-	}
-	
 }
