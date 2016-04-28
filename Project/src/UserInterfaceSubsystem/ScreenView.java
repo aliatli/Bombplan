@@ -31,6 +31,7 @@ public class ScreenView
 	private ScreenView()
 	{
 		engine = GameEngine.getInstance();
+		
 		//Frame initialized
 		frame = new JFrame("Bombplan");
         frame.setSize(960,900);
@@ -78,7 +79,6 @@ public class ScreenView
 	{
 		try{			
 			engine.restart();
-			engine.playGameMusic();
 		}
 		catch(Exception e)
 		{
@@ -116,4 +116,5 @@ public class ScreenView
 	{
 		return helpP;
 	}
+		
 }
