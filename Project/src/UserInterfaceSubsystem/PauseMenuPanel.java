@@ -43,7 +43,7 @@ public class PauseMenuPanel extends JPanel
 	//Constructor
 	public PauseMenuPanel()
 	{		
-		engine.getInstance();
+		engine = GameEngine.getInstance();
 		
 		//Panel constructed
 		setLayout(null);
@@ -165,10 +165,8 @@ public class PauseMenuPanel extends JPanel
     		{
     			if(obj == newgame)
 				{		
-					setVisible(false);
-					engine.resetEngine();	
-					(engine.getMap()).constructLevel(1);
-					//engine.restart();			
+					setVisible(false);	
+					engine.restart();	
 				}				
     			if(obj == exittomenu)
 				{		
