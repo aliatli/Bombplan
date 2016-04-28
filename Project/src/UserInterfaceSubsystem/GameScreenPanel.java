@@ -17,11 +17,16 @@ public class GameScreenPanel extends JPanel
 	GameMap    map;
 	Timer timer;
 	int time;
-	private BitSet keyBits;
-	
+
+	JLabel life;
+	JLabel point;
+	JLabel level;
+	JLabel timer_label;
+
 	//Constructor
 	public GameScreenPanel()
 	{
+
 		//Panel constructured
 		setLayout(null);
 		setBackground(Color.BLACK);
@@ -29,7 +34,7 @@ public class GameScreenPanel extends JPanel
 		
 		//Timer initialized
 		TimerListener timeListener = new TimerListener();
-		timer = new Timer(300, timeListener);
+		timer = new Timer(25, timeListener);
 		time = 0;
 		
 		pausePanel = new PauseMenuPanel();
@@ -37,18 +42,48 @@ public class GameScreenPanel extends JPanel
 		pausePanel.setLocation(180,266);
 		pausePanel.setVisible(false);
 		add(pausePanel);
-		
+
+		//Labels initialized
+		life = new JLabel( "LIFE:" );
+		life.setSize(new Dimension(260,30));
+		life.setLocation(60,850);
+		life.setFont(new Font("Calibri", Font.PLAIN + Font.BOLD, 30));
+		life.setForeground(new Color(207,54,30));
+		life.setVisible(true);
+		point = new JLabel( "POINTS:" );
+		point.setSize(new Dimension(260,30));
+		point.setLocation(270,850);
+		point.setFont(new Font("Calibri", Font.PLAIN + Font.BOLD, 30));
+		point.setForeground(new Color(207,54,30));
+		point.setVisible(true);
+		level = new JLabel( "LEVEL:" );
+		level.setSize(new Dimension(260,30));
+		level.setLocation(480,850);
+		level.setFont(new Font("Calibri", Font.PLAIN + Font.BOLD, 30));
+		level.setForeground(new Color(207,54,30));
+		level.setVisible(true);
+		timer_label = new JLabel( "LEVEL:" );
+		timer_label.setSize(new Dimension(260,30));
+		timer_label.setLocation(690,850);
+		timer_label.setFont(new Font("Calibri", Font.PLAIN + Font.BOLD, 30));
+		timer_label.setForeground(new Color(207,54,30));
+		timer_label.setVisible(true);
+
         engine = GameEngine.getInstance();
         map = engine.getMap();
 
         timer.start();
         
         //Keys
-		keyBits = new BitSet(256);
 		KeyReader keyList = new KeyReader();
 		addKeyListener(keyList);
 		setFocusable(true);	
-		requestFocusInWindow(true);	
+		requestFocusInWindow(true);
+
+		add(life);
+		add(level);
+		add(point);
+		add(timer_label);
 
 	}
 	
@@ -89,9 +124,12 @@ public class GameScreenPanel extends JPanel
 						life.setText("LIFE: " + engine.getMap().getPlayer().getLife());
 						point.setText("POINTS: " + engine.getScore());
 						level.setText("LEVEL: " + engine.getLevel());
+						timer_label.setText("TIME: " + engine.getTime());
 
 					} catch (Exception e) {
-						e.printStackTrace();
+						if (e.getMessage().equalsIgnoreCase("gameover!")){
+                            engine.restart();
+                        }
 					}
 					repaint();
 				}									
@@ -101,12 +139,12 @@ public class GameScreenPanel extends JPanel
 	//Key Listener
 	private class KeyReader implements KeyListener
 	{
+		private BitSet keyBits = new BitSet(256);
 		//Functions
 		public void keyPressed(KeyEvent event) 
 		{
 		    int keyCode = event.getKeyCode();
-		    keyBits.set(keyCode);
-		    
+			keyBits.set(keyCode);
 			//Escape
 			if(KeyEvent.VK_ESCAPE == keyCode)
 			{
@@ -192,20 +230,20 @@ public class GameScreenPanel extends JPanel
 				}
 			}
 		}
-	
-		public void keyReleased(KeyEvent event) 
-		{		
+
+		public void keyReleased(KeyEvent event)
+		{
 			int keyCode = event.getKeyCode();//Take key code
-		        
-		    keyBits.clear(keyCode);//Clear		
+
+		    keyBits.clear(keyCode);//Clear
 		}
-	
-		public void keyTyped(KeyEvent event) 
-		{		    
-			// TODO Auto-generated method stub	
+
+		public void keyTyped(KeyEvent event)
+		{
+			// TODO Auto-generated method stub
 		}
-		
-		public boolean isKeyPressed(final int keyCode) 
+
+		public boolean isKeyPressed(final int keyCode)
 		{
 		    return keyBits.get(keyCode);
 		}

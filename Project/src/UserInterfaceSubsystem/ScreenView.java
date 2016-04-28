@@ -1,5 +1,6 @@
 package UserInterfaceSubsystem;
 
+import ControllerSubsystem.GameEngine;
 import UserInterfaceSubsystem.*;
 import java.util.ArrayList;
 import java.awt.*;
@@ -22,6 +23,7 @@ public class ScreenView
 	private SettingsPanel settingsP;
 	private HelpPanel helpP;
 	private GameScreenPanel gameP;
+	private GameEngine engine;
 	
 	//Constructor
 	private ScreenView()
@@ -31,7 +33,7 @@ public class ScreenView
 
 		//Frame initialized
 		frame = new JFrame("Bombplan");
-        frame.setSize(960,832);
+        frame.setSize(960,900);
 		frame.setResizable(false);//Not changable
         frame.setVisible(true);			
 		frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
@@ -74,6 +76,13 @@ public class ScreenView
 	
 	public JPanel newGame()
 	{
+		try{
+			engine.restart();
+		}
+		catch(Exception e)
+		{
+			System.out.print("Exception is catched: " + e.getMessage());
+		}
 		return gameP;
 	}
 	

@@ -55,6 +55,10 @@ public class GameMap {
 		randomObjectPlanter( level);
 	}
 
+
+	public void resetMap(){
+		uniqueInstance = new GameMap();
+	}
 	public boolean addObject(MapObject object) {
 		if (map[object.getY()][object.getX()] == null){
 			map[object.getY()][object.getX()] = new ArrayList<MapObject>();

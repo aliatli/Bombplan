@@ -72,7 +72,7 @@ public class CollisionManager {
         boolean player = false;
         if (map[y][x] != null) {
             for (int i = 0; i < map[y][x].size(); i++) {
-                if (map[y][x].get(i) instanceof Wall) {
+                if (map[y][x].get(i) instanceof Wall || map[y][x].get(i) instanceof Bomb) {
                     return 1;
                 } else if (map[y][x].get(i) instanceof Bonus) {
                     bonus = true;

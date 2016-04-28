@@ -166,13 +166,13 @@ public class PauseMenuPanel extends JPanel
     			if(obj == newgame)
 				{		
 					setVisible(false);	
+					engine.restart();
 
-					//engine.restart();			
 				}				
     			if(obj == exittomenu)
 				{		
 					setVisible(false);
-					//engine.stopMusic();
+					//engine.restart();
 					( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).getMain() );		
 				}
 				

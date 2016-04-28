@@ -15,7 +15,7 @@ import java.util.zip.Inflater;
 
 public class GameEngine {
     private final int BOMB_TIME = 5;
-    private final int DEFAULT_TIME = 120;
+    private final int DEFAULT_TIME = 360;
 
     private int score;
     private int currentLevel;
@@ -51,19 +51,39 @@ public class GameEngine {
 
     }
 
+    public int getScore(){
+        return this.score;
+    }
+
+    public int getLevel(){
+        return this.currentLevel;
+    }
+
+    public int getTime(){
+        return this.time;
+    }
+    public void restart(){
+        currentLevel = 1;
+        score = 0;
+        movements = new ArrayList<Integer>();
+        destroyBombs = false;
+        storageMan = new StorageManager();
+        colMan = new CollisionManager();
+        map = GameMap.getInstance();
+//        map.resetMap();
+        time = DEFAULT_TIME;
+        bombTimers = new HashMap<Bomb, Integer>();
+        startGameLoop();
+        try {
+            map.constructLevel(1);
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
+
     public void setPaused(boolean setVal){
         paused = setVal;
     }
-	public GameEngine createGame() {
-		if(uniqueInstance == null){
-			uniqueInstance = new GameEngine();
-            return uniqueInstance;
-		}
-        else{
-            paused = false;
-            return uniqueInstance;
-        }
-	}
 
     public StorageManager getStorageMan(){
         return storageMan;
@@ -86,11 +106,14 @@ public class GameEngine {
         else if (movement == 3)
             y++;
         else if (movement == 4) {
+            if (bombTimers.size() < player.getMaxBomb())
             plantBomb();
             return;
         }
         else if (movement == 5){
-
+            if (player.isBombControllable()){
+                destroyBombs = true;
+            }
         }
 
 
@@ -134,8 +157,7 @@ public class GameEngine {
         Bomb bomb = new Bomb(player.getX(), player.getY(), player.getRange());
 
         map.addObject(bomb);
-        if (!player.isBombControllable())
-            bombTimers.put(bomb, BOMB_TIME);
+        bombTimers.put(bomb, BOMB_TIME);
 
 	}
 
@@ -167,8 +189,11 @@ public class GameEngine {
 	 *
      * @param objects
      */
-	private void destroyObjects(ArrayList<MapObject> objects) {
+	private void destroyObjects(ArrayList<MapObject> objects) throws Exception {
 
+        for (MapObject obj : objects)
+            if (obj instanceof Player)
+                gameOver();
 		map.removeObjects(objects);
 	}
 
@@ -178,8 +203,9 @@ public class GameEngine {
 	 */
 	public void takeBonus(Bonus bonus) {
         player.takeBonus(bonus);
-        if (bonus instanceof BombTimerCanceller)
-            setDestroyBombs();
+        if (bonus instanceof BombTimerCanceller) {
+            player.setBombControllable(true);
+        }
         else if (bonus instanceof BombNumberExtender)
             player.increaseBomb();
         else if (bonus instanceof TimerReset) {
@@ -192,7 +218,7 @@ public class GameEngine {
             Random rand = new Random();
             int rand_num = rand.nextInt(3);
             switch (rand_num){
-                case 0: setDestroyBombs();
+                case 0: player.setBombControllable(true);
                     break;
                 case 1: player.increaseBomb();
                     break;
@@ -203,8 +229,8 @@ public class GameEngine {
             }
 
         }
-
-	}
+        score+=20;
+    }
 
 
 	public static GameEngine getInstance() {
@@ -290,7 +316,7 @@ public class GameEngine {
             if (slot == null)
                 return true;
             for (MapObject aSlot : slot) {
-                if (aSlot instanceof Wall)
+                if (aSlot instanceof Wall || aSlot instanceof Bomb)
                     return false;
             }
             return true;
@@ -298,10 +324,7 @@ public class GameEngine {
         return false;
     }
 
-    public void setDestroyBombs(){
-        if (!player.isBombControllable())
-            destroyBombs = true;
-    }
+
     
     public GameMap getMap()
     {
@@ -313,56 +336,67 @@ public class GameEngine {
 		return paused;
 	}
 
-    static int a = 0;
+    int a = 0;
+
+    private boolean isDestroyBombs(){
+        return this.destroyBombs;
+    }
 
     public void update() throws Exception {
         if(!paused ){
 
-            if (a % 50 == 0) {
-                a++;
-                time--;
-            }
-            if (!movements.isEmpty()){
-                for (int i = 0;movements.size()!= 0;){
-                    movePlayer(movements.get(i));
-                    movements.remove(i);
-                }
-            }
-            if (time % 2 == 1)
-                moveMonsters();
-            try{
-                map.getPlayer().isBombControllable();
-            }catch (Exception e){
-                e.printStackTrace();
-            }
 
-            if (!map.getPlayer().isBombControllable()) {
-                Set<Bomb> keys = bombTimers.keySet();
-                if (keys.size() > 0) {
-                    for (Bomb key : keys) {
-                        if (bombTimers.get(key) != 0) {
-                            bombTimers.put(key, bombTimers.get(key) - 1);
-                        } else {
-                            bombTimers.remove(key);
-                            key.destroy();
-                            ArrayList colliding = colMan.checkCollision(key.getRange(), key, map.getMap());
-                            destroyObjects(colliding);
+            if (a < 10) {
+                a++;
+            }
+            else{
+                time--;
+                if (time < 0){
+                    throw new Exception("gameOver!");
+                }
+                a = 0;
+                moveMonsters();
+                if (!movements.isEmpty()){
+                    for (int i = 0;movements.size()!= 0;){
+                        movePlayer(movements.get(i));
+                        movements.remove(i);
+                    }
+                }
+                try{
+                    map.getPlayer().isBombControllable();
+                }catch (Exception e){
+                    e.printStackTrace();
+                }
+
+                if (!map.getPlayer().isBombControllable()) {
+                    Set<Bomb> keys = bombTimers.keySet();
+                    if (keys.size() > 0) {
+                        for (Bomb key : keys) {
+                            if (bombTimers.get(key) != 0) {
+                                bombTimers.put(key, bombTimers.get(key) - 1);
+                            } else {
+                                bombTimers.remove(key);
+                                key.destroy();
+                                ArrayList colliding = colMan.checkCollision(key.getRange(), key, map.getMap());
+                                destroyObjects(colliding);
+                            }
                         }
                     }
                 }
-            }
-            else if (destroyBombs){
-                Set<Bomb> keys = bombTimers.keySet();
-                for (Bomb key : keys) {
-                    bombTimers.remove(key);
-                    key.destroy();
-                    ArrayList colliding = colMan.checkCollision(key.getRange(), key, map.getMap());
-                    destroyObjects(colliding);
+                else if(isDestroyBombs()){
+                    Set<Bomb> keys = bombTimers.keySet();
+                    for (Bomb key : keys) {
+                        bombTimers.remove(key);
+                        key.destroy();
+                        ArrayList colliding = colMan.checkCollision(key.getRange(), key, map.getMap());
+                        destroyObjects(colliding);
+                    }
+                    destroyBombs = false;
                 }
-                destroyBombs = false;
+
+                score += 2;
             }
 
-            score += 5;
         }
     }
 
