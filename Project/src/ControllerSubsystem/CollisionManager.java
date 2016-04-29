@@ -16,22 +16,30 @@ public class CollisionManager {
 		ArrayList<MapObject> objs = new ArrayList<MapObject>();
 
         objs.add(bomb);
-
+        GameEngine.getInstance().addFire(bomb.getX(), bomb.getY());
         for (int i = bomb.getX() + 1; i <= bomb.getX() + range && i < 15; i++){
-            if (collisionAdd(objs, map, i, bomb.getY()))
+            GameEngine.getInstance().addFire(i, bomb.getY());
+            if (collisionAdd(objs, map, i, bomb.getY())) {
                 break;
+            }
         }
         for (int i = bomb.getY() + 1; i <= bomb.getY() + range && i < 13; i++){
-            if (collisionAdd(objs, map, bomb.getX(), i))
+            GameEngine.getInstance().addFire(bomb.getX(), i);
+            if (collisionAdd(objs, map, bomb.getX(), i)) {
                 break;
+            }
         }
         for (int i = bomb.getX() - 1; i >= bomb.getX() - range && i >= 0; i--){
-            if (collisionAdd(objs, map, i, bomb.getY()))
+            GameEngine.getInstance().addFire(i, bomb.getY());
+            if (collisionAdd(objs, map, i, bomb.getY())) {
                 break;
+            }
         }
         for (int i = bomb.getY() - 1; i >= bomb.getY() - range && i >= 0; i--){
-            if (collisionAdd(objs, map, bomb.getX(), i))
+            GameEngine.getInstance().addFire(bomb.getX(), i);
+            if (collisionAdd(objs, map, bomb.getX(), i)) {
                 break;
+            }
         }
 
         return objs;

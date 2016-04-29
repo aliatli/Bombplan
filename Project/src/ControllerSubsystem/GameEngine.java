@@ -5,6 +5,7 @@ import ModelSubsystem.*;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.PaintEvent;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -23,6 +24,7 @@ public class GameEngine {
     private boolean paused;
     private boolean destroyBombs;
     private HashMap<Bomb, Integer> bombTimers;
+    private ArrayList<Fire> fireTimers;
     private ArrayList<Integer> movements;
     private CollisionManager colMan;
     private SoundManager souMan;
@@ -45,6 +47,7 @@ public class GameEngine {
         souMan = new SoundManager();
 
         bombTimers = new HashMap<Bomb, Integer>();
+        fireTimers = new ArrayList<Fire>();
         try {
             GameMap.getInstance().constructLevel(currentLevel);
         } catch (FileNotFoundException e) {
@@ -182,6 +185,7 @@ public class GameEngine {
             storageMan = new StorageManager();
             colMan = new CollisionManager();
             bombTimers = new HashMap<Bomb, Integer>();
+            fireTimers = new ArrayList<Fire>();
             try {
                 GameMap.getInstance().constructLevel(currentLevel);
             } catch (FileNotFoundException e) {
@@ -376,6 +380,12 @@ public class GameEngine {
         return this.destroyBombs;
     }
 
+    public void addFire(int x, int y){
+        Fire fire = new Fire(x, y);
+        fireTimers.add(fire);
+        getMap().addObject(fire);
+    }
+
     public void update() throws Exception {
         if(!paused ){
 
@@ -415,7 +425,7 @@ public class GameEngine {
                             } else {
                                 bombTimers.remove(key);
                                 key.destroy();
-                                ArrayList colliding = colMan.checkCollision(key.getRange(), key, GameMap.getInstance().getMap());
+                                ArrayList<MapObject> colliding = colMan.checkCollision(key.getRange(), key, GameMap.getInstance().getMap());
                                 GameMap.getInstance().removeObject(key);
                                 colliding.remove(key);
                                 destroyObjects(colliding);
@@ -428,7 +438,7 @@ public class GameEngine {
                     for (Bomb key : keys) {
                         bombTimers.remove(key);
                         key.destroy();
-                        ArrayList colliding = colMan.checkCollision(key.getRange(), key, GameMap.getInstance().getMap());
+                        ArrayList<MapObject> colliding = colMan.checkCollision(key.getRange(), key, GameMap.getInstance().getMap());
                         GameMap.getInstance().removeObject(key);
                         colliding.remove(key);
                         destroyObjects(colliding);
@@ -436,6 +446,16 @@ public class GameEngine {
                     destroyBombs = false;
                 }
 
+                ArrayList<MapObject> willBeDestroyed = new ArrayList<MapObject>();
+                for (int i = 0; i < fireTimers.size(); i++){
+
+                    fireTimers.get(i).decreaseTime();
+                    if (fireTimers.get(i).getDestroyTime() == -1){
+                        willBeDestroyed.add(fireTimers.get(i));
+                        fireTimers.remove(i--);
+                    }
+                }
+                destroyObjects(willBeDestroyed);
             }
 
         }
@@ -448,7 +468,8 @@ public class GameEngine {
 
     public void stopGameMusic()
     {
-        souMan.stopGameMusic();
+        if (souMan != null)
+            souMan.stopGameMusic();
     }
 
 	/*public void playWalkEffect()
