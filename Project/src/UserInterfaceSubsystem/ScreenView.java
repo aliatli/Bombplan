@@ -21,6 +21,7 @@ public class ScreenView
 	private GameScreenPanel gameP;
 	private SaveScorePanel saveScoreP;
 	private PassingPanel[] passingP;
+	private GameOverPanel gameOverP;
 
 	//Constructor
 	private ScreenView()
@@ -144,11 +145,13 @@ public class ScreenView
 	{
 		return this.saveScoreP;
 	}
+
 	public JPanel getGame(){
 		return gameP;
 	}
 
-	public void pass(){
-
+	public JPanel getGameOver(int score){
+		gameOverP = new GameOverPanel(score);
+		return gameOverP;
 	}
 }
