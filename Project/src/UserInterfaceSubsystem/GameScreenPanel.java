@@ -36,7 +36,7 @@ public class GameScreenPanel extends JPanel
 		time = 0;
 		
 		pausePanel = new PauseMenuPanel();
-		pausePanel.setSize(new Dimension(600,300));
+		pausePanel.setSize(new Dimension(600,350));
 		pausePanel.setLocation(180,266);
 		pausePanel.setVisible(false);
 		add(pausePanel);
