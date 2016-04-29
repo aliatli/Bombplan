@@ -72,8 +72,11 @@ public class GameMap {
 	}
 
 	public void removeObject(MapObject object) {
-		for (int i = 0; i < map[object.getY()][object.getX()].size(); i++)
-			map[object.getY()][object.getX()].remove(i);
+		for (int i = 0; i < map[object.getY()][object.getX()].size(); i++){
+			if (map[object.getY()][object.getX()].get(i).getClass().equals(object.getClass())){
+				map[object.getY()][object.getX()].remove(i);
+			}
+		}
 		if (map[object.getY()][object.getX()].size() == 0)
 			map[object.getY()][object.getX()] = null;
 	}

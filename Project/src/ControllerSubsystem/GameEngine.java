@@ -103,13 +103,14 @@ public class GameEngine {
             y++;
         else if (movement == 4) {
             if (bombTimers.size() < player.getMaxBomb())
-            plantBomb();
+                plantBomb();
             return;
         }
         else if (movement == 5){
             if (player.isBombControllable()){
                 destroyBombs = true;
             }
+            return;
         }
 
 
@@ -388,6 +389,7 @@ public class GameEngine {
                         key.destroy();
                         ArrayList colliding = colMan.checkCollision(key.getRange(), key, GameMap.getInstance().getMap());
                         GameMap.getInstance().removeObject(key);
+                        colliding.remove(key);
                         destroyObjects(colliding);
                     }
                     destroyBombs = false;
