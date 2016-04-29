@@ -1,11 +1,11 @@
 package UserInterfaceSubsystem;
 
 import ControllerSubsystem.*;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import java.util.Scanner;
 import java.io.*;
 
 //Author: Saner Turhaner
@@ -107,7 +107,7 @@ public class PauseMenuPanel extends JPanel
         musicBoxOff.setFocusPainted(false);
    		
 		//Collective Work
-		ButtonGroup group1 = new ButtonGroup();//Ýkisinden biri seçilebilir
+		ButtonGroup group1 = new ButtonGroup();//ï¿½kisinden biri seï¿½ilebilir
         group1.add(musicBoxOn);
         group1.add(musicBoxOff);
         
@@ -128,7 +128,7 @@ public class PauseMenuPanel extends JPanel
         soundBoxOff.setFocusPainted(false);
         
 		//Collective Work
-        ButtonGroup group2 = new ButtonGroup();//Ýkisinden biri seçilebilir
+        ButtonGroup group2 = new ButtonGroup();//ï¿½kisinden biri seï¿½ilebilir
         group2.add(soundBoxOn);
 		group2.add(soundBoxOff);
 		
@@ -227,8 +227,8 @@ public class PauseMenuPanel extends JPanel
 				}				
     			if(obj == exittomenu)
 				{		
-					setVisible(false);	
-					engine.restart();
+					setVisible(false);
+					GameEngine.getInstance().restart();
 					( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).getMain() );
 				}
 				
@@ -291,8 +291,8 @@ public class PauseMenuPanel extends JPanel
 		String record = Boolean.toString(isMusic) + "," + Boolean.toString(isSound);//Write current records to the file
 		
 		try
-		{			
-			x.writeFile(record, "src/sources/txts/settings.txt");
+		{
+			GameEngine.getInstance().getStorageMan().writeFile(record, "src/sources/txts/settings.txt");
 		}
 		catch(Exception e)
 		{
@@ -300,16 +300,16 @@ public class PauseMenuPanel extends JPanel
 		}
 		
 		if(isMusic)
-			engine.setMusicEffect(true);
+			GameEngine.getInstance().setMusicEffect(true);
 		else
-			engine.setMusicEffect(false);
+			GameEngine.getInstance().setMusicEffect(false);
 		
 		if(isSound)
-			engine.setSoundEffect(true);
+			GameEngine.getInstance().setSoundEffect(true);
 		else
-			engine.setSoundEffect(false);			
+			GameEngine.getInstance().setSoundEffect(false);
 	}
-   			
+
 }
 
     	
