@@ -4,6 +4,10 @@ import ModelSubsystem.GameMap;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
+import java.awt.*;
+import java.awt.event.*;
+import javax.swing.*;
+import javax.swing.event.*;
 import java.io.*;
 import java.util.*;
 
@@ -13,13 +17,15 @@ public class StorageManager
 {
 	//Properties
    	File file;
-	ArrayList<String> scorelines;
 	static int saveLines;
+	ArrayList<Integer> listOfScores;
+	ArrayList<String> scorelines;
 
 	//Constructor
 	public StorageManager()
 	{
 		scorelines = new ArrayList<String>();
+		listOfScores = new ArrayList<Integer>();
 		saveLines = 0;
 	}
 
@@ -35,7 +41,8 @@ public class StorageManager
    		if(fileName.equalsIgnoreCase("src/Sources/txts/savedGames.txt"))//Load games are read
    		{
    			scan = new Scanner(file);//Scanner initialized
-
+			saveLines = 0;
+			
    			while(scan.hasNextLine())
    			{
    				saveLines++;
@@ -49,13 +56,14 @@ public class StorageManager
    		else if(fileName.equalsIgnoreCase("src/Sources/txts/highScores.txt"))//Highscores are read
    		{
    			scan = new Scanner(file);//Scanner initialized
-			saveLines = 0;
-   			while(scan.hasNextLine())
+			
+   			for(int i = 0; i < 10; i++)
    			{   			
 	   			line = scan.nextLine();
 	   			words = line.split(",");//Take every word
-
-	    		text = text + Integer.parseInt(words[0]) + ".\t" + words[1] + "\t\t" + Integer.parseInt(words[2]) + "\n";//A line
+				scorelines.add(words[0]);
+				listOfScores.add(Integer.parseInt(words[1]));
+	    		text = text + words[0] + "\t\t" + Integer.parseInt(words[1]) + "\n";//A line
 	   		}
    		}
    		else if(fileName.equalsIgnoreCase("src/Sources/txts/settings.txt"))//Settings are read
@@ -92,7 +100,34 @@ public class StorageManager
 			e.printStackTrace();
 		}
     }
-
+        
+	public void checkScore(int point) throws IOException//Just check if he enters the Highscores table
+    {
+    	int order = -1;//Temporaly
+    	
+    	if( point >= listOfScores.get(9) )
+    	{
+    		String input;
+    		input = JOptionPane.showInputDialog(null,"Congratulations!\nEnter the Name: ");
+    		
+    		for(int i = 9; i >= 0; i--)//Scan list    		
+	    	{    		
+	    		if( point >= listOfScores.get(i) )
+	    			order =  i;//Return sýra number  
+	    	}
+	    	
+	    	listOfScores.add(order, point);//Insert new score
+	    	scorelines.add(order, input);
+	    	
+    		String record = "";//Create a record to save
+    		for(int i = 0; i < 10; i++)
+    			record = record + scorelines.get(i) + "," + listOfScores.get(i) + "\n";
+    			
+    		//Write in file
+    		writeFile(record, "src/Sources/txts/highScores.txt");
+    	}      		  	    					
+    }
+    	     
 	public void saveGame(String given){
 		XStream xstream = new XStream(new StaxDriver());
 		File userfile = new File("src//Sources//txts//" + given + ".xml");

@@ -9,9 +9,6 @@ import javax.swing.*;
 import java.io.*;
 import java.util.*;
 
-import java.util.*;
-
-
 //Saner Turhaner
 	
 public class LoadGamePanel extends SideMenuPanel 

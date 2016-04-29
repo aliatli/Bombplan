@@ -36,8 +36,7 @@ public class HighScorePanel extends SideMenuPanel
 		//Text initialized
 		try
 		{			
-			scores = new JTextArea("No\tNickname\t\tPoint\n" + x.readFile("src/Sources/txts/highScores.txt"));
-
+			scores = new JTextArea("Nickname\t\tPoint\n" + x.readFile("src/Sources/txts/highScores.txt"));
 		}
 		catch (IOException e)
 		{						
