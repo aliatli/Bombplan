@@ -414,7 +414,7 @@ public class GameEngine {
                 time--;
                 if (time < 0){
                     //nextLevel();
-                    throw new Exception("nextLevel");
+                    throw new Exception("gameOver");
                 }
                 a = 0;
                 moveSlowMonsters();
