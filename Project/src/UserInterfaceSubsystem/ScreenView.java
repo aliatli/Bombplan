@@ -20,6 +20,8 @@ public class ScreenView
 	private HelpPanel helpP;
 	private GameScreenPanel gameP;
 	private SaveScorePanel saveScoreP;
+	private PassingPanel[] passingP;
+
 	//Constructor
 	private ScreenView()
 	{
@@ -41,7 +43,12 @@ public class ScreenView
 		helpP 	  = new HelpPanel();
 		gameP 	  = new GameScreenPanel();
 		saveScoreP= new SaveScorePanel();
-		
+		passingP  = new PassingPanel[4];
+
+		for (int i = 0; i < passingP.length; i++){
+			passingP[i] = new PassingPanel(i+1);
+		}
+
 		//Active Panel initialized
 		activePanel = mainP;		
     	frame.add(activePanel);//Add active panel to frame
@@ -128,8 +135,20 @@ public class ScreenView
 	{
 		return helpP;
 	}
+
+	public JPanel getPassing(int i){
+		return passingP[i];
+	}
+
 	public JPanel saveScore()
 	{
 		return this.saveScoreP;
+	}
+	public JPanel getGame(){
+		return gameP;
+	}
+
+	public void pass(){
+
 	}
 }

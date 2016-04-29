@@ -29,16 +29,12 @@ public class PassingPanel extends JPanel
 	{		
 		//Level No
 		levelNo = level;
-		
-		engine = GameEngine.getInstance();
-		x = engine.getStorageMan();
-		screen = ScreenView.getInstance();
 
 		//Panel constructed
 		setLayout(null);
 		setPreferredSize(new Dimension(960,900));
 		setBackground(Color.BLACK);
-					
+
 		//Label initialized
 		title = new JLabel( "Level " + levelNo );
 		title.setSize(new Dimension(400,40));
@@ -65,8 +61,8 @@ public class PassingPanel extends JPanel
 		public void mouseReleased(MouseEvent e)
 		{			
 			try
-			{					
-				
+			{
+				(ScreenView.getInstance()).changeActivePanel((ScreenView.getInstance()).getGame());
 			}	
 			catch(Exception exception)
 			{

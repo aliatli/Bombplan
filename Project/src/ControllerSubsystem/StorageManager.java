@@ -56,7 +56,8 @@ public class StorageManager
    		else if(fileName.equalsIgnoreCase("src/Sources/txts/highScores.txt"))//Highscores are read
    		{
  /*  			scan = new Scanner(file);//Scanner initialized
-			
+
+  
    			for(int i = 0; i < 10; i++)
    			{   			
 	   			line = scan.nextLine();
@@ -66,6 +67,7 @@ public class StorageManager
 	    		text = text + words[0] + "\t\t" + Integer.parseInt(words[1]) + "\n";//A line
 	   		}
    	*/	}
+
    		else if(fileName.equalsIgnoreCase("src/Sources/txts/settings.txt"))//Settings are read
    		{
    			scan = new Scanner(file);//Scanner initialized
@@ -156,11 +158,8 @@ public class StorageManager
 	}
 
 	public void generateGame(String name) {
-		boolean fileExists = true;
 		XStream xstream = new XStream(new StaxDriver());
 		String 	data = name;
-		FileWriter userFile = null;
-		File userfile =new File("src//Sources//txts//savedGame.xml");
 
 		{
 			//Generate Game According to data

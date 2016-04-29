@@ -1,6 +1,9 @@
 package ControllerSubsystem;
 
 import ModelSubsystem.*;
+import UserInterfaceSubsystem.GameScreenPanel;
+import UserInterfaceSubsystem.LoadGamePanel;
+import UserInterfaceSubsystem.ScreenView;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
@@ -16,7 +19,7 @@ import java.util.zip.Inflater;
 
 public class GameEngine {
     private final int BOMB_TIME = 5;
-    private final int DEFAULT_TIME = 360;
+    private final int DEFAULT_TIME = 20;
 
     private int score;
     private int currentLevel;
@@ -175,9 +178,17 @@ public class GameEngine {
         //TODO - what should this method do AMK?
 	}
 
-	private void nextLevel() {
+	public void nextLevel() {
         if (currentLevel != 4) {
-            paused = true;
+    /*        ScreenView.getInstance().changeActivePanel( (ScreenView.getInstance()).getPassing(currentLevel+1));
+            try {
+                GameScreenPanel.repaint();
+                Thread.sleep(5000);
+            } catch (InterruptedException e) {
+                e.printStackTrace();
+            }
+            ScreenView.getInstance().changeActivePanel( (ScreenView.getInstance()).getGame());
+      */      paused = true;
             currentLevel++;
             time = DEFAULT_TIME;
             movements = new ArrayList<Integer>();
@@ -218,7 +229,7 @@ public class GameEngine {
 	}
 
 	/**
-	 * 
+	 *
 	 * @param bonus
 	 */
 	public void takeBonus(Bonus bonus) {
@@ -396,7 +407,8 @@ public class GameEngine {
             else{
                 time--;
                 if (time < 0){
-                    nextLevel();
+                    //nextLevel();
+                    throw new Exception("nextLevel");
                 }
                 a = 0;
                 moveSlowMonsters();
@@ -447,6 +459,8 @@ public class GameEngine {
                 }
 
                 ArrayList<MapObject> willBeDestroyed = new ArrayList<MapObject>();
+                if (fireTimers == null)
+                    fireTimers = new ArrayList<Fire>();
                 for (int i = 0; i < fireTimers.size(); i++){
 
                     fireTimers.get(i).decreaseTime();
