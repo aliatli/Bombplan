@@ -98,16 +98,21 @@ public class GameScreenPanel extends JPanel
 	{
 		GameEngine.getInstance().setPaused(false);
 		GameEngine.getInstance().getMap().drawAll(g);
+
 	}
     
     /// TODO HANDLE THE CASE ON GAMEOVER!!
     private void gameOver(){
         
     }
-	
+	public void paint(){
+		repaint();
+	}
 	//TimerListener	
 	private class TimerListener implements ActionListener//Listener for timer
 	{
+		boolean passing = false;
+
 		public void actionPerformed(ActionEvent event)//Time passing
 		{
 				if(!GameEngine.getInstance().isPaused())
@@ -115,6 +120,9 @@ public class GameScreenPanel extends JPanel
 					//Time increasing
 
 					try {
+						if (passing) {
+							passing = false;
+						}
 						GameEngine.getInstance().update();
 						life.setText("LIFE: " + GameEngine.getInstance().getMap().getPlayer().getLife());
 						point.setText("POINTS: " + GameEngine.getInstance().getScore());
@@ -123,10 +131,24 @@ public class GameScreenPanel extends JPanel
 
 					} catch (Exception e) {
 						if (e.getMessage().equalsIgnoreCase("gameover!")){
-							( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).saveScore() );                        }
+							( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).saveScore() );
+						}
+						else if (e.getMessage().equalsIgnoreCase("nextLevel")){
+							GameEngine.getInstance().nextLevel();
+							( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).getPassing(GameEngine.getInstance().getLevel()-1) );
+							repaint();
+	/*						try {
+								Thread.sleep(1000);
+							} catch (InterruptedException e1) {
+								e1.printStackTrace();
+							}
+*/
+							passing = true;
+
+						}
 					}
 					repaint();
-				}									
+				}
 		}
 	}
 	

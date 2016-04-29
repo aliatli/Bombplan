@@ -85,7 +85,7 @@ public class LoadGamePanel extends SideMenuPanel
 					{
 						fileName = (x.readAsArray("src/Sources/txts/savedGames.txt")).get(i);
 						x.generateGame(fileName);
-						( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).startGame());
+						( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).getGame());
 					}
 				}
 
