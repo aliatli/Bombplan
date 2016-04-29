@@ -73,10 +73,12 @@ public class GameMap {
 
 	public void removeObject(MapObject object) {
 		for (int i = 0; i < map[object.getY()][object.getX()].size(); i++){
-     		 if (map[object.getY()][object.getX()].get(i).getClass().equals(object.getClass())){
-        		map[object.getY()][object.getX()].remove(i);
-      	     }
-   		}
+			if (map[object.getY()][object.getX()].get(i).getClass().equals(object.getClass())){
+				map[object.getY()][object.getX()].remove(i);
+			}
+		}
+		if (map[object.getY()][object.getX()].size() == 0)
+			map[object.getY()][object.getX()] = null;
 	}
 
 	private void randomObjectPlanter( int level) {
@@ -331,6 +333,21 @@ public class GameMap {
 
 	public ArrayList<MapObject>[][] getMap(){
 		return map;
+	}
+
+	public boolean isDone(){
+		for (int i = 1; i < map.length; i++){
+			for (int j = 1; j < map[i].length; j++){
+				if (map[i][j] != null)
+					for (int k = 0; k < map[i][j].size(); k++)
+						if (map[i][j].get(k) instanceof DestroyableWall ||
+								map[i][j].get(k) instanceof Monster ||
+								map[i][j].get(k) instanceof Bonus){
+							return false;
+						}
+			}
+		}
+		return true;
 	}
 
 	public void removeObjects(ArrayList<MapObject> mapObjects) {

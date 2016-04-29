@@ -9,7 +9,8 @@ import javax.swing.*;
 import java.io.*;
 import java.util.*;
 
-import static java.lang.Thread.sleep;
+import java.util.*;
+
 
 //Saner Turhaner
 	
@@ -22,16 +23,17 @@ public class LoadGamePanel extends SideMenuPanel
 	StorageManager x;
 	String fileName;
 	ArrayList<JButton> buttons;
-	
-	//Constructor	
+
+	//Constructor
 	public LoadGamePanel(boolean val)
 	{
 		super();
 		
 		engine = GameEngine.getInstance();
 		x = engine.getStorageMan();
+
+
 		buttons = new ArrayList<JButton>();
-						
 		//Label initialized
 		title = new JLabel( "Load Game" );
 		title.setSize(new Dimension(400,40));
@@ -42,7 +44,8 @@ public class LoadGamePanel extends SideMenuPanel
 		
 		//Text initialized
 		try
-		{			
+		{
+
 			games = new JTextArea("File Name\n" + x.readFile("src/Sources/txts/savedGames.txt"));
 		}
 		catch (IOException e)
@@ -55,6 +58,7 @@ public class LoadGamePanel extends SideMenuPanel
 				
 		games.setSize(new Dimension(310,255));
 		games.setLocation(340,370);
+
 		games.setFont(new Font("Calibri", Font.PLAIN, 15));
 		games.setLineWrap(true);
 	    games.setEditable(false);
@@ -67,34 +71,37 @@ public class LoadGamePanel extends SideMenuPanel
 		add(games);
 	}
 	
+
 	//Listener for Buttons
 	private class ButtonListener implements ActionListener//Inner class
 	{
 		public void actionPerformed(ActionEvent event)//Takes event as a parameter
 		{
 			Object obj = event.getSource();
-			
+
+
 			try//Try it
-    		{
-    			for(int i = 0; i < buttons.size(); i++)
-    			{
-    				if(obj == buttons.get(i))
-					{		
+			{
+				for(int i = 0; i < buttons.size(); i++)
+				{
+					if(obj == buttons.get(i))
+					{
 						fileName = (x.readAsArray("src/Sources/txts/savedGames.txt")).get(i);
 						x.generateGame(fileName);
-					}	
-    			}
-    						
-    		}	
-    		catch(Exception exc)//If there is exception (general) catch it
-    		{    		
-    			exc.printStackTrace();
-    			System.out.println("Exception is catched: " + exc.getMessage());//Show the message of exception
-    		}										
+						( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).startGame());
+					}
+				}
+
+			}
+			catch(Exception exc)//If there is exception (general) catch it
+			{
+				exc.printStackTrace();
+				System.out.println("Exception is catched: " + exc.getMessage());//Show the message of exception
+			}
 		}
-						
+
 	}
-	
+
 	public void initializeButtons()
 	{
 		//Buttons for each text
@@ -110,6 +117,7 @@ public class LoadGamePanel extends SideMenuPanel
 	        newOne.addActionListener(new ButtonListener());
 	        buttons.add(newOne);
 	        add(newOne);	        
+
 		}
 	}
 }

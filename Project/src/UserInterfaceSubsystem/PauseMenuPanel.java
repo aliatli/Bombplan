@@ -2,6 +2,7 @@ package UserInterfaceSubsystem;
 
 import ControllerSubsystem.*;
 
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -38,8 +39,9 @@ public class PauseMenuPanel extends JPanel
 	
 	//Booleans
 	boolean isSound;
-	boolean isMusic; 
+	boolean isMusic;
 		
+
 	//Engine
 	GameEngine engine;
 	StorageManager x;
@@ -52,6 +54,7 @@ public class PauseMenuPanel extends JPanel
 		engine = GameEngine.getInstance();
 		x = engine.getStorageMan();
 		
+
 		//Panel constructed
 		setLayout(null);
 		setPreferredSize(new Dimension(600,350));
@@ -189,6 +192,7 @@ public class PauseMenuPanel extends JPanel
 		RadioButtonListener2 listener2 = new RadioButtonListener2();
 		soundBoxOn.addActionListener(listener2);
 		soundBoxOff.addActionListener(listener2);
+
 									
 		//Add components in panel
 		add(title);
@@ -239,8 +243,9 @@ public class PauseMenuPanel extends JPanel
 				}
 				
 				if(obj == saveGame)
-				{					
+				{
 					//Ask file name	
+
 					fileName = JOptionPane.showInputDialog(null,"Enter a name for the saved game");
 					x.saveGame(fileName);
 					x.writeFile(fileName, "src/Sources/txts/savedGames.txt");
@@ -309,6 +314,7 @@ public class PauseMenuPanel extends JPanel
 		else
 			GameEngine.getInstance().setSoundEffect(false);
 	}
+
 
 }
 

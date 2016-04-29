@@ -19,8 +19,8 @@ public class StorageManager
 	//Constructor
 	public StorageManager()
 	{
-		scorelines 		= new ArrayList<String>();
-		saveLines 		= 0;
+		scorelines = new ArrayList<String>();
+		saveLines = 0;
 	}
 
 	//Methods
@@ -44,12 +44,12 @@ public class StorageManager
 
 	    		text = text + line + "\n";//A line
 	   		}
+
    		}
    		else if(fileName.equalsIgnoreCase("src/Sources/txts/highScores.txt"))//Highscores are read
    		{
    			scan = new Scanner(file);//Scanner initialized
 			saveLines = 0;
-			
    			while(scan.hasNextLine())
    			{   			
 	   			line = scan.nextLine();

@@ -80,6 +80,8 @@ public class CollisionManager {
                     monster = true;
                 } else if (map[y][x].get(i) instanceof Player) {
                     player = true;
+                } else if (map[y][x].get(i) instanceof  Door && GameEngine.getInstance().isDone()){
+                    return 3;
                 }
             }
 
