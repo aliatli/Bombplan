@@ -14,12 +14,7 @@ import javax.sound.sampled.*;
 public class GameOverPanel extends JPanel
 {
     //Properties
-    int levelNo;
     JLabel title;
-
-    GameEngine engine;
-    StorageManager x;
-    ScreenView screen;
 
     //Constructor
     public GameOverPanel(int point)

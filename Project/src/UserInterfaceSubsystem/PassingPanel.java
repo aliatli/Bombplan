@@ -19,10 +19,6 @@ public class PassingPanel extends JPanel
 	//Properties
 	int levelNo;
 	JLabel title;
-    
-	GameEngine engine;
-	StorageManager x;
-	ScreenView screen;
 	
 	//Constructor
 	public PassingPanel(int level)
