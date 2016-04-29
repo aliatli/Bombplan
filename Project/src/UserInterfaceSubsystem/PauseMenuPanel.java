@@ -1,15 +1,12 @@
 package UserInterfaceSubsystem;
 
-import ControllerSubsystem.GameEngine;
-import ControllerSubsystem.StorageManager;
-import com.thoughtworks.xstream.XStream;
-import com.thoughtworks.xstream.io.xml.StaxDriver;
+import ControllerSubsystem.*;
+
 
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
 import javax.swing.event.*;
-import java.util.Scanner;
 import java.io.*;
 
 //Author: Saner Turhaner
@@ -29,32 +26,35 @@ public class PauseMenuPanel extends JPanel
 	JPanel bottom;
 	
 	//Sliders
-	JSlider sound;
-	JSlider music;
+	private JRadioButton musicBoxOn;
+	private JRadioButton musicBoxOff;
+	private JRadioButton soundBoxOn;
+	private JRadioButton soundBoxOff;
 	
 	//Buttons
 	JButton newgame;
 	JButton backtogame;
 	JButton exittomenu;
 	JButton saveGame;
-
-
+	
 	//Booleans
 	boolean isSound;
 	boolean isMusic;
+		
 
 	//Engine
 	GameEngine engine;
 	StorageManager x;
 	String[] words;
 	String fileName;
-
+			
 	//Constructor
 	public PauseMenuPanel()
-	{
-
+	{		
 		engine = GameEngine.getInstance();
 		x = engine.getStorageMan();
+		
+
 		//Panel constructed
 		setLayout(null);
 		setPreferredSize(new Dimension(600,350));
@@ -92,25 +92,49 @@ public class PauseMenuPanel extends JPanel
 		bottom.setBackground( Color.RED );
 		bottom.setVisible(true);
 			
-    	//Sliders Initialized
-   		music = new JSlider(JSlider.HORIZONTAL, 0, 150, 0);//Dikey
-		music.setSize(new Dimension(120,20));
-		music.setLocation(170,210);
-   		music.setMaximum(1);
-   		music.setMinimum(0);
-   		music.setValue(1);
-   		music.setPaintLabels(true);//Set visible
-   		music.setPaintTicks(true);
+    	//Check boxes Initialized
+   		musicBoxOn = new JRadioButton("On");
+		musicBoxOn.setSize(new Dimension(50,25));
+		musicBoxOn.setLocation(170,210);
+		musicBoxOn.setFont(new Font("Adobe Caslon Pro Bold", Font.PLAIN + Font.BOLD, 16));
+		musicBoxOn.setForeground(Color.WHITE);
+		musicBoxOn.setBackground(Color.BLACK);
+        musicBoxOn.setFocusPainted(false);
+        
+   		musicBoxOff = new JRadioButton("Off");
+		musicBoxOff.setSize(new Dimension(50,25));
+		musicBoxOff.setLocation(220,210);
+		musicBoxOff.setFont(new Font("Adobe Caslon Pro Bold", Font.PLAIN + Font.BOLD, 16));
+		musicBoxOff.setForeground(Color.WHITE);
+		musicBoxOff.setBackground(Color.BLACK);
+        musicBoxOff.setFocusPainted(false);
    		
-   		sound = new JSlider(JSlider.HORIZONTAL, 0, 150, 0);//Dikey
-		sound.setSize(new Dimension(120,20));
-		sound.setLocation(310,210);
-   		sound.setMaximum(1);
-   		sound.setMinimum(0);
-   		sound.setValue(1);
-   		sound.setPaintLabels(true);//Set visible
-   		sound.setPaintTicks(true);
+		//Collective Work
+		ButtonGroup group1 = new ButtonGroup();//�kisinden biri se�ilebilir
+        group1.add(musicBoxOn);
+        group1.add(musicBoxOff);
+        
+   		soundBoxOn = new JRadioButton("On");
+		soundBoxOn.setSize(new Dimension(50,25));
+		soundBoxOn.setLocation(310,210);
+		soundBoxOn.setFont(new Font("Adobe Caslon Pro Bold", Font.PLAIN + Font.BOLD, 16));
+		soundBoxOn.setForeground(Color.WHITE);
+		soundBoxOn.setBackground(Color.BLACK);
+        soundBoxOn.setFocusPainted(false);
    		
+   		soundBoxOff = new JRadioButton("Off");
+		soundBoxOff.setSize(new Dimension(50,25));
+		soundBoxOff.setLocation(360,210);
+		soundBoxOff.setFont(new Font("Adobe Caslon Pro Bold", Font.PLAIN + Font.BOLD, 16));
+		soundBoxOff.setForeground(Color.WHITE);
+		soundBoxOff.setBackground(Color.BLACK);
+        soundBoxOff.setFocusPainted(false);
+        
+		//Collective Work
+        ButtonGroup group2 = new ButtonGroup();//�kisinden biri se�ilebilir
+        group2.add(soundBoxOn);
+		group2.add(soundBoxOff);
+		
 		//JButtons initialized
 		newgame = new JButton("New Game");
 		newgame.setSize(new Dimension(200,40));
@@ -132,24 +156,42 @@ public class PauseMenuPanel extends JPanel
 		backtogame.setFont(new Font("Adobe Caslon Pro Bold", Font.PLAIN + Font.BOLD, 20));
 		backtogame.setForeground(Color.BLACK);
         backtogame.setFocusPainted(false);
-
-		saveGame = new JButton("Save Game");
+	       
+	    saveGame = new JButton("Save Game");
 		saveGame.setSize(new Dimension(200,40));
 		saveGame.setLocation(200,290);
 		saveGame.setFont(new Font("Adobe Caslon Pro Bold", Font.PLAIN + Font.BOLD, 20));
 		saveGame.setForeground(Color.BLACK);
-		saveGame.setFocusPainted(false);
-	        	
+        saveGame.setFocusPainted(false);
+	    	
 		//Booleans
-		isSound = true;
-		isMusic = true; 
+		try
+		{		
+	   		words = ( x.readFile("src/sources/txts/settings.txt") ).split(",");//Take every word
+		}
+		catch (IOException e)
+		{						
+			e.printStackTrace();
+		}
 		
+		isMusic = Boolean.parseBoolean(words[0]);
+		isSound = Boolean.parseBoolean(words[1]);
+					
 		//Add listener to buttons
 		newgame.addActionListener(new ButtonListener());
 		exittomenu.addActionListener(new ButtonListener());
 		backtogame.addActionListener(new ButtonListener());
 		saveGame.addActionListener(new ButtonListener());
-
+		
+		//Listener for gender radio buttons
+		RadioButtonListener1 listener1 = new RadioButtonListener1();
+		musicBoxOn.addActionListener(listener1);
+		musicBoxOff.addActionListener(listener1);
+		
+		//Listener for age radio buttons
+		RadioButtonListener2 listener2 = new RadioButtonListener2();
+		soundBoxOn.addActionListener(listener2);
+		soundBoxOff.addActionListener(listener2);
 
 									
 		//Add components in panel
@@ -158,12 +200,14 @@ public class PauseMenuPanel extends JPanel
 		add(soundL);
 		add(top);
 		add(bottom);
-		add(music);
-		add(sound);
+		add(musicBoxOn);
+		add(musicBoxOff);
+		add(soundBoxOn);
+		add(soundBoxOff);
 		add(newgame);	
 		add(exittomenu);	
 		add(backtogame);
-		add(saveGame);
+		add(saveGame);				
 	}
 	
 	public void paintComponent(Graphics page)//Drawing cards
@@ -183,25 +227,25 @@ public class PauseMenuPanel extends JPanel
     			if(obj == newgame)
 				{		
 					setVisible(false);
-					GameEngine.getInstance().restart();
-
+					engine.restart();
 				}				
     			if(obj == exittomenu)
 				{		
 					setVisible(false);
-					//engine.restart();
-					( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).getMain() );		
+					GameEngine.getInstance().restart();
+					( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).getMain() );
 				}
 				
     			if(obj == backtogame)
 				{	
 					setVisible(false);
-					GameEngine.getInstance().startGameLoop();
+					engine.startGameLoop();
 				}
-
+				
 				if(obj == saveGame)
 				{
-					//Ask file name
+					//Ask file name	
+
 					fileName = JOptionPane.showInputDialog(null,"Enter a name for the saved game");
 					x.saveGame(fileName);
 					x.writeFile(fileName, "src/Sources/txts/savedGames.txt");
@@ -209,12 +253,69 @@ public class PauseMenuPanel extends JPanel
     		}	
     		catch(Exception exc)//If there is exception (general) catch it
     		{    		
+    			exc.printStackTrace();
     			System.out.println("Exception is catched: " + exc.getMessage());//Show the message of exception
     		}										
 		}
 						
 	}
-   			
+	
+   	public class RadioButtonListener1 implements ActionListener//Inner class for JRadioButton objects
+	{
+		public void actionPerformed(ActionEvent event)//For music
+		{
+			Object source = event.getSource();//Get source information
+						
+			if(source == musicBoxOn)
+				isMusic = true;			
+			else
+				isMusic = false;
+				
+			audioStatus();					
+		}	
+	}
+	
+	public class RadioButtonListener2 implements ActionListener//Inner class for JRadioButton objects
+	{
+		public void actionPerformed(ActionEvent event)//For sound
+		{
+			Object source = event.getSource();//Get source information
+			
+			if(source == soundBoxOn)
+				isSound	= true;
+			else
+				isSound = false;
+				
+			audioStatus();			
+		}	
+	}
+	
+	public void audioStatus()
+	{
+		//Record
+		String record = Boolean.toString(isMusic) + "," + Boolean.toString(isSound);//Write current records to the file
+		
+		try
+		{
+			GameEngine.getInstance().getStorageMan().writeFile(record, "src/sources/txts/settings.txt");
+		}
+		catch(Exception e)
+		{
+			System.out.print("Exception is catched: " + e.getMessage());
+		}
+		
+		if(isMusic)
+			GameEngine.getInstance().setMusicEffect(true);
+		else
+			GameEngine.getInstance().setMusicEffect(false);
+		
+		if(isSound)
+			GameEngine.getInstance().setSoundEffect(true);
+		else
+			GameEngine.getInstance().setSoundEffect(false);
+	}
+
+
 }
 
     	
