@@ -72,7 +72,8 @@ public class GameMap {
 	}
 
 	public void removeObject(MapObject object) {
-		map[object.getY()][object.getX()].remove(object);
+		for (int i = 0; i < map[object.getY()][object.getX()].size(); i++)
+			map[object.getY()][object.getX()].remove(i);
 		if (map[object.getY()][object.getX()].size() == 0)
 			map[object.getY()][object.getX()] = null;
 	}
@@ -392,7 +393,9 @@ public class GameMap {
 			map[y][x].add(obj);
 		}
 	}
-	
+	public static void setUniqueInstance(GameMap map){
+		uniqueInstance = map;
+	}
 	public void drawAll(Graphics g)
 	{
 		for(int i = 0; i < 13; i++)

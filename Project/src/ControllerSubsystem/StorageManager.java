@@ -1,5 +1,9 @@
 package ControllerSubsystem;
 
+import ModelSubsystem.GameMap;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
+
 import java.io.*;
 import java.util.*;
 
@@ -78,5 +82,51 @@ public class StorageManager
 			e.printStackTrace();
 		}
     }
+
+	public void saveGame(){
+		XStream xstream = new XStream(new StaxDriver());
+		File userfile = new File("src//Sources//txts//savedGame.xml");
+		File userfile2 = new File("src//Sources//txts//savedGame_map.xml");
+		Writer writer;
+		try {
+			if(!userfile.exists()){
+				writer = new BufferedWriter(new OutputStreamWriter(
+						new FileOutputStream("src//Sources//txts//savedGame.xml"), "utf-8"));
+				writer.write("");
+			}
+			if(!userfile2.exists()){
+				writer = new BufferedWriter(new OutputStreamWriter(
+						new FileOutputStream("src//Sources//txts//savedGame_map.xml"), "utf-8"));
+				writer.write("");
+			}
+
+			xstream.toXML(GameEngine.getInstance(), new FileWriter( new File("src//Sources//txts//savedGame.xml")));
+			xstream.toXML(GameEngine.getInstance().getMap(), new FileWriter( new File("src//Sources//txts//savedGame_map.xml")));
+
+
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	public void generateGame(String name) {
+		boolean fileExists = true;
+		XStream xstream = new XStream(new StaxDriver());
+		String 	data = name;
+		FileWriter userFile = null;
+		File userfile =new File("src//Sources//txts//savedGame.xml");
+
+		{
+			//Generate Game According to data
+
+			GameEngine.setUniqueInstance((GameEngine) xstream.fromXML(new File("src//Sources//txts//" + data +".xml")));
+			GameMap.setUniqueInstance((GameMap) xstream.fromXML(new File("src//Sources//txts//" + data +"_map.xml")));
+
+		}
+//		GameMap.getInstance().resetMap(GameEngine.getInstance().getMap());
+		GameEngine.getInstance().startGameLoop();
+
+	}
 
 }

@@ -23,12 +23,10 @@ public class ScreenView
 	private SettingsPanel settingsP;
 	private HelpPanel helpP;
 	private GameScreenPanel gameP;
-	private GameEngine engine;
-	
+	private SaveScorePanel saveScoreP;
 	//Constructor
 	private ScreenView()
 	{
-		engine = GameEngine.getInstance();
 
 
 		//Frame initialized
@@ -41,11 +39,12 @@ public class ScreenView
 		//Panels initialized
 		mainP 	  = new MainMenuPanel();
 		creditsP  = new CreditsPanel();
-		loadP 	  = new LoadGamePanel();
+		loadP 	  = new LoadGamePanel(false);
 		highP 	  = new HighScorePanel();
 		settingsP = new SettingsPanel();
 		helpP 	  = new HelpPanel();
 		gameP 	  = new GameScreenPanel();
+		saveScoreP= new SaveScorePanel();
 		
 		//Active Panel initialized
 		activePanel = mainP;		
@@ -77,7 +76,20 @@ public class ScreenView
 	public JPanel newGame()
 	{
 		try{
-			engine.restart();
+			GameEngine.getInstance().restart();
+		}
+		catch(Exception e)
+		{
+			System.out.print("Exception is catched: " + e.getMessage());
+		}
+		return gameP;
+	}
+
+	public JPanel startGame()
+	{
+		try{
+			GameEngine.getInstance().getStorageMan().generateGame("savedGame");
+//			engine.startGameLoop();
 		}
 		catch(Exception e)
 		{
@@ -100,6 +112,11 @@ public class ScreenView
 	{
 		return loadP;
 	}
+
+	public void setLoad(boolean val)
+	{
+		loadP = new LoadGamePanel(val);
+	}
 	
 	public JPanel getHighScores()
 	{
@@ -114,5 +131,9 @@ public class ScreenView
 	public JPanel getHelp()
 	{
 		return helpP;
+	}
+	public JPanel saveScore()
+	{
+		return saveScoreP;
 	}
 }
