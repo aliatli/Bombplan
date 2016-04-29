@@ -79,7 +79,12 @@ public class StorageManager
     	{
     		file = new File(fileName);
     		writer = new PrintWriter(file);
-			writer.print( pre + record);
+    		
+    		if(fileName.equalsIgnoreCase("src/Sources/txts/savedGames.txt"))
+				writer.print(pre + record);
+			else
+				writer.print(record);
+				
 			writer.close();
 		}
 		catch (IOException e)
