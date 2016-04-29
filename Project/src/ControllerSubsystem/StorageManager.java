@@ -55,8 +55,9 @@ public class StorageManager
    		}
    		else if(fileName.equalsIgnoreCase("src/Sources/txts/highScores.txt"))//Highscores are read
    		{
-/*   			scan = new Scanner(file);//Scanner initialized
-			
+ /*  			scan = new Scanner(file);//Scanner initialized
+
+  
    			for(int i = 0; i < 10; i++)
    			{   			
 	   			line = scan.nextLine();
@@ -65,7 +66,8 @@ public class StorageManager
 				listOfScores.add(Integer.parseInt(words[1]));
 	    		text = text + words[0] + "\t\t" + Integer.parseInt(words[1]) + "\n";//A line
 	   		}
-*/   		}
+   	*/	}
+
    		else if(fileName.equalsIgnoreCase("src/Sources/txts/settings.txt"))//Settings are read
    		{
    			scan = new Scanner(file);//Scanner initialized
