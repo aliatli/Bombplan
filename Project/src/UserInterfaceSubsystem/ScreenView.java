@@ -11,7 +11,7 @@ public class ScreenView
 	//Properties
 	private JFrame frame;
 	private JPanel activePanel;
-	private static ScreenView uniqueInstance = null;
+	private static ScreenView uniqueInstance;
 	private MainMenuPanel mainP;
 	private CreditsPanel  creditsP;
 	private LoadGamePanel loadP;
