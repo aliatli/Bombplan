@@ -1,6 +1,13 @@
 package UserInterfaceSubsystem;
 
+<<<<<<< HEAD
 import ControllerSubsystem.*;
+=======
+import ControllerSubsystem.GameEngine;
+import com.thoughtworks.xstream.XStream;
+import com.thoughtworks.xstream.io.xml.StaxDriver;
+
+>>>>>>> mfs-dev
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -34,22 +41,18 @@ public class PauseMenuPanel extends JPanel
 	JButton newgame;
 	JButton backtogame;
 	JButton exittomenu;
-	
+	JButton saveGame;
+
+
 	//Booleans
 	boolean isSound;
 	boolean isMusic; 
 		
-	//Engine
-	GameEngine engine;
-	StorageManager x;
-	String[] words;
-			
+
+
 	//Constructor
 	public PauseMenuPanel()
-	{		
-		engine = GameEngine.getInstance();
-		x = engine.getStorageMan();
-		
+	{
 		//Panel constructed
 		setLayout(null);
 		setPreferredSize(new Dimension(600,300));
@@ -147,10 +150,17 @@ public class PauseMenuPanel extends JPanel
         
 		backtogame = new JButton("Back to Game");
 		backtogame.setSize(new Dimension(200,40));
-		backtogame.setLocation(200,240);
+		backtogame.setLocation(200,180);
 		backtogame.setFont(new Font("Adobe Caslon Pro Bold", Font.PLAIN + Font.BOLD, 20));
 		backtogame.setForeground(Color.BLACK);
         backtogame.setFocusPainted(false);
+
+		saveGame = new JButton("Save Game");
+		saveGame.setSize(new Dimension(200,40));
+		saveGame.setLocation(200,230);
+		saveGame.setFont(new Font("Adobe Caslon Pro Bold", Font.PLAIN + Font.BOLD, 20));
+		saveGame.setForeground(Color.BLACK);
+		saveGame.setFocusPainted(false);
 	        	
 		//Booleans
 		try
@@ -179,7 +189,12 @@ public class PauseMenuPanel extends JPanel
 		RadioButtonListener2 listener2 = new RadioButtonListener2();
 		soundBoxOn.addActionListener(listener2);
 		soundBoxOff.addActionListener(listener2);
-									
+		saveGame.addActionListener(new ButtonListener());
+
+   		SlideListener listener = new SlideListener();
+		music.addChangeListener(listener);
+		sound.addChangeListener(listener);
+        
 		//Add components in panel
 		add(title);
 		add(musicL);
@@ -192,7 +207,8 @@ public class PauseMenuPanel extends JPanel
 		add(soundBoxOff);
 		add(newgame);	
 		add(exittomenu);	
-		add(backtogame);				
+		add(backtogame);
+		add(saveGame);
 	}
 	
 	public void paintComponent(Graphics page)//Drawing cards
@@ -212,7 +228,9 @@ public class PauseMenuPanel extends JPanel
     			if(obj == newgame)
 				{		
 					setVisible(false);
-					engine.restart();
+
+					GameEngine.getInstance().restart();
+
 				}				
     			if(obj == exittomenu)
 				{		
@@ -224,7 +242,13 @@ public class PauseMenuPanel extends JPanel
     			if(obj == backtogame)
 				{	
 					setVisible(false);
-					engine.startGameLoop();
+					GameEngine.getInstance().startGameLoop();
+				}
+
+				if(obj == saveGame)
+				{
+					setVisible(false);
+					GameEngine.getInstance().getStorageMan().saveGame();
 				}
     		}	
     		catch(Exception exc)//If there is exception (general) catch it
@@ -290,7 +314,26 @@ public class PauseMenuPanel extends JPanel
 		else
 			engine.setSoundEffect(false);			
 	}
+
+
+   	private class SlideListener implements ChangeListener//Listener class (inner)
+   	{
+   		public void stateChanged(ChangeEvent event)//only method for ChangeListener interface
+   		{
+   			//Change music volume
+   			if(music.getValue() == 0)
+   				isMusic = false;
+   			else
+   				isMusic = true;   				
    			
+   			//Change sound volume
+   			if(sound.getValue() == 0)
+   				isSound = false;   			
+   			else
+   				isSound = true;   	
+   		}	
+   	}	
+
 }
 
     	

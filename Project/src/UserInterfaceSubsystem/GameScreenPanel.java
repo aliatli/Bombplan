@@ -13,8 +13,6 @@ public class GameScreenPanel extends JPanel
 {
 	//Properties
 	PauseMenuPanel pausePanel;
-	GameEngine engine;
-	GameMap    map;
 	Timer timer;
 	int time;
 
@@ -69,8 +67,6 @@ public class GameScreenPanel extends JPanel
 		timer_label.setForeground(new Color(207,54,30));
 		timer_label.setVisible(true);
 
-        engine = GameEngine.getInstance();
-        map = engine.getMap();
 
         timer.start();
         
@@ -100,9 +96,8 @@ public class GameScreenPanel extends JPanel
 	
 	public void drawImages(Graphics g)
 	{
-		engine.setPaused(false);
-//		timer.start();
-		map.drawAll(g);
+		GameEngine.getInstance().setPaused(false);
+		GameEngine.getInstance().getMap().drawAll(g);
 	}
     
     /// TODO HANDLE THE CASE ON GAMEOVER!!
@@ -115,21 +110,20 @@ public class GameScreenPanel extends JPanel
 	{
 		public void actionPerformed(ActionEvent event)//Time passing
 		{
-				if(!engine.isPaused())
+				if(!GameEngine.getInstance().isPaused())
 				{
 					//Time increasing
 
 					try {
-						engine.update();
-						life.setText("LIFE: " + engine.getMap().getPlayer().getLife());
-						point.setText("POINTS: " + engine.getScore());
-						level.setText("LEVEL: " + engine.getLevel());
-						timer_label.setText("TIME: " + engine.getTime());
+						GameEngine.getInstance().update();
+						life.setText("LIFE: " + GameEngine.getInstance().getMap().getPlayer().getLife());
+						point.setText("POINTS: " + GameEngine.getInstance().getScore());
+						level.setText("LEVEL: " + GameEngine.getInstance().getLevel());
+						timer_label.setText("TIME: " + GameEngine.getInstance().getTime());
 
 					} catch (Exception e) {
 						if (e.getMessage().equalsIgnoreCase("gameover!")){
-                            engine.restart();
-                        }
+							( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).saveScore() );                        }
 					}
 					repaint();
 				}									
@@ -148,7 +142,7 @@ public class GameScreenPanel extends JPanel
 			//Escape
 			if(KeyEvent.VK_ESCAPE == keyCode)
 			{
-				engine.setPaused(true);
+				GameEngine.getInstance().setPaused(true);
 				
 				try 
 				{	
@@ -165,8 +159,8 @@ public class GameScreenPanel extends JPanel
 			else if(isKeyPressed(KeyEvent.VK_LEFT))
 			{
 				try 
-				{	
-					engine.getMovements().add(2);
+				{
+					GameEngine.getInstance().getMovements().add(2);
 				}
 			   	catch (Exception e) 
 				{
@@ -176,8 +170,8 @@ public class GameScreenPanel extends JPanel
 			else if(isKeyPressed(KeyEvent.VK_RIGHT))
 			{
 				try 
-				{	
-					engine.getMovements().add(0);
+				{
+					GameEngine.getInstance().getMovements().add(0);
 				}
 			   	catch (Exception e) 
 				{
@@ -187,8 +181,8 @@ public class GameScreenPanel extends JPanel
 			else if(isKeyPressed(KeyEvent.VK_UP))
 			{
 				try 
-				{	
-					engine.getMovements().add(1);
+				{
+					GameEngine.getInstance().getMovements().add(1);
 				}
 			   	catch (Exception e) 
 				{
@@ -198,8 +192,8 @@ public class GameScreenPanel extends JPanel
 			else if(isKeyPressed(KeyEvent.VK_DOWN))
 			{
 				try 
-				{	
-					engine.getMovements().add(3);
+				{
+					GameEngine.getInstance().getMovements().add(3);
 				}
 			   	catch (Exception e) 
 				{
@@ -209,8 +203,8 @@ public class GameScreenPanel extends JPanel
 			else if(isKeyPressed(KeyEvent.VK_SPACE))
 			{
 				try 
-				{	
-					engine.getMovements().add(4);
+				{
+					GameEngine.getInstance().getMovements().add(4);
 				}
 			   	catch (Exception e) 
 				{
@@ -222,7 +216,7 @@ public class GameScreenPanel extends JPanel
 			{
 				try
 				{
-					engine.getMovements().add(5);
+					GameEngine.getInstance().getMovements().add(5);
 				}
 				catch (Exception e)
 				{

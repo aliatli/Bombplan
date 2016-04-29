@@ -29,7 +29,6 @@ public class GameEngine {
     private static GameEngine uniqueInstance;
     private StorageManager storageMan;
     private Player player;
-    GameMap map;
     private boolean soundEffect;
     private boolean musicEffect;
 
@@ -44,16 +43,19 @@ public class GameEngine {
         storageMan = new StorageManager();
         colMan = new CollisionManager();
         souMan = new SoundManager();
-        map = GameMap.getInstance();
+
         bombTimers = new HashMap<Bomb, Integer>();
         try {
-            map.constructLevel(1);
+            GameMap.getInstance().constructLevel(1);
         } catch (FileNotFoundException e) {
             e.printStackTrace();
         }
 
     }
 
+    public static void setUniqueInstance(GameEngine engine){
+        uniqueInstance = engine;
+    }
     public int getScore(){
         return this.score;
     }
@@ -73,16 +75,12 @@ public class GameEngine {
         storageMan = new StorageManager();
         colMan = new CollisionManager();
         souMan = new SoundManager();
-        map = GameMap.getInstance();
+
 //        map.resetMap();
         time = DEFAULT_TIME;
         bombTimers = new HashMap<Bomb, Integer>();
         startGameLoop();
-        try {
-            map.constructLevel(1);
-        } catch (FileNotFoundException e) {
-            e.printStackTrace();
-        }
+
     }
 
     public void setPaused(boolean setVal){
@@ -95,7 +93,7 @@ public class GameEngine {
 
 
 	private void movePlayer(int movement) throws Exception {
-        player = map.getPlayer();
+        player = GameMap.getInstance().getPlayer();
         int t_x = player.getX();
         int t_y = player.getY();
         int x = t_x;
@@ -121,20 +119,20 @@ public class GameEngine {
         }
 
 
-        int collision = colMan.checkCollision(x, y, map.getMap());
+        int collision = colMan.checkCollision(x, y, GameMap.getInstance().getMap());
 
-        map.removeObject(player);
+        GameMap.getInstance().removeObject(player);
         if (collision != 1) {
             player.move(movement);
         }
 
         if (collision == 2) {
-            ArrayList<MapObject> slot = map.getObj(player.getX(), player.getY());
+            ArrayList<MapObject> slot = GameMap.getInstance().getObj(player.getX(), player.getY());
             for (int i = 0; i < slot.size(); i++){
                 if (slot.get(i) instanceof Bonus) {
                     Bonus bonus = (Bonus)slot.get(i);
                     takeBonus(bonus);
-                    map.removeObject(bonus);
+                    GameMap.getInstance().removeObject(bonus);
                     score+= bonus.getPoint();
                 }
             }
@@ -142,7 +140,7 @@ public class GameEngine {
         else if (collision == -1){
 //            healthDecrease();
         }
-        map.addObject(player);
+        GameMap.getInstance().addObject(player);
 
     }
 
@@ -161,10 +159,10 @@ public class GameEngine {
     }
     
 	private void plantBomb() {
-		Player player = map.getPlayer();
+		Player player = GameMap.getInstance().getPlayer();
         Bomb bomb = new Bomb(player.getX(), player.getY(), player.getRange());
 
-        map.addObject(bomb);
+        GameMap.getInstance().addObject(bomb);
         bombTimers.put(bomb, BOMB_TIME);
 
 	}
@@ -183,9 +181,9 @@ public class GameEngine {
 	}
 
     private void healthDecrease() throws Exception {
-        map.getPlayer().decreaseLife();
+        GameMap.getInstance().getPlayer().decreaseLife();
 
-        if (map.getPlayer().getLife() == -1){
+        if (GameMap.getInstance().getPlayer().getLife() == -1){
             gameOver();
         }
     }
@@ -202,7 +200,7 @@ public class GameEngine {
         for (MapObject obj : objects)
             if (obj instanceof Player)
                 gameOver();
-		map.removeObjects(objects);
+        GameMap.getInstance().removeObjects(objects);
 	}
 
 	/**
@@ -256,7 +254,7 @@ public class GameEngine {
     }
 
     private void moveMonsters() throws Exception {
-        ArrayList<Monster> monsters = map.getMonsters();
+        ArrayList<Monster> monsters = GameMap.getInstance().getMonsters();
         for (Monster monster : monsters){
             int t_x = monster.getX();
             int t_y = monster.getY();
@@ -287,21 +285,21 @@ public class GameEngine {
             else if (direction == 3)
                 y++;
 
-            int collision = colMan.checkCollision(x, y, map.getMap());
+            int collision = colMan.checkCollision(x, y, GameMap.getInstance().getMap());
 
             if (collision != 1) {
-                map.removeObject(monster);
+                GameMap.getInstance().removeObject(monster);
                 monster.move(direction);
             }
 
             if (collision == -1){
 
-                map.addObject(monster);
+                GameMap.getInstance().addObject(monster);
    //             healthDecrease();
                 break;
             }
             else {
-                map.addObject(monster);
+                GameMap.getInstance().addObject(monster);
             }
         }
     }
@@ -318,9 +316,9 @@ public class GameEngine {
             x--;
         else if (direction == 3)
             y++;
-        ArrayList<MapObject>[][] t_map = map.getMap();
+        ArrayList<MapObject>[][] t_map = GameMap.getInstance().getMap();
         if (x < 15 && x >= 0 && y >= 0 && y < 13 ) {
-            ArrayList<MapObject> slot = map.getMap()[y][x];
+            ArrayList<MapObject> slot = GameMap.getInstance().getMap()[y][x];
             if (slot == null)
                 return true;
             for (MapObject aSlot : slot) {
@@ -336,7 +334,7 @@ public class GameEngine {
     
     public GameMap getMap()
     {
-    	return map;
+    	return GameMap.getInstance();
     }
 	
 	public boolean isPaused()
@@ -371,12 +369,12 @@ public class GameEngine {
                     }
                 }
                 try{
-                    map.getPlayer().isBombControllable();
+                    GameMap.getInstance().getPlayer().isBombControllable();
                 }catch (Exception e){
-                    e.printStackTrace();
+                     e.printStackTrace();
                 }
 
-                if (!map.getPlayer().isBombControllable()) {
+                if (!GameMap.getInstance().getPlayer().isBombControllable()) {
                     Set<Bomb> keys = bombTimers.keySet();
                     if (keys.size() > 0) {
                         for (Bomb key : keys) {
@@ -385,7 +383,9 @@ public class GameEngine {
                             } else {
                                 bombTimers.remove(key);
                                 key.destroy();
-                                ArrayList colliding = colMan.checkCollision(key.getRange(), key, map.getMap());
+                                ArrayList colliding = colMan.checkCollision(key.getRange(), key, GameMap.getInstance().getMap());
+                                GameMap.getInstance().removeObject(key);
+                                colliding.remove(key);
                                 destroyObjects(colliding);
                             }
                         }
@@ -396,7 +396,8 @@ public class GameEngine {
                     for (Bomb key : keys) {
                         bombTimers.remove(key);
                         key.destroy();
-                        ArrayList colliding = colMan.checkCollision(key.getRange(), key, map.getMap());
+                        ArrayList colliding = colMan.checkCollision(key.getRange(), key, GameMap.getInstance().getMap());
+                        GameMap.getInstance().removeObject(key);
                         destroyObjects(colliding);
                     }
                     destroyBombs = false;

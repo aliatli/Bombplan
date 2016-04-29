@@ -8,6 +8,8 @@ import java.awt.event.*;
 import javax.swing.*;
 import java.io.*;
 
+import static java.lang.Thread.sleep;
+
 //Saner Turhaner
 
 public class LoadGamePanel extends SideMenuPanel 
@@ -19,7 +21,7 @@ public class LoadGamePanel extends SideMenuPanel
 	StorageManager x;
 	
 	//Constructor	
-	public LoadGamePanel()
+	public LoadGamePanel(boolean val)
 	{
 		super();
 
@@ -55,6 +57,10 @@ public class LoadGamePanel extends SideMenuPanel
 		//Add components to the panel
 		add(title);
 		add(games);
+
+//		if (val)
+//			x.generateGame("savedGame");
+
 	}
 	
 	//Methods
