@@ -14,11 +14,13 @@ public class StorageManager
 	//Properties
    	File file;
 	ArrayList<String> scorelines;
+	static int saveLines;
 
 	//Constructor
 	public StorageManager()
 	{
 		scorelines 		= new ArrayList<String>();
+		saveLines 		= 0;
 	}
 
 	//Methods
@@ -36,18 +38,20 @@ public class StorageManager
 
    			while(scan.hasNextLine())
    			{
+   				saveLines++;
+   				
 	   			line = scan.nextLine();
-	   			words = line.split(",");//Take every word
 
-	    		text = text + words[0] + "\t" + words[1] + "\t"  + Integer.parseInt(words[2]) + "\t" + Integer.parseInt(words[3]) + "\n";//A line
+	    		text = text + line + "\n";//A line
 	   		}
    		}
    		else if(fileName.equalsIgnoreCase("src/Sources/txts/highScores.txt"))//Highscores are read
    		{
    			scan = new Scanner(file);//Scanner initialized
-
+			saveLines = 0;
+			
    			while(scan.hasNextLine())
-   			{
+   			{   			
 	   			line = scan.nextLine();
 	   			words = line.split(",");//Take every word
 
@@ -69,12 +73,13 @@ public class StorageManager
     public void writeFile(String record, String fileName)throws IOException//Write in File
     {
 		PrintWriter writer;
+    	String pre = readFile(fileName);
 
     	try
     	{
     		file = new File(fileName);
     		writer = new PrintWriter(file);
-			writer.print(record);
+			writer.print( pre + record);
 			writer.close();
 		}
 		catch (IOException e)
@@ -128,5 +133,34 @@ public class StorageManager
 		GameEngine.getInstance().startGameLoop();
 
 	}
+	
+	public int getSaveLines()
+	{
+		return saveLines;
+	}
+	
+	public ArrayList<String> readAsArray(String fileName) throws IOException//Read From File
+    {
+   		Scanner scan;
+   		ArrayList<String> text = new ArrayList<String>();
+   		String line;
+   		String[] words;
+   		file = new File(fileName);
 
+   		if(fileName.equalsIgnoreCase("src/Sources/txts/savedGames.txt"))//Load games are read
+   		{
+   			scan = new Scanner(file);//Scanner initialized
+
+   			while(scan.hasNextLine())
+   			{
+   				saveLines++;
+   				
+	   			line = scan.nextLine();
+
+	    		text.add(line);
+	   		}
+   		}
+   		
+   		return text;
+    }
 }
