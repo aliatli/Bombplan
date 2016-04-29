@@ -19,7 +19,7 @@ import java.util.zip.Inflater;
 
 public class GameEngine {
     private final int BOMB_TIME = 5;
-    private final int DEFAULT_TIME = 20;
+    private final int DEFAULT_TIME = 360;
 
     private int score;
     private int currentLevel;
@@ -142,7 +142,7 @@ public class GameEngine {
             return;
         }
         else if (collision == -1){
-//            healthDecrease();
+            healthDecrease();
         }
         GameMap.getInstance().addObject(player);
 
@@ -206,9 +206,9 @@ public class GameEngine {
 	}
 
     private void healthDecrease() throws Exception {
-        GameMap.getInstance().getPlayer().decreaseLife();
+        player.decreaseLife();
 
-        if (GameMap.getInstance().getPlayer().getLife() == -1){
+        if (player.getLife() == -1){
             gameOver();
         }
     }
@@ -222,9 +222,15 @@ public class GameEngine {
      */
 	private void destroyObjects(ArrayList<MapObject> objects) throws Exception {
 
-        for (MapObject obj : objects)
-            if (obj instanceof Player)
-                gameOver();
+        for (int i = 0; i < objects.size(); i++){
+            MapObject obj = objects.get(i);
+            if (obj instanceof Player) {
+                objects.remove(obj);
+                player = (Player) obj;
+                healthDecrease();
+                i--;
+            }
+        }
         GameMap.getInstance().removeObjects(objects);
 	}
 
@@ -415,6 +421,7 @@ public class GameEngine {
             }
 
             if (a % 5 == 1){
+
                 moveFastMonsters();
                 if (!movements.isEmpty()){
                     for (int i = 0;movements.size()!= 0;){
