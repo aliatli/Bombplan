@@ -1,12 +1,8 @@
 package UserInterfaceSubsystem;
 
 import ControllerSubsystem.GameEngine;
-import UserInterfaceSubsystem.*;
-import java.util.ArrayList;
-import java.awt.*;
-import java.awt.event.*;
+
 import javax.swing.*;
-import java.io.*;
 
 //Saner Turhaner
 
@@ -134,6 +130,6 @@ public class ScreenView
 	}
 	public JPanel saveScore()
 	{
-		return saveScoreP;
+		return this.saveScoreP;
 	}
 }
