@@ -1,6 +1,7 @@
 package UserInterfaceSubsystem;
 
 import ControllerSubsystem.GameEngine;
+import ControllerSubsystem.StorageManager;
 import com.thoughtworks.xstream.XStream;
 import com.thoughtworks.xstream.io.xml.StaxDriver;
 
@@ -40,16 +41,23 @@ public class PauseMenuPanel extends JPanel
 
 	//Booleans
 	boolean isSound;
-	boolean isMusic; 
-		
+	boolean isMusic;
+
+	//Engine
+	GameEngine engine;
+	StorageManager x;
+	String[] words;
+	String fileName;
 
 	//Constructor
 	public PauseMenuPanel()
 	{
 
+		engine = GameEngine.getInstance();
+		x = engine.getStorageMan();
 		//Panel constructed
 		setLayout(null);
-		setPreferredSize(new Dimension(600,300));
+		setPreferredSize(new Dimension(600,350));
 		setBackground( Color.BLACK );
 		
 		//Label initialized
@@ -80,7 +88,7 @@ public class PauseMenuPanel extends JPanel
 		
 		bottom = new JPanel();
 		bottom.setSize(new Dimension(600,6));
-		bottom.setLocation(0,287);
+		bottom.setLocation(0,337);
 		bottom.setBackground( Color.RED );
 		bottom.setVisible(true);
 			
@@ -120,14 +128,14 @@ public class PauseMenuPanel extends JPanel
         
 		backtogame = new JButton("Back to Game");
 		backtogame.setSize(new Dimension(200,40));
-		backtogame.setLocation(200,180);
+		backtogame.setLocation(200,240);
 		backtogame.setFont(new Font("Adobe Caslon Pro Bold", Font.PLAIN + Font.BOLD, 20));
 		backtogame.setForeground(Color.BLACK);
         backtogame.setFocusPainted(false);
 
 		saveGame = new JButton("Save Game");
 		saveGame.setSize(new Dimension(200,40));
-		saveGame.setLocation(200,230);
+		saveGame.setLocation(200,290);
 		saveGame.setFont(new Font("Adobe Caslon Pro Bold", Font.PLAIN + Font.BOLD, 20));
 		saveGame.setForeground(Color.BLACK);
 		saveGame.setFocusPainted(false);
@@ -142,9 +150,7 @@ public class PauseMenuPanel extends JPanel
 		backtogame.addActionListener(new ButtonListener());
 		saveGame.addActionListener(new ButtonListener());
 
-   		SlideListener listener = new SlideListener();
-		music.addChangeListener(listener);
-		sound.addChangeListener(listener);
+
 									
 		//Add components in panel
 		add(title);
@@ -195,8 +201,10 @@ public class PauseMenuPanel extends JPanel
 
 				if(obj == saveGame)
 				{
-					setVisible(false);
-					GameEngine.getInstance().getStorageMan().saveGame();
+					//Ask file name
+					fileName = JOptionPane.showInputDialog(null,"Enter a name for the saved game");
+					x.saveGame(fileName);
+					x.writeFile(fileName, "src/Sources/txts/savedGames.txt");
 				}
     		}	
     		catch(Exception exc)//If there is exception (general) catch it
@@ -206,25 +214,6 @@ public class PauseMenuPanel extends JPanel
 		}
 						
 	}
-
-
-   	private class SlideListener implements ChangeListener//Listener class (inner)
-   	{
-   		public void stateChanged(ChangeEvent event)//only method for ChangeListener interface
-   		{
-   			//Change music volume
-   			if(music.getValue() == 0)
-   				isMusic = false;
-   			else
-   				isMusic = true;   				
-   			
-   			//Change sound volume
-   			if(sound.getValue() == 0)
-   				isSound = false;   			
-   			else
-   				isSound = true;   	
-   		}	
-   	}	
    			
 }
 

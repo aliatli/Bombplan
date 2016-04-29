@@ -139,8 +139,8 @@ public class MainMenuPanel extends MenuPanel
 				else if(obj == loadGameButton)
 				{
 		//			ScreenView.getInstance().setLoad(true);
-		//			( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).getLoad() );
-					( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).startGame());
+					( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).getLoad() );
+		//			( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).startGame());
 				}
 				else if(obj == optionsButton)
 				{

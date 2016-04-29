@@ -1,5 +1,7 @@
 package ModelSubsystem;
 
+import java.awt.*;
+
 public class FastMonster extends Monster{
     public FastMonster( int x, int y){
         this.x = x;
@@ -9,4 +11,6 @@ public class FastMonster extends Monster{
         destroyable = true;
         getIconFromFile("src/Sources/Images/fastMonster.png");
     }
+
+
 }

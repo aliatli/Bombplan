@@ -14,11 +14,12 @@ public class StorageManager
 	//Properties
    	File file;
 	ArrayList<String> scorelines;
-
+	static int saveLines;
 	//Constructor
 	public StorageManager()
 	{
-		scorelines 		= new ArrayList<String>();
+		scorelines = new ArrayList<String>();
+		saveLines = 0;
 	}
 
 	//Methods
@@ -36,15 +37,15 @@ public class StorageManager
 
    			while(scan.hasNextLine())
    			{
+				saveLines++;
 	   			line = scan.nextLine();
-	   			words = line.split(",");//Take every word
-
-	    		text = text + words[0] + "\t" + words[1] + "\t"  + Integer.parseInt(words[2]) + "\t" + Integer.parseInt(words[3]) + "\n";//A line
-	   		}
+				text = text + line + "\n";//A line
+			}
    		}
    		else if(fileName.equalsIgnoreCase("src/Sources/txts/highScores.txt"))//Highscores are read
    		{
    			scan = new Scanner(file);//Scanner initialized
+			saveLines = 0;
 
    			while(scan.hasNextLine())
    			{
@@ -69,12 +70,12 @@ public class StorageManager
     public void writeFile(String record, String fileName)throws IOException//Write in File
     {
 		PrintWriter writer;
-
+		String pre = readFile(fileName);
     	try
     	{
     		file = new File(fileName);
     		writer = new PrintWriter(file);
-			writer.print(record);
+			writer.print( pre + record);
 			writer.close();
 		}
 		catch (IOException e)
@@ -83,25 +84,25 @@ public class StorageManager
 		}
     }
 
-	public void saveGame(){
+	public void saveGame(String given){
 		XStream xstream = new XStream(new StaxDriver());
-		File userfile = new File("src//Sources//txts//savedGame.xml");
-		File userfile2 = new File("src//Sources//txts//savedGame_map.xml");
+		File userfile = new File("src//Sources//txts//" + given + ".xml");
+		File userfile2 = new File("src//Sources//txts//" + given + "_map.xml");
 		Writer writer;
 		try {
 			if(!userfile.exists()){
 				writer = new BufferedWriter(new OutputStreamWriter(
-						new FileOutputStream("src//Sources//txts//savedGame.xml"), "utf-8"));
+						new FileOutputStream("src//Sources//txts//" + given + ".xml"), "utf-8"));
 				writer.write("");
 			}
 			if(!userfile2.exists()){
 				writer = new BufferedWriter(new OutputStreamWriter(
-						new FileOutputStream("src//Sources//txts//savedGame_map.xml"), "utf-8"));
+						new FileOutputStream("src//Sources//txts//" + given + "_map.xml"), "utf-8"));
 				writer.write("");
 			}
 
-			xstream.toXML(GameEngine.getInstance(), new FileWriter( new File("src//Sources//txts//savedGame.xml")));
-			xstream.toXML(GameEngine.getInstance().getMap(), new FileWriter( new File("src//Sources//txts//savedGame_map.xml")));
+			xstream.toXML(GameEngine.getInstance(), new FileWriter( new File("src//Sources//txts//" + given + ".xml")));
+			xstream.toXML(GameEngine.getInstance().getMap(), new FileWriter( new File("src//Sources//txts//" + given + "_map.xml")));
 
 
 		} catch (IOException e) {
@@ -127,6 +128,36 @@ public class StorageManager
 //		GameMap.getInstance().resetMap(GameEngine.getInstance().getMap());
 		GameEngine.getInstance().startGameLoop();
 
+	}
+
+	public int getSaveLines()
+	{
+		return saveLines;
+	}
+
+	public ArrayList<String> readAsArray(String fileName) throws IOException//Read From File
+	{
+		Scanner scan;
+		ArrayList<String> text = new ArrayList<String>();
+		String line;
+		String[] words;
+		file = new File(fileName);
+
+		if(fileName.equalsIgnoreCase("src/Sources/txts/savedGames.txt"))//Load games are read
+		{
+			scan = new Scanner(file);//Scanner initialized
+
+			while(scan.hasNextLine())
+			{
+				saveLines++;
+
+				line = scan.nextLine();
+
+				text.add(line);
+			}
+		}
+
+		return text;
 	}
 
 }
