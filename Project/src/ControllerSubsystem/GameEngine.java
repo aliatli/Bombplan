@@ -116,6 +116,7 @@ public class GameEngine {
             if (player.isBombControllable()){
                 destroyBombs = true;
             }
+            return;
         }
 
 

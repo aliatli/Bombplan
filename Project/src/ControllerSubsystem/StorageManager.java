@@ -83,25 +83,25 @@ public class StorageManager
 		}
     }
 
-	public void saveGame(){
+	public void saveGame(String given){
 		XStream xstream = new XStream(new StaxDriver());
-		File userfile = new File("src//Sources//txts//savedGame.xml");
-		File userfile2 = new File("src//Sources//txts//savedGame_map.xml");
+		File userfile = new File("src//Sources//txts//" + given + ".xml");
+		File userfile2 = new File("src//Sources//txts//" + given + "_map.xml");
 		Writer writer;
 		try {
 			if(!userfile.exists()){
 				writer = new BufferedWriter(new OutputStreamWriter(
-						new FileOutputStream("src//Sources//txts//savedGame.xml"), "utf-8"));
+						new FileOutputStream("src//Sources//txts//" + given + ".xml"), "utf-8"));
 				writer.write("");
 			}
 			if(!userfile2.exists()){
 				writer = new BufferedWriter(new OutputStreamWriter(
-						new FileOutputStream("src//Sources//txts//savedGame_map.xml"), "utf-8"));
+						new FileOutputStream("src//Sources//txts//" + given + "_map.xml"), "utf-8"));
 				writer.write("");
 			}
 
-			xstream.toXML(GameEngine.getInstance(), new FileWriter( new File("src//Sources//txts//savedGame.xml")));
-			xstream.toXML(GameEngine.getInstance().getMap(), new FileWriter( new File("src//Sources//txts//savedGame_map.xml")));
+			xstream.toXML(GameEngine.getInstance(), new FileWriter( new File("src//Sources//txts//" + given + ".xml")));
+			xstream.toXML(GameEngine.getInstance().getMap(), new FileWriter( new File("src//Sources//txts//" + given + "_map.xml")));
 
 
 		} catch (IOException e) {
