@@ -26,6 +26,13 @@ public class StorageManager
 	{
 		scorelines = new ArrayList<String>();
 		listOfScores = new ArrayList<Integer>();
+		try{
+			String temp = readFile("src/Sources/txts/highScores.txt");	
+		}
+		catch(Exception e)
+		{
+			System.out.print("asd");
+		}
 		saveLines = 0;
 	}
 
