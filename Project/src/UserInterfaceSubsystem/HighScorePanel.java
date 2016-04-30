@@ -55,5 +55,20 @@ public class HighScorePanel extends SideMenuPanel
 		add(title);
 		add(scores);
 	}
+
+	public void paintComponent(Graphics page)
+	{
+		super.paintComponent(page);//Default (must)
+	
+		try
+		{
+			//Update text file
+			scores.setText("Nickname\t\tPoint\n" + x.readFile("src/Sources/txts/highScores.txt"));
+		}
+		catch (IOException e)
+		{						
+			e.printStackTrace();
+		}
+	}
 	
 }
