@@ -3,6 +3,7 @@ package ControllerSubsystem;
 import ModelSubsystem.*;
 
 import java.util.ArrayList;
+import java.util.Map;
 
 public class CollisionManager {
 
@@ -15,7 +16,10 @@ public class CollisionManager {
 	public ArrayList checkCollision(int range, Bomb bomb, ArrayList<MapObject>[][] map) {
 		ArrayList<MapObject> objs = new ArrayList<MapObject>();
 
-        objs.add(bomb);
+        ArrayList<MapObject> tmp = GameEngine.getInstance().getMap().getObj(bomb.getX(), bomb.getY());
+        for (MapObject obj : tmp)
+            objs.add(obj);
+
         GameEngine.getInstance().addFire(bomb.getX(), bomb.getY());
         for (int i = bomb.getX() + 1; i <= bomb.getX() + range && i < 15; i++){
             GameEngine.getInstance().addFire(i, bomb.getY());
