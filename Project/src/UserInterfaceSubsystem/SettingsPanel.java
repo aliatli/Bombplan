@@ -110,17 +110,17 @@ public class SettingsPanel extends SideMenuPanel
 			
 			try//Try it
     		{
-   /* 			if(obj == soundButton)
+    			if(obj == soundButton)
 				{
 					if(sound)
 					{
 						sound = false;	
-						engine.setSoundEffect(false);						
+						//engine.setSoundEffect(false);						
 					}
 					else
 					{	
 						sound = true;
-						engine.setSoundEffect(true);	
+						//engine.setSoundEffect(true);	
 					}											
 				}	
 				else if(obj == musicButton)
@@ -128,15 +128,15 @@ public class SettingsPanel extends SideMenuPanel
 					if(music)
 					{
 						music = false;	
-						engine.setMusicEffect(false);
+						//engine.setMusicEffect(false);
 					}
 					else
 					{
 						music = true;	
-						engine.setMusicEffect(false);
+						//engine.setMusicEffect(false);
 					}
 				}	
-	*/
+	
 				setText();//Set text of the label
 				record = Boolean.toString(music) + "," + Boolean.toString(sound);//Write current records to the file
 				x.writeFile(record, "src/sources/txts/settings.txt");
