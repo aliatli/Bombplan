@@ -68,7 +68,22 @@ public class LoadGamePanel extends SideMenuPanel
 		add(games);
 	}
 	
-
+	public void paintComponent(Graphics page)
+	{
+		super.paintComponent(page);//Default (must)
+	
+		try
+		{
+			//Update text file
+			games.setText("File Name\n" + x.readFile("src/Sources/txts/savedGames.txt"));
+			initializeButtons();	
+		}
+		catch (IOException e)
+		{						
+			e.printStackTrace();
+		}
+	}
+	
 	//Listener for Buttons
 	private class ButtonListener implements ActionListener//Inner class
 	{

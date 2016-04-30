@@ -24,7 +24,6 @@ public class GameScreenPanel extends JPanel
 	//Constructor
 	public GameScreenPanel()
 	{
-
 		//Panel constructured
 		setLayout(null);
 		setBackground(Color.BLACK);
@@ -67,7 +66,6 @@ public class GameScreenPanel extends JPanel
 		timer_label.setForeground(new Color(207,54,30));
 		timer_label.setVisible(true);
 
-
         timer.start();
         
         //Keys
@@ -80,7 +78,6 @@ public class GameScreenPanel extends JPanel
 		add(level);
 		add(point);
 		add(timer_label);
-
 	}
 	
 	//Methods
@@ -102,9 +99,7 @@ public class GameScreenPanel extends JPanel
 	{
 		GameEngine.getInstance().setPaused(false);
 		GameEngine.getInstance().getMap().drawAll(g);
-
-	}
-    
+	}    
 
 	//TimerListener	
 	private class TimerListener implements ActionListener//Listener for timer
@@ -135,7 +130,16 @@ public class GameScreenPanel extends JPanel
 							try {
 								GameEngine.getInstance().nextLevel();
 							} catch (Exception e1) {
-								if (e1.getMessage().equalsIgnoreCase("gameover!")){	/// HERE SCORE SAVING PANEL WILL COME!
+								if (e1.getMessage().equalsIgnoreCase("gameover!")){
+									try
+									{
+										//GameEngine.getInstance().getStorageMan().checkScore(GameEngine.getInstance().getScore());										
+									}
+									catch(Exception e3)
+									{
+										//System.out.println("asdasd");
+									}
+									
 									( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).getGameOver(GameEngine.getInstance().getScore()));
 								}
 							}

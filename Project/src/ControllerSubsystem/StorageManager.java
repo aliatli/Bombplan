@@ -26,6 +26,13 @@ public class StorageManager
 	{
 		scorelines = new ArrayList<String>();
 		listOfScores = new ArrayList<Integer>();
+		try{
+			String temp = readFile("src/Sources/txts/highScores.txt");	
+		}
+		catch(Exception e)
+		{
+			System.out.print("asd");
+		}
 		saveLines = 0;
 	}
 
@@ -62,9 +69,8 @@ public class StorageManager
    		}
    		else if(fileName.equalsIgnoreCase("src/Sources/txts/highScores.txt"))//Highscores are read
    		{
- /*  			scan = new Scanner(file);//Scanner initialized
+ 			scan = new Scanner(file);//Scanner initialized
 
-  
    			for(int i = 0; i < 10; i++)
    			{   			
 	   			line = scan.nextLine();
@@ -73,7 +79,7 @@ public class StorageManager
 				listOfScores.add(Integer.parseInt(words[1]));
 	    		text = text + words[0] + "\t\t" + Integer.parseInt(words[1]) + "\n";//A line
 	   		}
-   	*/	}
+   		}
 
    		else if(fileName.equalsIgnoreCase("src/Sources/txts/settings.txt"))//Settings are read
    		{
@@ -133,7 +139,7 @@ public class StorageManager
     		for(int i = 9; i >= 0; i--)//Scan list    		
 	    	{    		
 	    		if( point >= listOfScores.get(i) )
-	    			order =  i;//Return s�ra number  
+	    			order =  i;//Return order number  
 	    	}
 	    	
 	    	listOfScores.add(order, point);//Insert new score
