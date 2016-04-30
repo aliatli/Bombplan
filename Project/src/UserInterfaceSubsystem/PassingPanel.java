@@ -33,9 +33,9 @@ public class PassingPanel extends JPanel
 
 		//Label initialized
 		title = new JLabel( "Level " + levelNo );
-		title.setSize(new Dimension(400,40));
-		title.setLocation(312,325);
-		title.setFont(new Font("Calibri", Font.PLAIN + Font.BOLD, 30));
+		title.setSize(new Dimension(120,50));
+		title.setLocation(420,425);
+		title.setFont(new Font("Calibri", Font.PLAIN + Font.BOLD, 40));
 		title.setForeground(new Color(207,54,30));
 		title.setVisible(true);
 			
