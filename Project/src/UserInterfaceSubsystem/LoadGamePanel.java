@@ -73,7 +73,7 @@ public class LoadGamePanel extends SideMenuPanel
 		super.paintComponent(page);//Default (must)
 	
 		try
-		{
+		{			
 			//Update text file
 			games.setText("File Name\n" + x.readFile("src/Sources/txts/savedGames.txt"));
 			initializeButtons();	
@@ -94,6 +94,7 @@ public class LoadGamePanel extends SideMenuPanel
 
 			try//Try it
 			{
+				//System.out.print("Size = " + buttons.size());
 				for(int i = 0; i < buttons.size(); i++)
 				{
 					if(obj == buttons.get(i))
@@ -116,6 +117,10 @@ public class LoadGamePanel extends SideMenuPanel
 
 	public void initializeButtons()
 	{
+		if(buttons.size() > 0)
+			for(int i = 0; i < buttons.size(); i++)//Remove all
+				buttons.remove(i);
+					
 		//Buttons for each text
 		for(int i = 0; i < x.getSaveLines(); i++)
 		{
