@@ -1,21 +1,11 @@
 package ControllerSubsystem;
 
 import ModelSubsystem.*;
-import UserInterfaceSubsystem.GameScreenPanel;
-import UserInterfaceSubsystem.LoadGamePanel;
-import UserInterfaceSubsystem.ScreenView;
-
-import javax.swing.*;
-import java.awt.event.ActionEvent;
-import java.awt.event.ActionListener;
-import java.awt.event.PaintEvent;
 import java.io.FileNotFoundException;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Random;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
-import java.util.zip.Inflater;
 
 public class GameEngine {
     private final int BOMB_TIME = 5;
@@ -36,6 +26,8 @@ public class GameEngine {
     private Player player;
     private boolean soundEffect;
     private boolean musicEffect;
+    private int a = 0;      // Used for timers!
+
 
 
     private GameEngine(){
@@ -157,11 +149,6 @@ public class GameEngine {
             stopGameMusic();
 	}
 
-    private void stopGame() {
-        if (!paused)
-            paused = true;
-    }
-    
 	private void plantBomb() {
 		Player player = GameMap.getInstance().getPlayer();
         Bomb bomb = new Bomb(player.getX(), player.getY(), player.getRange());
@@ -174,9 +161,6 @@ public class GameEngine {
     public ArrayList<Integer> getMovements(){
         return movements;
     }
-	public void options() {
-        //TODO - what should this method do AMK?
-	}
 
 	public void nextLevel() {
         if (currentLevel != 4) {
@@ -229,7 +213,12 @@ public class GameEngine {
                 player = (Player) obj;
                 healthDecrease();
                 i--;
+                score -= 10;
             }
+            if (obj instanceof DestroyableWall)
+                score += ((DestroyableWall) obj).getPoint();
+            if (obj instanceof Monster)
+                score += ((Monster)obj).getPoint();
         }
         GameMap.getInstance().removeObjects(objects);
 	}
@@ -391,7 +380,6 @@ public class GameEngine {
 		return paused;
 	}
 
-    int a = 0;
 
     private boolean isDestroyBombs(){
         return this.destroyBombs;
@@ -414,7 +402,7 @@ public class GameEngine {
                 time--;
                 if (time < 0){
                     //nextLevel();
-                    throw new Exception("nextLevel");
+                    throw new Exception("gameOver");
                 }
                 a = 0;
                 moveSlowMonsters();
@@ -443,7 +431,6 @@ public class GameEngine {
                                 bombTimers.put(key, bombTimers.get(key) - 1);
                             } else {
                                 bombTimers.remove(key);
-                                key.destroy();
                                 ArrayList<MapObject> colliding = colMan.checkCollision(key.getRange(), key, GameMap.getInstance().getMap());
                                 GameMap.getInstance().removeObject(key);
                                 colliding.remove(key);
@@ -456,7 +443,6 @@ public class GameEngine {
                     Set<Bomb> keys = bombTimers.keySet();
                     for (Bomb key : keys) {
                         bombTimers.remove(key);
-                        key.destroy();
                         ArrayList<MapObject> colliding = colMan.checkCollision(key.getRange(), key, GameMap.getInstance().getMap());
                         GameMap.getInstance().removeObject(key);
                         colliding.remove(key);

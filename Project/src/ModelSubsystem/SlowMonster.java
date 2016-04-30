@@ -7,8 +7,8 @@ public class SlowMonster extends Monster{
         this.draw_x = x * 64;
         this.draw_y = y * 64;
         this.type = 1;
-        this.velocity = 3;
         this.destroyable = true;
+        this.point = 10;
         getIconFromFile("src/Sources/Images/slowMonster.png");
     }
 }

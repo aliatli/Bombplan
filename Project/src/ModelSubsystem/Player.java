@@ -5,23 +5,22 @@ import java.util.Random;
 
 public class Player extends MapObject implements Movable{
 
-	private boolean multipleBomb = false;
 	private int lives = 3;
 	private boolean bombControllable = false;
-	private int velocity = 4;
-    //private CollisionManager colMan;
 	private int maxBomb = 1;
 	private int range;
 
-
-	public boolean isMultipleBomb() {
-		return this.multipleBomb;
-	}
+	/**
+	 *
+	 * @return maxBomb
+     */
 	public int getMaxBomb() { return this.maxBomb;}
-	public void setMultipleBomb(boolean multipleBomb) {
-		this.multipleBomb = multipleBomb;
-	}
 
+	/**
+	 *
+	 * @param bonus
+	 * @return bonusType
+     */
 	public int takeBonus( Bonus bonus) {
 		bonus.activateBonus();
 		Random rand = new Random();
@@ -31,7 +30,6 @@ public class Player extends MapObject implements Movable{
 		}
 		if( bonusType == 2) {     	   //bombNumberExtender
 			this.maxBomb += 1;
-			this.multipleBomb = true;
 		}
 		else if( bonusType == 3) {		//bombTimerCanceller
 			this.bombControllable = true;
@@ -39,13 +37,27 @@ public class Player extends MapObject implements Movable{
 		return bonusType;
 	}
 
+	/**
+	 *
+	 * @return bombControllable
+     */
 	public boolean isBombControllable() {
 		return this.bombControllable;
 	}
 
+	/**
+	 *
+	 * @param val
+     */
 	public void setBombControllable(boolean val){
 		this.bombControllable = val;
 	}
+
+	/**
+	 *
+	 * @param x
+	 * @param y
+     */
 	public Player( int x, int y) {
 		this.range = 1;
 		this.x = x;
@@ -56,24 +68,31 @@ public class Player extends MapObject implements Movable{
 		getIconFromFile("src/Sources/Images/player.png");
 	}
 
-
-
-
-	public int getVelocity() {
-		return this.velocity;
-	}
-
+	/**
+	 *
+	 * @return lives
+     */
 	public int getLife() {
 		return this.lives;
 	}
+
+	/**
+	 *
+	 * @return range
+     */
 	public int getRange() {
 		return this.range;
 	}
+
 
 	public void decreaseLife() {
 		this.lives--;
 	}
 
+	/**
+	 *
+	 * @param movement
+     */
 	public void move(int movement){
         if (movement == 0){
 			this.setX(getX()+1);
@@ -91,14 +110,25 @@ public class Player extends MapObject implements Movable{
 
 
 	}
+
+	/**
+	 *
+	 */
 	public void increaseBomb(){
 		maxBomb++;
 	}
 
+	/**
+	 *
+	 */
 	public void increaseRange(){
 		range++;
 	}
 
+	/**
+	 *
+	 * @param g
+     */
 	public void draw(Graphics g) {
 
 		icon.paintIcon(null, g, this.getIncrementX(), this.getIncrementY());

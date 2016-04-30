@@ -16,10 +16,10 @@ import java.util.*;
 public class StorageManager
 {
 	//Properties
-   	File file;
-	static int saveLines;
-	ArrayList<Integer> listOfScores;
-	ArrayList<String> scorelines;
+   	private File file;
+	private static int saveLines;
+	private ArrayList<Integer> listOfScores;
+	private ArrayList<String> scorelines;
 
 	//Constructor
 	public StorageManager()

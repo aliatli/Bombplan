@@ -11,7 +11,7 @@ public class GameMap {
 
 	private ArrayList<MapObject>[][] map;
 
-	private static GameMap uniqueInstance = null;
+	private static GameMap uniqueInstance;
 
 	public void constructLevel(int level) throws FileNotFoundException {
 		Scanner scanner;
@@ -55,9 +55,6 @@ public class GameMap {
 	}
 
 
-	public void resetMap(){
-		uniqueInstance = new GameMap();
-	}
 	public boolean addObject(MapObject object) {
 		if (map[object.getY()][object.getX()] == null){
 			map[object.getY()][object.getX()] = new ArrayList<MapObject>();
@@ -103,9 +100,9 @@ public class GameMap {
 				break;
 		}
 		// door: behind a random destroyable wall
-		// TODO: YA NERDEN BILIYON AMK HEP 72 DUVAR OLACAGINI??
+		// TODO: YA NERDEN BILIYON HEP 72 DUVAR OLACAGINI??
 		randNum = rand.nextInt(72) + 1;
-		Door door = null;
+		Door door;
 		control = false;
 		for(int i=0; i< map.length; i++){
 			for(int j=0; j< map[i].length; j++){
@@ -308,11 +305,6 @@ public class GameMap {
 		}
 	}
 
-	public void explodeBomb(Bomb bomb) {
-		removeObject( bomb);
-		bomb.destroy();
-	}
-
 	public static GameMap getInstance() {
 		if(uniqueInstance == null) {
 			uniqueInstance = new GameMap();
@@ -385,34 +377,11 @@ public class GameMap {
 		return map[y][x];
 	}
 
-	public void setObject(MapObject obj){
-		int x = obj.getX();
-		int y = obj.getY();
-		try{
-			ArrayList<MapObject> o = map[y][x];
-		}catch(Exception e){
-			e.printStackTrace();
-		}
-		if (map[y][x] == null){
-			map[y][x] = new ArrayList<MapObject>();
-		}
-		map[obj.getY()][obj.getX()].add(obj);
-	}
 
-	public void setObject(MapObject obj, int x, int y){
-		if (obj == null)
-			map[y][x] = null;
-		else if (map[y][x] == null) {
-			map[y][x] = new ArrayList<MapObject>();
-			map[y][x].add(obj);
-		}
-		else{
-			map[y][x].add(obj);
-		}
-	}
 	public static void setUniqueInstance(GameMap map){
 		uniqueInstance = map;
 	}
+
 	public void drawAll(Graphics g)
 	{
 		for(int i = 0; i < 13; i++)

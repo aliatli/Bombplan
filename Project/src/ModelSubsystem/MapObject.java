@@ -14,22 +14,6 @@ public class MapObject {
 	protected int x;
 	protected int y;
 
-	public int getDraw_y() {
-		return draw_y;
-	}
-
-	public void setDraw_y(int draw_y) {
-		this.draw_y = draw_y;
-	}
-
-	public int getDraw_x() {
-		return draw_x;
-	}
-
-	public void setDraw_x(int draw_x) {
-		this.draw_x = draw_x;
-	}
-
 	protected int draw_x;
 	protected int draw_y;
 

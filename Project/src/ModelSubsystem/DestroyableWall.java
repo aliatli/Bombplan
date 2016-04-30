@@ -2,7 +2,7 @@ package ModelSubsystem;
 
 public class DestroyableWall extends Wall {
 
-	private int point = 200;
+	private int point = 10;
 
 	public int getPoint(){ return this.point;}
 

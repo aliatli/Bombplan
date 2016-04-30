@@ -10,7 +10,7 @@ public class Monster extends MapObject {
 	*/
 
 	protected int type;
-	protected int velocity;
+	protected int point;
 
 	public void move(int movement){
 		if (movement == 0) this.setX(getX()+1);
@@ -19,14 +19,14 @@ public class Monster extends MapObject {
 		else if (movement == 3) this.setY(getY()+1);
 	}
 
-	public int getVelocity() {
-		return this.velocity;
-	}
-
 
 	public void draw(Graphics g) {
 
 		icon.paintIcon(null, g, this.getIncrementX(), this.getIncrementY());
 
+	}
+
+	public int getPoint(){
+		return point;
 	}
 }
