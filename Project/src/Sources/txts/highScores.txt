@@ -1,3 +1,4 @@
+furkan,100
 Bomber,100
 Bomber,95
 Bomber,90
@@ -7,4 +8,3 @@ Bomber,75
 Bomber,70
 Bomber,65
 Bomber,60
-Bomber,50
