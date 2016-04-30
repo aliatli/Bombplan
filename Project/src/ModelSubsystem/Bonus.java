@@ -10,15 +10,8 @@ public class Bonus extends MapObject {
 	*/
 	protected int type;
 	private int point;
-	private boolean active = false;
 
-	public boolean isActive() {
-        return this.active;
-    }
 
-	public void activateBonus(){
-		this.active = true;
-	}
 	protected Bonus() {
 		this.destroyable = true;
 		this.point = 100;

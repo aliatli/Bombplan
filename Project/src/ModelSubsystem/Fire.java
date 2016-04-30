@@ -1,6 +1,6 @@
 package ModelSubsystem;
 
-public class Fire extends MapObject implements Destroyable {
+public class Fire extends MapObject {
 
     private int destroyTime = 2;
 
@@ -19,8 +19,5 @@ public class Fire extends MapObject implements Destroyable {
         return destroyTime;
     }
 
-    @Override
-    public void destroy() {
 
-    }
 }
