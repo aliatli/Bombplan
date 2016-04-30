@@ -133,11 +133,11 @@ public class GameScreenPanel extends JPanel
 								if (e1.getMessage().equalsIgnoreCase("gameover!")){
 									try
 									{
-										GameEngine.getInstance().getStorageMan().checkScore(GameEngine.getInstance().getScore());										
+										//GameEngine.getInstance().getStorageMan().checkScore(GameEngine.getInstance().getScore());										
 									}
 									catch(Exception e3)
 									{
-										System.out.print("");
+										//System.out.println("asdasd");
 									}
 									
 									( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).getGameOver(GameEngine.getInstance().getScore()));

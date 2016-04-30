@@ -24,7 +24,6 @@ public class GameOverPanel extends JPanel
      */
     public GameOverPanel(int point)
     {
-
         //Panel constructed
         setLayout(null);
         setPreferredSize(new Dimension(960,900));
@@ -67,11 +66,12 @@ public class GameOverPanel extends JPanel
         {
             try
             {
+				GameEngine.getInstance().getStorageMan().checkScore(GameEngine.getInstance().getScore());	
                 (ScreenView.getInstance()).changeActivePanel((ScreenView.getInstance()).getMain());
             }
             catch(Exception exception)
             {
-                //Whatever
+            	System.out.print(exception.getMessage());
             }
         }
     }
