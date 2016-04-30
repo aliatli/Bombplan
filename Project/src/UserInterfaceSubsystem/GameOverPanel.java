@@ -31,7 +31,7 @@ public class GameOverPanel extends JPanel
 
         //Label initialized
         title = new JLabel( "Game Over, your score is: " + point);
-        title.setSize(new Dimension(500,50));
+        title.setSize(new Dimension(800,50));
         title.setLocation(232,400);
         title.setFont(new Font("Calibri", Font.PLAIN + Font.BOLD, 40));
         title.setForeground(new Color(207,54,30));
