@@ -45,8 +45,8 @@ public class SettingsPanel extends SideMenuPanel
 		
 		music = Boolean.parseBoolean(words[0]);
 		sound = Boolean.parseBoolean(words[1]);
-		engine.setMusicEffect(music);
-		engine.setSoundEffect(sound);	
+	//	engine.setMusicEffect(music);
+	//	engine.setSoundEffect(sound);
 					
 		//Labels initialized
 		title = new JLabel( "Options" );
@@ -110,7 +110,7 @@ public class SettingsPanel extends SideMenuPanel
 			
 			try//Try it
     		{
-    			if(obj == soundButton)
+   /* 			if(obj == soundButton)
 				{
 					if(sound)
 					{
@@ -136,7 +136,7 @@ public class SettingsPanel extends SideMenuPanel
 						engine.setMusicEffect(false);
 					}
 				}	
-						
+	*/
 				setText();//Set text of the label
 				record = Boolean.toString(music) + "," + Boolean.toString(sound);//Write current records to the file
 				x.writeFile(record, "src/sources/txts/settings.txt");

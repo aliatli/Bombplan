@@ -271,7 +271,7 @@ public class PauseMenuPanel extends JPanel
 			else
 				isMusic = false;
 				
-			audioStatus();					
+//			audioStatus();
 		}	
 	}
 	
@@ -286,11 +286,11 @@ public class PauseMenuPanel extends JPanel
 			else
 				isSound = false;
 				
-			audioStatus();			
+//			audioStatus();
 		}	
 	}
 	
-	public void audioStatus()
+/*	public void audioStatus()
 	{
 		//Record
 		String record = Boolean.toString(isMusic) + "," + Boolean.toString(isSound);//Write current records to the file
@@ -314,7 +314,7 @@ public class PauseMenuPanel extends JPanel
 		else
 			GameEngine.getInstance().setSoundEffect(false);
 	}
-
+*/
 
 }
 

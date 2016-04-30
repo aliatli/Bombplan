@@ -20,7 +20,7 @@ public class GameEngine {
     private ArrayList<Fire> fireTimers;
     private ArrayList<Integer> movements;
     private CollisionManager colMan;
-    private SoundManager souMan;
+  //  private SoundManager souMan;
     private static GameEngine uniqueInstance;
     private StorageManager storageMan;
     private Player player;
@@ -39,7 +39,7 @@ public class GameEngine {
         destroyBombs = false;
         storageMan = new StorageManager();
         colMan = new CollisionManager();
-        souMan = new SoundManager();
+    //    souMan = new SoundManager();
 
         bombTimers = new HashMap<Bomb, Integer>();
         fireTimers = new ArrayList<Fire>();
@@ -138,11 +138,11 @@ public class GameEngine {
 	public void startGameLoop() {
         if (paused)
             paused = false;
-        if(musicEffect)
+ /*       if(musicEffect)
             playGameMusic();
         else
             stopGameMusic();
-	}
+*/	}
 
 	private void plantBomb() {
 		Player player = GameMap.getInstance().getPlayer();
@@ -458,7 +458,7 @@ public class GameEngine {
         }
     }
     //Music Methods
-    public void playGameMusic()
+ /*   public void playGameMusic()
     {
         souMan.playGameMusic();
     }
@@ -474,7 +474,7 @@ public class GameEngine {
 		souMan.walkEffect();
 	}*/
 
-    public void playBombEffect()
+/*    public void playBombEffect()
     {
         souMan.bombEffect();
     }
@@ -497,6 +497,6 @@ public class GameEngine {
     public boolean getMusicEffect()
     {
         return musicEffect;
-    }
+    }*/
 
 }

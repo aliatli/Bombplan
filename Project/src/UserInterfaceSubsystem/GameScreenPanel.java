@@ -134,7 +134,13 @@ public class GameScreenPanel extends JPanel
 							( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).getGameOver(GameEngine.getInstance().getScore()));
 						}
 						else if (e.getMessage().equalsIgnoreCase("nextLevel")){
-							GameEngine.getInstance().nextLevel();
+							try {
+								GameEngine.getInstance().nextLevel();
+							} catch (Exception e1) {
+								if (e1.getMessage().equalsIgnoreCase("gameover!")){	/// HERE SCORE SAVING PANEL WILL COME!
+									( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).getGameOver(GameEngine.getInstance().getScore()));
+								}
+							}
 							( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).getPassing(GameEngine.getInstance().getLevel()-1) );
 							repaint();
 							passing = true;
