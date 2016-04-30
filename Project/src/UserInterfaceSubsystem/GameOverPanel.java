@@ -17,6 +17,11 @@ public class GameOverPanel extends JPanel
     JLabel title;
 
     //Constructor
+
+    /**
+     *
+     * @param point
+     */
     public GameOverPanel(int point)
     {
 
@@ -40,14 +45,24 @@ public class GameOverPanel extends JPanel
     }
 
     //Page
+
+    /**
+     *
+     * @param g
+     */
     public void paintComponent(Graphics g)
     {
         super.paintComponent(g);//Default
     }
 
     //Mouse Listener
+
     private class MyMouseListener extends MouseAdapter implements MouseListener//Listener as a inner class implements MouseListener
     {
+        /**
+         *
+         * @param e
+         */
         public void mouseReleased(MouseEvent e)
         {
             try

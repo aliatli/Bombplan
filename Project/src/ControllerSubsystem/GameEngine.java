@@ -20,7 +20,7 @@ public class GameEngine {
     private ArrayList<Fire> fireTimers;
     private ArrayList<Integer> movements;
     private CollisionManager colMan;
-    private SoundManager souMan;
+  //  private SoundManager souMan;
     private static GameEngine uniqueInstance;
     private StorageManager storageMan;
     private Player player;
@@ -39,7 +39,7 @@ public class GameEngine {
         destroyBombs = false;
         storageMan = new StorageManager();
         colMan = new CollisionManager();
-        souMan = new SoundManager();
+    //    souMan = new SoundManager();
 
         bombTimers = new HashMap<Bomb, Integer>();
         fireTimers = new ArrayList<Fire>();
@@ -51,34 +51,67 @@ public class GameEngine {
 
     }
 
+    /**
+     *
+     * @param engine
+     */
     public static void setUniqueInstance(GameEngine engine){
         uniqueInstance = engine;
     }
+
+    /**
+     *
+     * @return score
+     */
     public int getScore(){
         return this.score;
     }
 
+    /**
+     *
+     * @return level
+     */
     public int getLevel(){
         return this.currentLevel;
     }
 
+    /**
+     *
+     * @return time
+     */
     public int getTime(){
         return this.time;
     }
+
+    /**
+     * Restarts the engine!
+     */
     public void restart(){
 
         uniqueInstance = new GameEngine();
     }
 
+    /**
+     * pause/Unpause
+     * @param setVal
+     */
     public void setPaused(boolean setVal){
         paused = setVal;
     }
 
+    /**
+     *
+     * @return StorageManager
+     */
     public StorageManager getStorageMan(){
         return storageMan;
     }
 
-
+    /**
+     *
+     * @param movement
+     * @throws Exception
+     */
 	private void movePlayer(int movement) throws Exception {
         player = GameMap.getInstance().getPlayer();
         int t_x = player.getX();
@@ -135,15 +168,17 @@ public class GameEngine {
 
     }
 
+    /**
+     * start the timer!
+     */
 	public void startGameLoop() {
         if (paused)
             paused = false;
-        if(musicEffect)
-            playGameMusic();
-        else
-            stopGameMusic();
 	}
 
+    /**
+     * plants bomb
+     */
 	private void plantBomb() {
 		Player player = GameMap.getInstance().getPlayer();
         Bomb bomb = new Bomb(player.getX(), player.getY(), player.getRange());
@@ -153,10 +188,18 @@ public class GameEngine {
 
 	}
 
+    /**
+     * returns the movements in ArrayList<Integer> form
+     * @return movements
+     */
     public ArrayList<Integer> getMovements(){
         return movements;
     }
 
+    /**
+     * fetches the nextLevel, handles the end of the game scenario
+     * @throws Exception
+     */
 	public void nextLevel() throws Exception {
         if (currentLevel != 4) {
             paused = true;
@@ -179,6 +222,10 @@ public class GameEngine {
         }
 	}
 
+    /**
+     * decreases the health of the player
+     * @throws Exception
+     */
     private void healthDecrease() throws Exception {
         player.decreaseLife();
 
@@ -187,6 +234,10 @@ public class GameEngine {
         }
     }
 
+    /**
+     *
+     * @throws Exception
+     */
     private void gameOver() throws Exception {
         throw new Exception("gameOver!");
     }
@@ -248,7 +299,10 @@ public class GameEngine {
         score+=20;
     }
 
-
+    /**
+     *
+     * @return uniqueInstance
+     */
 	public static GameEngine getInstance() {
         if (uniqueInstance == null){
             uniqueInstance = new GameEngine();
@@ -256,6 +310,11 @@ public class GameEngine {
         return uniqueInstance;
 	}
 
+    /**
+     *
+     * @param tried
+     * @return boolean
+     */
     private boolean checkTried(boolean[] tried){
         for(boolean bool: tried){
             if(!bool) return false;
@@ -263,6 +322,10 @@ public class GameEngine {
         return true;
     }
 
+    /**
+     * moves slowMonsters
+     * @throws Exception
+     */
     private void moveSlowMonsters() throws Exception {
         ArrayList<Monster> monsters = GameMap.getInstance().getMonsters();
         for (Monster monster : monsters){
@@ -271,6 +334,10 @@ public class GameEngine {
         }
     }
 
+    /**
+     * moves monsters
+     * @param monster
+     */
     private void moveMonster(Monster monster){
         int t_x = monster.getX();
         int t_y = monster.getY();
@@ -319,6 +386,10 @@ public class GameEngine {
         }
     }
 
+    /**
+     * moves FastMonsters
+     * @throws Exception
+     */
     private void moveFastMonsters() throws Exception {
         ArrayList<Monster> monsters = GameMap.getInstance().getMonsters();
         for (Monster monster : monsters){
@@ -328,10 +399,20 @@ public class GameEngine {
         }
     }
 
+    /**
+     * checks if the map is done for the current level
+     * @return boolean
+     */
     public boolean isDone(){
         return getMap().isDone();
     }
 
+    /**
+     * checks if the object can move on to the given direction
+     * @param m
+     * @param direction
+     * @return boolean
+     */
     private boolean checkPossible(Monster m, int direction){
         int x = m.getX();
         int y = m.getY();
@@ -358,29 +439,47 @@ public class GameEngine {
         return false;
     }
 
-
-    
+    /**
+     *
+     * @return GameMap
+     */
     public GameMap getMap()
     {
     	return GameMap.getInstance();
     }
-	
-	public boolean isPaused()
+
+    /**
+     *
+     * @return boolean
+     */
+    public boolean isPaused()
 	{
 		return paused;
 	}
 
-
+    /**
+     * used in checking for destroying the bombs with user control
+     * @return destroyBombs
+     */
     private boolean isDestroyBombs(){
         return this.destroyBombs;
     }
 
+    /**
+     * adds fire to the specified location
+     * @param x
+     * @param y
+     */
     public void addFire(int x, int y){
         Fire fire = new Fire(x, y);
         fireTimers.add(fire);
         getMap().addObject(fire);
     }
 
+    /**
+     * updates the map according to the given move commands!
+     * @throws Exception
+     */
     public void update() throws Exception {
         if(!paused ){
 
@@ -458,7 +557,7 @@ public class GameEngine {
         }
     }
     //Music Methods
-    public void playGameMusic()
+ /*   public void playGameMusic()
     {
         souMan.playGameMusic();
     }
@@ -474,7 +573,7 @@ public class GameEngine {
 		souMan.walkEffect();
 	}*/
 
-    public void playBombEffect()
+/*    public void playBombEffect()
     {
         souMan.bombEffect();
     }
@@ -497,6 +596,6 @@ public class GameEngine {
     public boolean getMusicEffect()
     {
         return musicEffect;
-    }
+    }*/
 
 }

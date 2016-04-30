@@ -30,6 +30,13 @@ public class StorageManager
 	}
 
 	//Methods
+
+	/**
+	 *
+	 * @param fileName
+	 * @return
+	 * @throws IOException
+     */
 	public String readFile(String fileName) throws IOException//Read From File
     {
    		Scanner scan;
@@ -80,6 +87,12 @@ public class StorageManager
    		return text;
     }
 
+	/**
+	 *
+	 * @param record
+	 * @param fileName
+	 * @throws IOException
+     */
     public void writeFile(String record, String fileName)throws IOException//Write in File
     {
 		PrintWriter writer;
@@ -102,7 +115,12 @@ public class StorageManager
 			e.printStackTrace();
 		}
     }
-        
+
+    /**
+	 *
+	 * @param point
+	 * @throws IOException
+     */
 	public void checkScore(int point) throws IOException//Just check if he enters the Highscores table
     {
     	int order = -1;//Temporaly
@@ -129,7 +147,11 @@ public class StorageManager
     		writeFile(record, "src/Sources/txts/highScores.txt");
     	}      		  	    					
     }
-    	     
+
+    /**
+	 *
+	 * @param given
+     */
 	public void saveGame(String given){
 		XStream xstream = new XStream(new StaxDriver());
 		File userfile = new File("src//Sources//txts//" + given + ".xml");
@@ -157,6 +179,10 @@ public class StorageManager
 
 	}
 
+	/**
+	 *
+	 * @param name
+     */
 	public void generateGame(String name) {
 		XStream xstream = new XStream(new StaxDriver());
 		String 	data = name;
@@ -172,12 +198,22 @@ public class StorageManager
 		GameEngine.getInstance().startGameLoop();
 
 	}
-	
+
+	/**
+	 *
+	 * @return
+     */
 	public int getSaveLines()
 	{
 		return saveLines;
 	}
-	
+
+	/**
+	 *
+	 * @param fileName
+	 * @return
+	 * @throws IOException
+     */
 	public ArrayList<String> readAsArray(String fileName) throws IOException//Read From File
     {
    		Scanner scan;

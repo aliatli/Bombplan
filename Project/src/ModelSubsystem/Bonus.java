@@ -16,9 +16,19 @@ public class Bonus extends MapObject {
 		this.destroyable = true;
 		this.point = 100;
 	}
+
+	/**
+	 *
+	 * @return type
+     */
 	public int getType(){
 		return this.type;
 	}
+
+	/**
+	 *
+	 * @return point
+     */
 	public int getPoint(){
 		return point;
 	}

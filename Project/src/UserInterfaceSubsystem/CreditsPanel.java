@@ -16,6 +16,10 @@ public class CreditsPanel extends SideMenuPanel
 	private JLabel title;
 	
 	//Constructor
+
+	/**
+	 *
+	 */
 	public CreditsPanel()
 	{
 		super();
@@ -29,8 +33,8 @@ public class CreditsPanel extends SideMenuPanel
 		title.setVisible(true);
 		
 		//Text initialized
-		creditsText = new JTextArea("\t Developers: \n\n Asena Rana Yozgatlý \t asena.rana@gmail.com"
-		+ "\n\n Berk Yurttaþ \t\t berk.yurttas@gmail.com \n\n Mehmet Furkan Þahin \t furkan.sahin@gmail.com"
+		creditsText = new JTextArea("\t Developers: \n\n Asena Rana Yozgatlï¿½ \t asena.rana@gmail.com"
+		+ "\n\n Berk Yurttaï¿½ \t\t berk.yurttas@gmail.com \n\n Mehmet Furkan ï¿½ahin \t furkan.sahin@gmail.com"
 		+ "\n\n Saner Turhaner \t saner.turhaner@gmail.com");
 		creditsText.setSize(new Dimension(505,250));
 		creditsText.setLocation(235,375);
