@@ -7,7 +7,7 @@ import java.util.ArrayList;
 public class CollisionManager {
 
 	/**
-	 * 
+	 * Checks colliding objects with the effect of the bomb
 	 * @param range
 	 * @param bomb
 	 * @param map
@@ -45,6 +45,14 @@ public class CollisionManager {
         return objs;
 	}
 
+    /**
+     *
+     * @param objs
+     * @param map
+     * @param x
+     * @param y
+     * @return boolean
+     */
     private boolean collisionAdd(ArrayList<MapObject> objs, ArrayList<MapObject>[][] map, int x, int y){
         if (map[y][x] == null)
             return false;
@@ -71,7 +79,7 @@ public class CollisionManager {
     }
 
 	/**
-	 * 
+	 * Checks collision for monster and player movements
 	 * @param map
 	 */
 	public int checkCollision(int x, int y, ArrayList<MapObject>[][] map) {

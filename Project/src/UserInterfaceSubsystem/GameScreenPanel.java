@@ -93,7 +93,11 @@ public class GameScreenPanel extends JPanel
 		//Draw Images
 		drawImages(page);		
 	}
-	
+
+	/**
+	 * draws all of the images
+	 * @param g
+     */
 	public void drawImages(Graphics g)
 	{
 		GameEngine.getInstance().setPaused(false);
@@ -101,13 +105,7 @@ public class GameScreenPanel extends JPanel
 
 	}
     
-    /// TODO HANDLE THE CASE ON GAMEOVER!!
-    private void gameOver(){
-        
-    }
-	public void paint(){
-		repaint();
-	}
+
 	//TimerListener	
 	private class TimerListener implements ActionListener//Listener for timer
 	{

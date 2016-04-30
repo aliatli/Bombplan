@@ -4,6 +4,10 @@ public class Bomb extends MapObject {
 
 	private int range;
 
+	/**
+	 * returns range
+	 * @return range
+     */
 	public int getRange() {
 		return this.range;
 	}
