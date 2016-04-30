@@ -11,7 +11,6 @@ public class SoundManager {
     Music music;
     Music dead;
     Music bomb;
-    Music walk;
 
     //Constructor
     public SoundManager() {
@@ -29,10 +28,6 @@ public class SoundManager {
         music.stopMusic();
     }
 
-	/*public void walkEffect()
-	{
-		walk.playAsSound();
-	}*/
 
     public void bombEffect() {
         bomb.playAsSound();

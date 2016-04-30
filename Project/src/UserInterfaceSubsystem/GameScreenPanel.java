@@ -137,12 +137,6 @@ public class GameScreenPanel extends JPanel
 							GameEngine.getInstance().nextLevel();
 							( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).getPassing(GameEngine.getInstance().getLevel()-1) );
 							repaint();
-	/*						try {
-								Thread.sleep(1000);
-							} catch (InterruptedException e1) {
-								e1.printStackTrace();
-							}
-*/
 							passing = true;
 
 						}

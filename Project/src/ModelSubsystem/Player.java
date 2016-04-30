@@ -5,7 +5,7 @@ import java.util.Random;
 
 public class Player extends MapObject implements Movable{
 
-	private int lives = 3;
+	private int lives = 10;
 	private boolean bombControllable = false;
 	private int maxBomb = 1;
 	private int range;
@@ -22,7 +22,6 @@ public class Player extends MapObject implements Movable{
 	 * @return bonusType
      */
 	public int takeBonus( Bonus bonus) {
-		bonus.activateBonus();
 		Random rand = new Random();
 		int bonusType = bonus.getType();
 		if(bonusType == 1){				//RandomBonus
