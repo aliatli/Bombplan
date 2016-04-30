@@ -227,7 +227,8 @@ public class StorageManager
    		String line;
    		String[] words;
    		file = new File(fileName);
-
+		saveLines = 0;
+		
    		if(fileName.equalsIgnoreCase("src/Sources/txts/savedGames.txt"))//Load games are read
    		{
    			scan = new Scanner(file);//Scanner initialized
