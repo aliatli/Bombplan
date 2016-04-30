@@ -14,7 +14,7 @@ public class Music
     AudioInputStream stream;
     AudioFormat format;
     DataLine.Info info;
- //   Clip clip;
+    Clip clip;
 
     //isPlay
     boolean isPlay;
@@ -29,8 +29,8 @@ public class Music
             stream = AudioSystem.getAudioInputStream(yourFile);
             format = stream.getFormat();
             info = new DataLine.Info(Clip.class, format);
-   //         clip = (Clip) AudioSystem.getLine(info);
-   //         clip.open(stream);
+            clip = (Clip) AudioSystem.getLine(info);
+            clip.open(stream);
         }
         catch (Exception e)
         {
@@ -46,28 +46,28 @@ public class Music
     {
         isPlay = true;
 
-     //   clip.loop(1);
+        clip.loop(1);
     }
 
     public void playMusic()
     {
         isPlay = true;
 
-     //   clip.loop(1000000);
+        clip.loop(1000000);
     }
 
     public void stopMusic()
     {
-       // clip.stop();
+        clip.stop();
 
         isPlay = false;
     }
 
-    //public boolean isRunning()
-  /*  {
+    public boolean isRunning()
+    {
         return clip.isRunning();
     }
-*/
+
     public boolean getIsPlay()//Getter
     {
         return isPlay;

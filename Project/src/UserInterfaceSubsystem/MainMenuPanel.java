@@ -1,5 +1,7 @@
 package UserInterfaceSubsystem;
 
+import ControllerSubsystem.GameEngine;
+
 import java.awt.*;
 import java.awt.event.*;
 import javax.swing.*;
@@ -131,6 +133,7 @@ public class MainMenuPanel extends MenuPanel
     			if(obj == newGameButton)
 				{
 					( ScreenView.getInstance() ).changeActivePanel( (ScreenView.getInstance()).newGame() );
+					GameEngine.getInstance().restart();
 				}
 				else if(obj == helpButton)
 				{

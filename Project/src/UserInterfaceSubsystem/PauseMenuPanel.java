@@ -247,8 +247,8 @@ public class PauseMenuPanel extends JPanel
 					//Ask file name	
 
 					fileName = JOptionPane.showInputDialog(null,"Enter a name for the saved game");
-					x.saveGame(fileName);
-					x.writeFile(fileName, "src/Sources/txts/savedGames.txt");
+					GameEngine.getInstance().getStorageMan().saveGame(fileName);
+					GameEngine.getInstance().getStorageMan().writeFile(fileName, "src/Sources/txts/savedGames.txt");
 				}
     		}	
     		catch(Exception exc)//If there is exception (general) catch it

@@ -9,7 +9,7 @@ import java.util.Set;
 
 public class GameEngine {
     private final int BOMB_TIME = 5;
-    private final int DEFAULT_TIME = 360;
+    private final int DEFAULT_TIME = 500;
 
     private int score;
     private int currentLevel;
@@ -50,10 +50,6 @@ public class GameEngine {
         }
 
     }
-
-
-
-
 
     public static void setUniqueInstance(GameEngine engine){
         uniqueInstance = engine;
@@ -130,8 +126,7 @@ public class GameEngine {
             }
         }
         else if(collision == 3){
-            nextLevel();
-            return;
+            throw new Exception("nextLevel");
         }
         else if (collision == -1){
             healthDecrease();
@@ -162,17 +157,9 @@ public class GameEngine {
         return movements;
     }
 
-	public void nextLevel() {
+	public void nextLevel() throws Exception {
         if (currentLevel != 4) {
-    /*        ScreenView.getInstance().changeActivePanel( (ScreenView.getInstance()).getPassing(currentLevel+1));
-            try {
-                GameScreenPanel.repaint();
-                Thread.sleep(5000);
-            } catch (InterruptedException e) {
-                e.printStackTrace();
-            }
-            ScreenView.getInstance().changeActivePanel( (ScreenView.getInstance()).getGame());
-      */      paused = true;
+            paused = true;
             currentLevel++;
             time = DEFAULT_TIME;
             movements = new ArrayList<Integer>();
@@ -186,6 +173,9 @@ public class GameEngine {
             } catch (FileNotFoundException e) {
                 e.printStackTrace();
             }
+        }
+        else {
+            throw new Exception("gameOver!");
         }
 	}
 
