@@ -1,0 +1,10 @@
+Bomber,1000
+Bomber,950
+Bomber,900
+Bomber,850
+Bomber,800
+Bomber,750
+Bomber,700
+Bomber,650
+Bomber,600
+Bomber,500
